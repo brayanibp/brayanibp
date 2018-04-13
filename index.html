@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+	<title>Brayanibp</title>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+	<h1>Brayan Bernal</h1>
+	<section id="cover">
+		<div class="welcome">
+			<h2>Welcome!</h2>
+		</div>
+		<div class="nav-bar" id="navBar">
+			<nav>
+				<div class="menu">
+					<ul>
+						<div class="option">
+							<li><a href="#cover">Top</a></li>
+						</div>
+						<div class="option">
+							<li><a href="#about-me">A Little About Me</a></li>
+						</div>
+						<div class="option">
+							<li><a href="#works">Some Works Doeds</a></li>
+						</div>
+						<div class="option">
+							<li><a href="#another-afictions">Another Afictions</a></li>
+						</div>
+					</ul>
+				</div>
+			</nav>
+		</div>
+	</section>
+	<section id="about-me">
+		<div class="title">
+			<label><h3>A little about me</h3></label>
+		</div>
+		<div class="my-picture">
+			<figure>
+				<img src="images/me.jpg">
+			</figure>
+			<div class="me">
+				<label>This is Me</label>
+			</div>
+		</div>
+	</section>
+	<section id="works">
+		<div class="title">
+			<label><h3>Some Works Doeds</h3></label>
+		</div>
+		<div>
+			<ul>
+				<div class="item">
+					<li><a href="#">Example</a></li>
+				</div>
+				<div class="item">
+					<li><a href="#">Example</a></li>
+				</div>
+				<div class="item">
+					<li><a href="#">Example</a></li>
+				</div>
+				<div class="item">
+					<li><a href="#">Example</a></li>
+				</div>
+				<div class="item">
+					<li><a href="#">Example</a></li>
+				</div>
+			</ul>
+		</div>
+	</section>
+	<section id="another-afictions">
+		<div class="title">
+			<label><h3>Another Afictions</h3></label>
+		</div>
+		<div>
+			<ul>
+				<div class="item">
+					<li><a href="#">Example</a></li>
+				</div>
+				<div class="item">
+					<li><a href="#">Example</a></li>
+				</div>
+			</ul>
+		</div>
+	</section>
+	<aside id="social">
+		<div class="social-content">
+			<ul>
+				<div class="social-net">
+					<li><a href="#"><img src="images/svg/011-facebook.svg"></a></li>
+				</div>
+				<div class="social-net">
+					<li><a href="#"><img src="images/svg/010-linkedin.svg"></a></li>
+				</div>
+				<div class="social-net">
+					<li><a href="#"><img src="images/svg/009-instagram.svg"></a></li>
+				</div>
+			</ul>
+		</div>
+	</aside>
+	<footer id="footer">
+		<div class="my-name">
+			<label>Brayan Bernal</label>
+		</div>
+		<div class="contact">
+			<label>Contact me:</label>
+			<div class="contact-info">
+				<ul>
+					<div class="info">
+						<li>
+							<label>Phone Number: +58414-0706625</label>
+						</li>
+					</div>
+					<div class="info">
+						<li>
+							<label>E-mail Address: brayanbernal0710@gmail.com</label>
+						</li>
+					</div>
+					<div class="opinions">
+						<li>
+							<label>Please Give Your Feed Back</label>
+						</li>
+					</div>
+				</ul>
+			</div>
+		</div>
+	</footer>
+	<script type="text/javascript">
+		let $doc = document
+		let $navBar = document.getElementById('navBar')
+		let show = () => {
+			windowLevel = window.scrollY
+			windowLevel > 450 ? $navBar.classList.add('fixedNav') : $navBar.classList.remove('fixedNav')
+		}
+		window.addEventListener('scroll',show)
+	</script>
+</body>
+</html>
