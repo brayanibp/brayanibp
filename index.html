@@ -50,23 +50,25 @@
 		<div class="title">
 			<label><h3>Some Works Doeds</h3></label>
 		</div>
-		<div>
+		<div class="works-gallery">
 			<ul>
-				<div class="item">
-					<li><a href="#">Example</a></li>
+				<div id="back"><label><</label></div>
+				<div class="work-item selectedItem">
+					<li><a href="#"><img src="images/png/la-viejita.png"></a></li>
 				</div>
-				<div class="item">
-					<li><a href="#">Example</a></li>
+				<div class="work-item">
+					<li><a href="#"><img src="images/png/invie.png"></a></li>
 				</div>
-				<div class="item">
-					<li><a href="#">Example</a></li>
+				<div class="work-item">
+					<li><a href="#"><img src="images/png/simon-dice.png"></a></li>
 				</div>
-				<div class="item">
-					<li><a href="#">Example</a></li>
+				<div class="work-item">
+					<li><a href="#">Example 4</a></li>
 				</div>
-				<div class="item">
-					<li><a href="#">Example</a></li>
+				<div class="work-item">
+					<li><a href="#">Example 5</a></li>
 				</div>
+				<div id="next"><label>></label></div>
 			</ul>
 		</div>
 	</section>
@@ -128,13 +130,33 @@
 		</div>
 	</footer>
 	<script type="text/javascript">
+		let pos = 0
 		let $doc = document
 		let $navBar = document.getElementById('navBar')
-		let show = () => {
+		let $carousel = document.getElementsByClassName('work-item')
+		let $nextButton = document.getElementById('next')
+		let $backButton = document.getElementById('back')
+		let show=()=>{
 			windowLevel = window.scrollY
 			windowLevel > 450 ? $navBar.classList.add('fixedNav') : $navBar.classList.remove('fixedNav')
 		}
 		window.addEventListener('scroll',show)
+		let selectItem=(colec,itemPos)=>{
+			colec[itemPos].classList.add('selectedItem')
+		}
+		let next=()=>{
+			$carousel[pos].classList.remove('selectedItem')
+			pos == $carousel.length-1 ? pos=0 : pos++;
+			selectItem($carousel,pos)
+		}
+		let back=()=>{
+			$carousel[pos].classList.remove('selectedItem')
+			pos == 0 ? pos=$carousel.length-1 : pos--;
+			selectItem($carousel,pos)
+		}
+		//selectItem($carousel)
+		$nextButton.addEventListener('click',next)
+		$backButton.addEventListener('click',back)
 	</script>
 </body>
 </html>

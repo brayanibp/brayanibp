@@ -16,7 +16,7 @@ h1 {
 	display: none;
 }
 
-a {color: white;}
+.option a {color: white;width: 100%;height: 100%;}
 
 .option:hover a {color: #6d68ff;}
 .option:active a {color: #c1bfff;}
@@ -109,6 +109,32 @@ a {color: white;}
 	height: 100vh;
 }
 
+.works-gallery {
+	width: 1400px;
+	height: 585px;
+	position: relative;
+	top: 25%;
+	margin: auto;
+}
+
+.works-gallery ul {
+	display: flex;
+	justify-content: space-between;
+}
+
+.work-item {
+	position: relative;
+	top: 150px;
+	background: #555;
+	width: 250px;
+	height: 150px;
+	z-index: 0;
+}
+
+.work-item img {
+	height: 150px;
+}
+
 #another-afictions {
 	height: 100vh;
 }
@@ -122,11 +148,6 @@ a {color: white;}
 	top: 35%;
 	border-radius: 0px 5px 5px 0px;
 }
-/*
-#social img {
-	width: 40px;
-
-}*/
 
 .social-content {
 	margin: 70px auto;
@@ -178,12 +199,45 @@ a {color: white;}
 }
 
 .fixedNav {
-	transition: .3s;
 	position: fixed;
 	top: 0px;
 	height: 45px;
 	width: 100vw;
 	padding-top: 25px;
 	background: #111a3d;
-	z-index: 1
+	z-index: 2;
+}
+
+.selectedItem {
+	transition: .2s;
+	position: absolute;
+	top: 50px;
+	left: 300px;
+	height: 400px;
+	width: 800px;
+	z-index: 1;
+	background: #aaa;
+	box-shadow: 0px 10px 50px #000;
+	overflow: hidden;
+}
+
+.selectedItem img {
+	height: 400px;
+	width: 800px;
+}
+
+#next,#back {
+	height: 485px;
+	width: 60px;
+	background: #bbbbbb22;
+	color: #000;
+	font-size: 3em;
+}
+
+#next label,#back label {
+	position: relative;
+	height: 40px;
+	width: 40px;
+	top: 190px;
+	left: 15px;
 }
