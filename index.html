@@ -39,11 +39,29 @@
 		</div>
 		<div class="my-picture">
 			<figure>
-				<img src="images/me.jpg">
+				<img src="images/png/me.jpg">
 			</figure>
 			<div class="me">
 				<label>This is Me</label>
 			</div>
+		</div>
+		<div class="my-info">
+			<div>
+				<ul>
+					<li>
+						<p>C.I.V 2793430</p>
+					</li>
+					<li>
+						<p>Full Name: Brayan Isaac Bernal Pérez</p>
+					</li>
+					<li>
+						<p>Birth Day: 08/23/1999</p>
+					</li>
+				</ul>
+			</div>
+			<p>
+				I'm a Programmer
+			</p>
 		</div>
 	</section>
 	<section id="works">
@@ -52,7 +70,7 @@
 		</div>
 		<div class="works-gallery">
 			<ul>
-				<div id="back"><label><</label></div>
+				<div id="back"><img src="images/svg/back.svg"></div>
 				<div class="work-item selectedItem">
 					<li><a href="#"><img src="images/png/la-viejita.png"></a></li>
 				</div>
@@ -63,12 +81,12 @@
 					<li><a href="#"><img src="images/png/simon-dice.png"></a></li>
 				</div>
 				<div class="work-item">
-					<li><a href="#">Example 4</a></li>
+					<li><a href="#"><img src="images/png/Portfoleo.png"></a></li>
 				</div>
 				<div class="work-item">
-					<li><a href="#">Example 5</a></li>
+					<li><a href="#"><img src="#"></a></li>
 				</div>
-				<div id="next"><label>></label></div>
+				<div id="next"><img src="images/svg/next.svg"></div>
 			</ul>
 		</div>
 	</section>
@@ -76,7 +94,7 @@
 		<div class="title">
 			<label><h3>Another Afictions</h3></label>
 		</div>
-		<div>
+		<div class="afictions">
 			<ul>
 				<div class="item">
 					<li><a href="#">Example</a></li>
@@ -141,8 +159,9 @@
 			windowLevel > 450 ? $navBar.classList.add('fixedNav') : $navBar.classList.remove('fixedNav')
 		}
 		window.addEventListener('scroll',show)
+		//carousell
 		let selectItem=(colec,itemPos)=>{
-			colec[itemPos].classList.add('selectedItem')
+			colec[itemPos].classList.add('selectedItem');
 		}
 		let next=()=>{
 			$carousel[pos].classList.remove('selectedItem')
@@ -154,7 +173,6 @@
 			pos == 0 ? pos=$carousel.length-1 : pos--;
 			selectItem($carousel,pos)
 		}
-		//selectItem($carousel)
 		$nextButton.addEventListener('click',next)
 		$backButton.addEventListener('click',back)
 	</script>

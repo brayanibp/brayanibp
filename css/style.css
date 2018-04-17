@@ -105,6 +105,10 @@ h1 {
 	text-align: center;
 }
 
+.my-info {
+	position: relative;
+}
+
 #works {
 	height: 100vh;
 }
@@ -123,12 +127,14 @@ h1 {
 }
 
 .work-item {
+	transition: .2s;
 	position: relative;
 	top: 150px;
 	background: #555;
 	width: 250px;
 	height: 150px;
 	z-index: 0;
+	overflow: hidden;
 }
 
 .work-item img {
@@ -137,6 +143,13 @@ h1 {
 
 #another-afictions {
 	height: 100vh;
+}
+
+.afictions {
+	position: relative;
+	top: 300px;
+	display: flex;
+	justify-content: space-around;
 }
 
 #social {
@@ -201,7 +214,7 @@ h1 {
 .fixedNav {
 	position: fixed;
 	top: 0px;
-	height: 45px;
+	height: 43px;
 	width: 100vw;
 	padding-top: 25px;
 	background: #111a3d;
@@ -234,10 +247,14 @@ h1 {
 	font-size: 3em;
 }
 
-#next label,#back label {
+#next img,#back img {
 	position: relative;
 	height: 40px;
 	width: 40px;
 	top: 190px;
 	left: 15px;
 }
+
+/*1520px para abajo*/
+
+/*300px*/
