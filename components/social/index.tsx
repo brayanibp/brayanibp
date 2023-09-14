@@ -21,7 +21,7 @@ export default function Social() {
           </a>
         </li>
         <li>
-          <a target='_blank' href="https://t.me/@brayanIBP">
+          <a target='_blank' href="https://t.me/@BrayanIBP">
             <Image src="assets/icons/telegram-black-icon.svg" alt="Telegram Icon" width={iconsSize} height={iconsSize}/>
           </a>
         </li>

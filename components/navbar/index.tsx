@@ -23,7 +23,7 @@ export default function Navbar() {
       <nav id="Navbar">
         <h1 className="name">Brayan Bernal</h1>
         <h2 className="job"><span></span>Developer</h2>
-        <ul>
+        <ul className="navbar-menu">
           <li className="section active" about="About">
             <span></span>
             <Link href='#About'>About Me</Link>

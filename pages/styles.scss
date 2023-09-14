@@ -73,7 +73,7 @@ body {
       @include typed("Full-Stack ","Back-End ","Front-End ", null, (caret-width: 2px, caret-space: 2px, iterations: 1));
     }
   }
-  ul {
+  .navbar-menu {
     padding: 0;
     list-style: none;
     .section {
@@ -147,6 +147,7 @@ body {
   justify-content: space-around;
   width: 10em;
   padding: 0;
+  list-style: none;
 }
 
 #Content {
@@ -295,7 +296,6 @@ body {
   }
   .project-card, .project-link {
     width: 100%;
-    // background: red;
     border-radius: 0.3em;
   }
   .project-link {
@@ -354,5 +354,71 @@ body {
     height: 2px;
     background-color: black;
     margin-right: 10px;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  #Layout {
+    overflow: auto;
+  }
+  #Content {
+    height: max-content;
+    width: fit-content;
+  }
+  .job-card {
+    background: #ffffff66;
+    transition: all 0.3s;
+  }
+  #Projects {
+    .projects-list {
+      width: 100%;
+      margin: 0;
+    }
+    .project-link {
+      width: auto;
+      background: #ffffff66;
+      transition: all 0.3s;
+    }
+  }
+}
+
+@media only screen and (max-width: 425px) {
+  #Navbar {
+    height: fit-content;
+    margin: 0;
+    padding: 20px;
+    .navbar-menu {
+      display: none;
+    }
+  }
+  #Content {
+    padding: 0;
+    h2 {padding: 0 10px;}
+  }
+  #About {
+    .about_me {
+      padding: 10px;
+    }
+  }
+  #Experience {
+    .jobs-list {
+      .job-card {
+        .timeline {
+          width: 100%;
+        }
+        .container {
+          width: 100%;
+        }
+      }
+    }
+  }
+  #Projects {
+    .project-link {
+      flex-wrap: wrap;
+    }
+    .project-body {
+      margin: 0.5em 0;
+      padding-left: 0.5em;
+    }
   }
 }
