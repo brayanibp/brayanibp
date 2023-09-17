@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { useEffect } from "react";
 import Social from "../social";
+import sectionsObserver from "@/utils/observer";
 
 export default function Navbar() {
   useEffect(()=>{
@@ -16,7 +17,7 @@ export default function Navbar() {
         console.log((event.currentTarget as Element).scrollTop);
       })
     });
-
+    // sectionsObserver();
   },[]);
   return (
     <>

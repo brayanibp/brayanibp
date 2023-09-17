@@ -1,4 +1,3 @@
-import mouseOver from "@/utils/mouseover";
 import React, { useEffect } from "react";
 import jobs from '@/data/jobs.json';
 import JobCard from "../job_card";
@@ -9,10 +8,6 @@ export default function Experience() {
   const jobsCards: React.JSX.Element[] = jobsList.map((jobData,index)=>{
     return <JobCard key={index} {...jobData} />;
   });
-  // useEffect(()=>{
-  //   const identifier = 'Experience';
-  //   mouseOver(identifier);
-  // },[]);
   return <section id="Experience">
     <h2>Experience</h2>
     <ul className="jobs-list">
