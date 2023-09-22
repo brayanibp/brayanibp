@@ -12,7 +12,7 @@ export default function Pointer() {
         '--x':`${x}%`,
         '--y':`${y}%`,
         // left: clientX,
-        duration: 0.3,
+        duration: 0.1,
         ease: 'sine.out'
       });
     });
