@@ -15,6 +15,9 @@ export default function App({ Component, pageProps }: AppProps) {
       <meta httpEquiv='expires' content='43200'/>
       <meta name='keywords' content='developer, fullstack, frontend, backend, dev, development, brayan, brayan bernal, back-end, full-stack, front-end, brayan isaac bernal pérez, brayan isaac bernal perez, desarrollador, web, mobile'/>
       <meta name='description' content='I am a Full-Stack Developer with +5 years of experience with Node.js, React.js | Angular, Redux, RxJS, MySQL, GCP and Firebase. I have worked in health insurance companies, software development companies and emerging startups, but also have a B2 English level.'/>
+      <meta property='og:type' content='website' />
+      <meta property='og:image' itemProp='image primaryImageOfPage' content='https://drive.google.com/uc?export=view&id=13oCIJSXxf1P6fBZrtk64J2KtyQSCFjM7' />
+      <meta property='og:url' content='brayanibp.dev' />
     </Head>
     <Layout>
       <Component {...pageProps} />
