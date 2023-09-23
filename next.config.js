@@ -4,6 +4,16 @@ const nextConfig = {
   experimental: {
     optimizeCss: true
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'drive.google.com',
+        port: '',
+        pathname: '',
+      },
+    ],
+  },
   i18n: {
     // These are all the locales you want to support in
     // your application

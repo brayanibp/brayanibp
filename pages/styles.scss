@@ -1,4 +1,6 @@
 @import 'typed';
+@import url('https://fonts.googleapis.com/css?family=Ubuntu');
+@import url('https://fonts.googleapis.com/css?family=Source Sans Pro');
 
 $layout-backgroud: #d3d8ebdd;
 
@@ -50,22 +52,57 @@ body {
   overflow: hidden;
 }
 
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  width: 205px;
+  height: 160px;
+  margin: 0 0 3em 0;
+  padding: 0;
+}
+
 #Navbar {
   height: 80vh;
   margin: auto;
   padding: 10vh 0;
   width: 400px;
-  .name {
+  .brand {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #000000;
+    .icon {
+      width: 212px;
+      height: 80px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0;
+      overflow: hidden;
+      img {
+        color: #000;
+        fill: #000;
+      }
+    }
+    .name {
+      font-family: 'Ubuntu', sans-serif;
+      font-size: 1.9em;
+    }
+    .slogan {
+      font-family: 'Source Sans Pro', sans-serif;
+      font-size: 0.6em;
+      font-weight: 500;
+      margin: 5px 0;
+    }
     position: relative;
-    font-size: 3em;
-    font-weight: bold;
-    font-family: monospace;
-    text-decoration: underline;
-    text-align: center;
     overflow: hidden;
-    white-space: nowrap;
     width: fit-content;
-    pointer-events: none;
+    height: fit-content;
+    text-align: center;
+    color: #000000;
   }
   h2 {
     font-size: 1.6em;
@@ -186,25 +223,25 @@ body {
 }
 
 #About {
-  figure {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    span {
-      width: 15em;
-      border-radius: 50%;
-      height: 15em;
-      background-color: rgba(6, 6, 99, 0.3);
-      position: absolute;
-      margin: auto;
-    }
-    img {
-      border-radius: 50%;
-      width: 15em;
-      height: 15em;
-    }
-  }
+  // figure {
+  //   display: flex;
+  //   justify-content: center;
+  //   align-items: center;
+  //   position: relative;
+  //   span {
+  //     width: 15em;
+  //     border-radius: 50%;
+  //     height: 15em;
+  //     background-color: rgba(6, 6, 99, 0.3);
+  //     position: absolute;
+  //     margin: auto;
+  //   }
+  //   img {
+  //     border-radius: 50%;
+  //     width: 15em;
+  //     height: 15em;
+  //   }
+  // }
   .about_me {
     padding: 0 40px;
   }

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { useEffect } from "react";
 import Social from "../social";
 import sectionsObserver from "@/utils/observer";
+import Image from "next/image";
 
 export default function Navbar() {
   useEffect(()=>{
@@ -22,7 +23,14 @@ export default function Navbar() {
   return (
     <>
       <nav id="Navbar">
-        <h1 className="name">Brayan Bernal</h1>
+        <h1 className="brand">
+          <figure className="icon">
+            <Image src="/assets/icons/logo.png" alt="BrayanIBP Logo" height={90} width={90} />
+          </figure>
+          <span className="name">BrayanIBP</span>
+          <span className="slogan">- KEEP CODING, KEEP LEARNING -</span>
+        </h1>
+        {/* <span>- Fullstack Developer, Backend Developer, Frontend Developer -</span> */}
         <h2 className="job"><span></span>Developer</h2>
         <ul className="navbar-menu">
           <li className="section active" about="About">

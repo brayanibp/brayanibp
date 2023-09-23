@@ -1,6 +1,9 @@
 import Image from 'next/image';
 export default function About() {
   return <section id="About">
+    {/* <figure className="logo">
+      <Image src="assets/icons/BrayanIBP Really Black Logo Transparent bg.svg" alt="BrayanIBP Logo" height={300} width={390}/>
+    </figure> */}
     <h2>About Me</h2>
     <p className='about_me'>
       I am passionate about <b>technology, 
