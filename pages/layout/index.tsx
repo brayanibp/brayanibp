@@ -1,6 +1,8 @@
-import Navbar from "@/components/navbar";
-import Pointer from "@/components/pointer";
+import dynamic from "next/dynamic";
 import { PropsWithChildren } from "react";
+
+const Pointer = dynamic(()=>import("@/components/pointer"));
+const Navbar = dynamic(()=>import("@/components/navbar"));
 
 export default function Layout({ children }: PropsWithChildren) {
   return (
