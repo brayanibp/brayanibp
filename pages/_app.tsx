@@ -7,7 +7,7 @@ import { Analytics } from '@vercel/analytics/react';
 export default function App({ Component, pageProps }: AppProps) {
   return <>
     <Head>
-      <title>Brayanibp</title>
+      <title>BrayanIBP</title>
       <meta property='og:title' content='Brayanibp' key='title' />
       <meta charSet='utf-8' />
       <meta name='author' content='Brayan Isaac Bernal Pérez' />
