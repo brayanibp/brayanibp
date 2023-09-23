@@ -1,6 +1,6 @@
 @import 'typed';
 
-$layout-backgroud: #d3d8eb99;
+$layout-backgroud: #d3d8ebdd;
 
 body {
   margin: 0;
@@ -70,7 +70,7 @@ body {
   h2 {
     font-size: 1.6em;
     span {
-      @include typed("Full-Stack ","Back-End ","Front-End ", null, (caret-width: 2px, caret-space: 2px, iterations: 1));
+      @include typed("Full-Stack ","Back-End ","Front-End ", null, (caret-width: 0px, caret-space: 2px, iterations: 1));
     }
   }
   .navbar-menu {
@@ -266,11 +266,12 @@ body {
         .tech {
           list-style: none;
           font-size: 0.75em;
-          background: rgba(79, 215, 136, 0.7);
+          background: rgba(0, 75, 140, 0.94);
           padding: 7px;
           border-radius: 1em;
           // border: 1px solid black;
           margin: 1px;
+          color: #ffffffee;
         }
       } 
     }
@@ -336,11 +337,12 @@ body {
     .project-tech {
       list-style: none;
       font-size: 0.75em;
-      background: rgba(79, 215, 136, 0.7);
+      background: rgba(0, 75, 140, 0.94);
       padding: 7px;
       border-radius: 1em;
+      // border: 1px solid black;
       margin: 1px;
-      color: #000000;
+      color: #ffffffee;
     }
   }
   .project-link:hover {
