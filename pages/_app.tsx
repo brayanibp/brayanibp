@@ -25,6 +25,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <link rel="icon" type="image/png" sizes="192x192" href="/image/android-chrome-192x192.png" />
       <link rel="icon" type="image/png" sizes="32x32" href="/image/favicon-32x32.png" />
       <link rel="icon" type="image/png" sizes="16x16" href="/image/favicon-16x16.png" />
+      <link rel="canonical" href="https://brayanibp.dev"/>
     </Head>
     <Layout>
       <Component {...pageProps} />
