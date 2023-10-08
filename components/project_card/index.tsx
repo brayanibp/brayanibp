@@ -30,7 +30,7 @@ export default function ProjectCard(project: Project) {
   },[]);
   return <>
     <li key={project.name} className="project-card">
-      <a href={project.link_url} className="project-link">
+      <a target="_blank" href={project.link_url} className="project-link">
         <div className="project-image">
           <Image src={project.image_url} alt={project.name} width={imageSize.width} height={imageSize.height}/>
         </div>
