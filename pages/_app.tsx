@@ -18,6 +18,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <meta property='og:type' content='website' />
       <meta property='og:image' itemProp='image primaryImageOfPage' content='https://drive.google.com/uc?export=view&id=13oCIJSXxf1P6fBZrtk64J2KtyQSCFjM7' />
       <meta property='og:url' content='brayanibp.dev' />
+      <meta name="google-site-verification" content="75jwz6yeL2o54tRNmCKC1D08v5ZdbS9LoGZqOiW_hBY" />
       <link rel="shortcut icon" href="/image/favicon.ico" />
       <link rel="apple-touch-icon" sizes="180x180" href="/image/apple-touch-icon.png" />
       <link rel="icon" type="image/png" sizes="512x512" href="/image/android-chrome-512x512.png" />
