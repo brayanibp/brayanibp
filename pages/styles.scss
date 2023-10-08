@@ -314,7 +314,7 @@ body {
     }
     .job-card:hover {
       background: #ffffff66;
-      transition: all 0.3s;
+      transition: all 0.7s;
     }
   }
 }
@@ -377,14 +377,13 @@ body {
       background: rgba(0, 75, 140, 0.94);
       padding: 7px;
       border-radius: 1em;
-      // border: 1px solid black;
       margin: 1px;
       color: #ffffffee;
     }
   }
   .project-link:hover {
     background: #ffffff66;
-    transition: all 0.3s;
+    transition: all 0.7s;
   }
 }
 
@@ -400,6 +399,25 @@ body {
 @media only screen and (max-width: 960px) {
   #Layout {
     overflow: auto;
+  }
+  #Navbar {
+    .brand {
+      width: 100%;
+    }
+    .job {
+      text-align: center;
+    }
+    .navbar-menu {
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+    }
+  }
+  #Social {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 2em;
+    border-bottom: 2px solid #000000;
   }
   #Content {
     height: max-content;
@@ -431,6 +449,10 @@ body {
       display: none;
     }
   }
+  #Social ul {
+    height: fit-content;
+    margin: 0.7em;
+  }
   #Content {
     padding: 0;
     h2 {padding: 0 10px;}
@@ -455,10 +477,28 @@ body {
   #Projects {
     .project-link {
       flex-wrap: wrap;
+      border-radius: 0.3em;
+      overflow: hidden;
+      padding: 0;
+    }
+    .project-image {
+      width: 100%;
+      img {
+        border-radius: 0;
+        width: 100%;
+        height: fit-content;
+      }
     }
     .project-body {
+      border: 0;
       margin: 0.5em 0;
       padding-left: 0.5em;
+      display: flex;
+      justify-content: center;
+      width: 100%;
+    }
+    .project-name {
+      font-size: 1.5em;
     }
   }
 }
