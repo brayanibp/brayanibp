@@ -3,18 +3,18 @@ import { gsap } from "gsap";
 
 export default function Pointer() {
   const [showPointer, setShowPointer] = useState(true);
-  const dispatchPointer = () => {
-    if (window.innerWidth < 961) {
-      setShowPointer(false);
-      return;
-    }
-    setShowPointer(true);
-    return;
-  }
+  // const dispatchPointer = () => {
+  //   if (window.innerWidth < 961) {
+  //     setShowPointer(false);
+  //     return;
+  //   }
+  //   setShowPointer(true);
+  //   return;
+  // }
   useEffect(()=>{
     const pointer = document.querySelector('#Pointer');
-    window.addEventListener('load', dispatchPointer);
-    window.addEventListener('resize', dispatchPointer);
+    // window.addEventListener('load', dispatchPointer);
+    // window.addEventListener('resize', dispatchPointer);
     window.addEventListener('mousemove',(event)=>{
       if (window.innerWidth < 961) return;
       const { clientX, clientY } = event;
