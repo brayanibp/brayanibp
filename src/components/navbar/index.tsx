@@ -16,7 +16,7 @@ export default function Navbar() {
       <nav id="Navbar">
         <h1 className="brand">
           <figure className="icon">
-            <Image src="/assets/icons/logo.png" alt="BrayanIBP Logo" height={90} width={90} priority />
+            <Image src="/assets/icons/logo.png" alt="BrayanIBP Logo" height={90} width={94} priority />
           </figure>
           <span className="name">BrayanIBP</span>
           <span className="slogan">- KEEP CODING, KEEP LEARNING -</span>

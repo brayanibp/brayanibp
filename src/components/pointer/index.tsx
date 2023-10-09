@@ -12,7 +12,6 @@ export default function Pointer() {
       gsap.to(pointer, {
         '--x':`${x}%`,
         '--y':`${y}%`,
-        // left: clientX,
         duration: 0.0,
         ease: 'sine.out'
       });
