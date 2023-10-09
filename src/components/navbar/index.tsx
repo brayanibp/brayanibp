@@ -6,19 +6,18 @@ import Image from "next/image";
 
 export default function Navbar() {
   useEffect(()=>{
-    const options = document.querySelectorAll('#Navbar ul li');
-    options.forEach((option, index)=>{
-      option.addEventListener('click',(event: Event)=>{
-        const target = event.currentTarget as Element;
-        document.querySelector('#Navbar ul .section.active')?.classList.remove('active');
-        target.classList.add('active');
-      });
-      window.addEventListener('scroll',(event)=>{
-        console.log('innerHeight',window.innerHeight);
-        console.log((event.currentTarget as Element).scrollTop);
-      })
-    });
-    // sectionsObserver();
+    // const options = document.querySelectorAll('#Navbar ul li');
+    // options.forEach((option, index)=>{
+    //   option.addEventListener('click',(event: Event)=>{
+    //     const target = event.currentTarget as Element;
+    //     document.querySelector('#Navbar ul .section.active')?.classList.remove('active');
+    //     target.classList.add('active');
+    //   });
+    // });
+    const currentObserver = sectionsObserver();
+    () => {
+      currentObserver.disconnect();
+    }
   },[]);
   return (
     <>
@@ -30,7 +29,6 @@ export default function Navbar() {
           <span className="name">BrayanIBP</span>
           <span className="slogan">- KEEP CODING, KEEP LEARNING -</span>
         </h1>
-        {/* <span>- Fullstack Developer, Backend Developer, Frontend Developer -</span> */}
         <h2 className="job"><span></span>Developer</h2>
         <ul className="navbar-menu">
           <li className="section active" about="About">
