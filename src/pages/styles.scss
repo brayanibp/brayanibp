@@ -2,7 +2,14 @@
 @import url('https://fonts.googleapis.com/css?family=Ubuntu&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Source Sans Pro&display=swap');
 
-$layout-backgroud: #d3d8ebdd;
+$layout-backgroud: #ffffffdd;
+$sections-background: #ffffff66;
+$pointer-background: #fff70032;
+
+* {
+  outline: none;
+  caret-color: cornflowerblue;
+}
 
 body {
   margin: 0;
@@ -18,23 +25,23 @@ body {
   height: 100vh;
   top: 0;
   left: 0;
-  background: #ffffff10;
+  background: $pointer-background;
   clip-path: circle(100px at var(--x, 20%) var(--y, 20%));
   z-index: -1;
   filter: drop-shadow(5px 5px 10px rgba(255, 255, 255, 0.5))
 }
 
 #Pointer.white.transparent {
-  background: #ffffff10;
+  background: $pointer-background;
   clip-path: circle(400px at var(--x, 20%) var(--y, 20%));
   .medium {
-    background: #ffffff10;
+    background: $pointer-background;
     clip-path: circle(300px at var(--x, 20%) var(--y, 20%));
     .strong {
-      background: #ffffff10;
+      background: $pointer-background;
       clip-path: circle(200px at var(--x, 20%) var(--y, 20%));
       .full {
-        background: #ffffff10;
+        background: $pointer-background;
         clip-path: circle(100px at var(--x, 20%) var(--y, 20%));
       }
     }
@@ -204,7 +211,7 @@ body {
   // font-weight: 800;
   font-size: 1.18em;
   margin-bottom: 2.5em;
-  // background: #ffffff66;
+  // background: $sections-background;
   height: max-content;
   padding: 10px;
   display: flex;
@@ -313,7 +320,7 @@ body {
       } 
     }
     .job-card:hover {
-      background: #ffffff66;
+      background: $sections-background;
       transition: all 0.7s;
     }
   }
@@ -382,8 +389,72 @@ body {
     }
   }
   .project-link:hover {
-    background: #ffffff66;
+    background: $sections-background;
     transition: all 0.7s;
+  }
+}
+
+#Contact {
+  margin: 10px 10px 5em 10px;
+  background: $sections-background;
+  border-radius: 0.4em;
+  height: max-content;
+  .contact-form {
+    padding: 0 2em;
+    width: calc(100% - 4em);
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+    min-height: 300px;
+    margin: 1em 0;
+    p {
+      font-size: 1.2em;
+      color: #00000099;
+      font-weight: 400;
+      margin: 0;
+    }
+    label {
+      font-size: 1.2em;
+      font-weight: bold;
+    }
+    input, textarea, button {
+      height: 2em;
+      font-size: 1em;
+      padding: 0 0.5em;
+      border: none;
+      border-radius: 0.3em;
+      margin: 0.5em 0;
+    }
+    textarea {
+      padding: 1em 0.5em;
+      resize: none;
+      font-family: 'Source Sans Pro', sans-serif;
+    }
+    input[type=text], input[type=email], textarea {
+      background: #ffffff88;
+      border-bottom: 2px solid rgba(0, 75, 140, 0.5);
+    }
+    input[type=submit], button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: rgba(0, 75, 140, 0.94);
+      color: #fffffffd;
+      font-weight: 600;
+      transition: all 0.5s ease-out;
+    }
+    .success {
+      background: green;
+      transition: all 0.5s ease-in;
+    }
+    .sending {
+      background: gray;
+      transition: all 0.5s ease-in;
+    }
+    .error {
+      background: red;
+      transition: all 0.5s ease-in;
+    }
   }
 }
 
@@ -411,6 +482,42 @@ body {
       display: flex;
       justify-content: space-evenly;
       align-items: center;
+      .section {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: max-content;
+        height: max-content;
+        line-height: 200%;
+        span {
+          position: absolute;
+          bottom: 0;
+          display: inline-block;
+          width: 20px;
+          height: 2px;
+          background-color: black;
+          margin: auto;
+          transition: all 0.3s;
+        }
+        a {
+          color: black;
+          text-decoration: none;
+          transition: all 0.3s;
+        }
+        transition: all 0.3s;
+      }
+      .section.active {
+        span {
+          width: 80%;
+          height: 2px;
+          background-color: black;
+          transition: all 0.3s;
+          margin: auto;
+        }
+      }
+      .section:hover a {
+        color: black;
+      }
     }
   }
   #Social {
@@ -424,7 +531,7 @@ body {
     width: fit-content;
   }
   .job-card {
-    background: #ffffff66;
+    background: $sections-background;
     transition: all 0.3s;
   }
   #Projects {
@@ -434,7 +541,7 @@ body {
     }
     .project-link {
       width: auto;
-      background: #ffffff66;
+      background: $sections-background;
       transition: all 0.3s;
     }
   }
@@ -500,5 +607,9 @@ body {
     .project-name {
       font-size: 1.5em;
     }
+  }
+  #Contact .contact-form {
+    padding: 0 10px;
+    width: calc(100% - 20px);
   }
 }

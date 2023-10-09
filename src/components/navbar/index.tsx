@@ -45,10 +45,10 @@ export default function Navbar() {
             <span></span>
             <Link href='#Projects'>Projects</Link>
           </li>
-          {/* <li className="section" about="Contact">
+          <li className="section" about="Contact">
             <span></span>
             <Link href='#Contact'>Contact Me</Link>
-          </li> */}
+          </li>
         </ul>
         <Social></Social>
       </nav>
