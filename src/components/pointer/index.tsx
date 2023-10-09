@@ -24,7 +24,7 @@ export default function Pointer() {
         '--x':`${x}%`,
         '--y':`${y}%`,
         // left: clientX,
-        duration: 0.1,
+        duration: 0.0,
         ease: 'sine.out'
       });
     });

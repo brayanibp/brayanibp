@@ -64,7 +64,13 @@ export default function Contact() {
     } finally {
       // Reset the reCAPTCHA when the request has failed or succeeeded
       // so that it can be executed again if user submits another email.
-      setTimeout(()=>(submitButton?.classList.contains('success') ? submitButton?.classList.toggle('success') : submitButton?.classList.toggle('error')),700);
+      setTimeout(
+        ()=>(
+          submitButton?.classList.contains('success') 
+            ? submitButton?.classList.toggle('success') 
+            : submitButton?.classList.toggle('error')
+        )
+      ,700);
       if (recaptchaRef.current?.state) recaptchaRef.current?.reset();
       setEmail({
         email: '',
