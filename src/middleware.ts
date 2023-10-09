@@ -3,7 +3,7 @@ import type { NextRequest } from 'next/server';
 
 export function middleware(request: NextRequest) {
   const nonce = crypto.randomUUID();
-  const csp = `script-src 'self' https://brayanibp.dev https://localhost https://va.vercel-scripts.com/ https://www.google.com/recaptcha/ https://www.gstatic.com/ 'unsafe-inline' 'unsafe-eval' 'nonce-${nonce}';`;
+  const csp = `script-src 'self' https://brayanibp.dev https://localhost https://va.vercel-scripts.com/ https://www.google.com/recaptcha/ https://www.gstatic.com/ 'unsafe-inline' 'unsafe-eval' 'nonce-${nonce}'; object-src 'none'; base-uri 'self';`;
 
   // Clone the request headers
   const requestHeaders = new Headers(request.headers);
