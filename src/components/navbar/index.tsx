@@ -6,14 +6,6 @@ import Image from "next/image";
 
 export default function Navbar() {
   useEffect(()=>{
-    // const options = document.querySelectorAll('#Navbar ul li');
-    // options.forEach((option, index)=>{
-    //   option.addEventListener('click',(event: Event)=>{
-    //     const target = event.currentTarget as Element;
-    //     document.querySelector('#Navbar ul .section.active')?.classList.remove('active');
-    //     target.classList.add('active');
-    //   });
-    // });
     const currentObserver = sectionsObserver();
     () => {
       currentObserver.disconnect();

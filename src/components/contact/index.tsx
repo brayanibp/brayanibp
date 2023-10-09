@@ -1,14 +1,19 @@
-import { FormEvent, createRef, useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, createRef, useEffect, useState } from "react";
+// import dynamic from 'next/dynamic';
 import { gsap } from "gsap";
 import Image from "next/image";
 import ReCAPTCHA from "react-google-recaptcha";
+// const ReCAPTCHA = dynamic(()=>import("react-google-recaptcha"));
 
 export default function Contact() {
+  const [recaptchaNeeded, setRecaptchaNeeded] = useState(false);
   const [email, setEmail] = useState({
     email: '',
     message: ''
   });
+
   const recaptchaRef = createRef<ReCAPTCHA>();
+
   const handleSubmit = (ev: FormEvent) => {
     ev.preventDefault();
     const email = (document.querySelector('#Contact input[name=email]') as HTMLInputElement).value;
@@ -19,23 +24,19 @@ export default function Contact() {
     });
     recaptchaRef.current?.execute();
   };
-  // const handleTyping = (ev: KeyboardEvent) => {
-  //   const element = (ev.currentTarget as Element);
-  //   const key = element.attributes.getNamedItem('name')?.value || '';
-  //   const value = (element as HTMLInputElement).value;
-  //   setEmail((prev)=>{
-  //     return {
-  //       ...prev,
-  //       [key]: value
-  //     }
-  //   });
-  // };
-  // const handlePaste = (ev: ClipboardEvent) => {
-  //   console.log(ev);
-  // }
+  const handleChange = (ev: ChangeEvent<Element>) => {
+    const element = (ev.currentTarget as Element);
+    const key = element.attributes.getNamedItem('name')?.value || '';
+    const value = (element as HTMLInputElement).value;
+    setEmail((prev)=>{
+      return {
+        ...prev,
+        [key]: value
+      }
+    });
+    setRecaptchaNeeded(true);
+  };
   const onReCAPTCHAChange = async (captchaCode: string | null) => {
-    // If the reCAPTCHA code is null or undefined indicating that
-    // the reCAPTCHA was expired then return early
     if (!captchaCode) {
       return;
     }
@@ -50,20 +51,15 @@ export default function Contact() {
         },
       });
       if (response.ok) {
-        // If the response is ok than show the success alert
         submitButton?.classList.toggle('sending');
         submitButton?.classList.toggle('success');
       } else {
-        // Else throw an error with the message returned
-        // from the API
         const error = await response.json();
         throw new Error(error.message)
       }
     } catch (error: any) {
       submitButton?.classList.toggle('error');
     } finally {
-      // Reset the reCAPTCHA when the request has failed or succeeeded
-      // so that it can be executed again if user submits another email.
       setTimeout(
         ()=>(
           submitButton?.classList.contains('success') 
@@ -110,25 +106,28 @@ export default function Contact() {
         name="email" 
         type="email" 
         placeholder="your_email@example.com" 
-        // onKeyDown={(ev)=>handleTyping(ev as unknown as KeyboardEvent)} 
-        // onPaste={(ev)=>handlePaste(ev as unknown as ClipboardEvent)}
+        onChange={(ev)=>handleChange(ev)}
       />
       <textarea 
         required 
         name="message" 
-        placeholder="Hi, I wanted to contact you..." 
-        // onKeyDown={(ev)=>handleTyping(ev as unknown as KeyboardEvent)} 
+        placeholder="Hi, I wanted to contact you..."
+        onChange={(ev)=>handleChange(ev)}
       />
       <button type="submit">
         Submit
         <Image src="/assets/icons/arrow.png" alt="Submit Icon" width={32} height={32}/>
       </button>
-      <ReCAPTCHA 
-        ref={recaptchaRef}
-        size="invisible"
-        sitekey={process?.env?.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || '6LdNEYkoAAAAADFBld6gZ6X1A93XRKJ_Vm8XsxoV'}
-        onChange={onReCAPTCHAChange}
-      />
+      {
+        recaptchaNeeded && (
+          <ReCAPTCHA 
+            ref={recaptchaRef}
+            size="invisible"
+            sitekey={process?.env?.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || '6LdNEYkoAAAAADFBld6gZ6X1A93XRKJ_Vm8XsxoV'}
+            onChange={onReCAPTCHAChange}
+          />
+        ) 
+      }
     </form>
   </section>;
 }
