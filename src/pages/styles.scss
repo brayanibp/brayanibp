@@ -208,10 +208,8 @@ body {
 
 #About, #Experience, #Projects, #Contact {
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  // font-weight: 800;
   font-size: 1.18em;
   margin-bottom: 2.5em;
-  // background: $sections-background;
   height: max-content;
   padding: 10px;
   display: flex;
@@ -220,7 +218,7 @@ body {
   align-items: center;
   min-width: 320px;
   h2 {
-    font-family:Arial, Helvetica, sans-serif;
+    font-family: Ubuntu, Helvetica, sans-serif;
     text-transform: uppercase;
     padding: 10px 40px 0 40px;
     align-self: self-start;
@@ -327,12 +325,13 @@ body {
 }
 
 #Projects {
+  padding: 10px;
   .projects-list {
     padding: 0;
     list-style: none;
     margin: 1em 0;
     display: flex;
-    width: calc(100% - 3em);
+    width: 100%;
     padding: 0;
     justify-content: space-around;
     flex-direction: column;
@@ -346,7 +345,7 @@ body {
   }
   .project-link {
     padding: 0.5em 1.5em 0.5em 0.5em;
-    width: calc(100% - 3em);
+    width: calc(100% - 2em);
     display: flex;
     flex-wrap: nowrap;
     justify-content: flex-start;
@@ -396,10 +395,10 @@ body {
 
 #Contact {
   margin: 10px 10px 5em 10px;
-  background: $sections-background;
-  border-radius: 0.4em;
   height: max-content;
   .contact-form {
+    background: $sections-background;
+    border-radius: 0.4em;
     padding: 0 2em;
     width: calc(100% - 4em);
     display: flex;
@@ -408,8 +407,9 @@ body {
     min-height: 300px;
     margin: 1em 0;
     p {
+      font-family: 'Source Sans Pro';
       font-size: 1.2em;
-      color: #00000099;
+      color: #000000aa;
       font-weight: 400;
       margin: 0;
     }
@@ -611,5 +611,18 @@ body {
   #Contact .contact-form {
     padding: 0 10px;
     width: calc(100% - 20px);
+  }
+}
+
+@media only screen and (max-width: 320px) {
+  #About, #Experience, #Projects, #Contact {
+    min-width: 300px;
+  }
+  #Contact {
+    padding: 10px 0;
+    width: calc(100% - 40px);
+    .contact-form {
+      min-width: 280px;
+    }
   }
 }

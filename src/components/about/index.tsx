@@ -1,9 +1,5 @@
-import Image from 'next/image';
 export default function About() {
   return <section id="About">
-    {/* <figure className="logo">
-      <Image src="assets/icons/BrayanIBP Really Black Logo Transparent bg.svg" alt="BrayanIBP Logo" height={300} width={390}/>
-    </figure> */}
     <h2>About Me</h2>
     <p className='about_me'>
       I am passionate about <b>technology, 
@@ -27,9 +23,5 @@ export default function About() {
       <br />
       I am excited to keep learning, share what I know with my team, find solutions to work challenges and be part of a collaborative culture. I am interested in specialising in Back End technologies.
     </p>
-    {/* <figure>
-      <span></span>
-      <Image className='' src="/assets/images/Brayan_Bernal_Short_Photo.jpg" alt="Brayan Bernal" width={400} height={400} />
-    </figure> */}
   </section>;
 }

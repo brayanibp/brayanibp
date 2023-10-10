@@ -16,7 +16,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <meta name='keywords' content='developer, fullstack, frontend, backend, dev, development, brayan, brayan bernal, back-end, full-stack, front-end, brayan isaac bernal pérez, brayan isaac bernal perez, desarrollador, web, mobile'/>
       <meta name='description' content='I am a Full-Stack Developer with +5 years of experience with Node.js, React.js | Angular, Redux, RxJS, MySQL, GCP and Firebase. I have worked in health insurance companies, software development companies and emerging startups, but also have a B2 English level.'/>
       <meta property='og:type' content='website' />
-      <meta property='og:image' itemProp='image primaryImageOfPage' content='https://drive.google.com/uc?export=view&id=13oCIJSXxf1P6fBZrtk64J2KtyQSCFjM7' />
+      <meta property='og:image' itemProp='image primaryImageOfPage' content={`${ process.env.NEXT_PUBLIC_SITE_PREVIEW_URL || 'https://drive.google.com/uc?export=view&id=1SSqbZKrCzz3K098YAqdtw_65Xh9wX0rQ'}`} />
       <meta property='og:url' content='brayanibp.dev' />
       <meta name="google-site-verification" content="75jwz6yeL2o54tRNmCKC1D08v5ZdbS9LoGZqOiW_hBY" />
       <link rel="shortcut icon" href="/image/favicon.ico" />
