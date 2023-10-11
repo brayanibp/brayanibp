@@ -18,7 +18,7 @@ export default function About() {
         software development companies and emerging startups, 
         but also have a <b>B2 English level</b>.
       <br />
-      I’ve also used <b>kanban, waterfall, 
+      I've also used <b>kanban, waterfall, 
       and other</b> agile methodologies.
       <br />
       <br />
