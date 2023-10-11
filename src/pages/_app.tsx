@@ -13,7 +13,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <meta name='author' content='Brayan Isaac Bernal Pérez' />
       <meta name="copyright" content='Brayan Isaac Bernal Pérez' />
       <meta httpEquiv='expires' content='43200'/>
-      <meta name='keywords' content='developer, fullstack, frontend, backend, dev, development, brayan, brayan bernal, back-end, full-stack, front-end, brayan isaac bernal pérez, brayan isaac bernal perez, brayanibp, brayanibo, desarrollador, web, mobile'/>
+      <meta name='keywords' content='brayanibp, developer, fullstack, frontend, backend, dev, development, brayan, bernal, brayan bernal, brayan bernal dev, back-end, full-stack, front-end, brayan isaac bernal pérez, brayan isaac bernal perez, brayanibo, desarrollador, web, mobile'/>
       <meta name='description' content='I am a Full-Stack Developer with +5 years of experience with Node.js, React.js | Angular, Redux, RxJS, MySQL, GCP and Firebase. I have worked in health insurance companies, software development companies and emerging startups, but also have a B2 English level.'/>
       <meta property='og:type' content='website' />
       <meta property='og:image' itemProp='image primaryImageOfPage' content={`${ process.env.NEXT_PUBLIC_SITE_PREVIEW_URL || 'https://drive.google.com/uc?export=view&id=1SSqbZKrCzz3K098YAqdtw_65Xh9wX0rQ'}`} />

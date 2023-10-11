@@ -2,7 +2,8 @@ export default function About() {
   return <section id="About">
     <h2>About Me</h2>
     <p className='about_me'>
-      I am passionate about <b>technology, 
+      I am Brayan Bernal, a Sofware Developer 
+      passionate about <b>technology, 
       software development and education</b>. 
       I remain on a constant quest for knowledge 
       that I can apply in my day to day life.
