@@ -7,8 +7,8 @@
     "achievements": [
       "Refactor massive updates taking the limit from 500 to +100000 documents.",
       "Optimize push notification functionality taking the limit from +30000 messages to +100000 by a minor refactor of asynchronous processes handling.",
-      "Reduce by 20% technical debt by monitoring junior programmer’s activities.",
-      "Diminish by 99.99% the search response time by implementing Algolia’s search engine."
+      "Reduce by 20% technical debt by monitoring junior programmer's activities.",
+      "Diminish by 99.99% the search response time by implementing Algolia\\'s search engine."
     ], 
     "techs": [
       "Angular 9+",
@@ -20,7 +20,8 @@
       "Git",
       "Bitbucket",
       "CI/CD"
-    ]
+    ],
+    "url": "https://quikpago.com/home"
   },
   {
     "timeline": "July 2019 - Oct 2021",
@@ -47,7 +48,8 @@
       "CentOS",
       "Git",
       "GitHub"
-    ]
+    ],
+    "url": "http://www.academiaa2.com/sitio/"
   },
   {
     "timeline": "Sep 2017 - July 2019", 
@@ -66,7 +68,8 @@
       "C#",
       "Git",
       "Github"
-    ]
+    ],
+    "url": "https://saludvital.com.ve/"
   }
 ]
 }

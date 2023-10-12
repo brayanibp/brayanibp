@@ -9,17 +9,19 @@ export default function JobCard(jobProps: Job): React.JSX.Element {
   });
   return <>
     <li key={jobProps.title} className="job-card">
-      <span className="timeline">{jobProps.timeline}</span>
-      <div className="container">
-        <h3 className="company">{jobProps.company}</h3>
-        <span className="title">{jobProps.title}</span>
-        <ul className="achievements">
-          {achievementsList}
-        </ul>
-        <ul className="techs-list">
-          {techsList}
-        </ul>      
-      </div>
+      <a href={jobProps.url} target="_blank" rel="noopener noreferrer">
+        <span className="timeline">{jobProps.timeline}</span>
+        <div className="container">
+          <h3 className="company">{jobProps.company}</h3>
+          <span className="title">{jobProps.title}</span>
+          <ul className="achievements">
+            {achievementsList}
+          </ul>
+          <ul className="techs-list">
+            {techsList}
+          </ul>      
+        </div>
+      </a>
     </li>
   </>;
 }

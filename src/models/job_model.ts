@@ -4,6 +4,7 @@ interface Job {
   title: string, 
   achievements: string[], 
   techs: string[],
+  url: string
 }
 
 export default Job;

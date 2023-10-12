@@ -259,13 +259,18 @@ body {
     margin: 0;
     .job-card {
       display: flex;
+      border-radius: .3em;
+      margin: 1em 0;
+    }
+    .job-card a {
+      display: flex;
       flex-wrap: wrap;
       justify-content: space-evenly;
       width: calc(100% - 3em);
       min-height: 2em;
-      margin: 1em 0;
       border-radius: .3em;
       padding: 1em 1.5em;
+      text-decoration: none;
       .timeline {
         display: block;
         height: 100%;
@@ -274,7 +279,7 @@ body {
         font-size: .7em;
         text-transform: uppercase;
         font-weight: bold;
-        color: rgba(0, 0, 0, 0.529);
+        color: rgba(0, 0, 0, 0.60);
       }
       .container {
         width: 70%;
