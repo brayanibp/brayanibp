@@ -576,7 +576,10 @@ body {
   }
   #Experience {
     .jobs-list {
-      .job-card {
+      .job-card a {
+        display: flex;
+        flex-wrap: nowrap;
+        flex-direction: column;
         .timeline {
           width: 100%;
         }
