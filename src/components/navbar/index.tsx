@@ -6,6 +6,7 @@ import Image from "next/image";
 
 export default function Navbar() {
   useEffect(()=>{
+    if (window.innerWidth < 426) return;
     const currentObserver = sectionsObserver();
     () => {
       currentObserver.disconnect();

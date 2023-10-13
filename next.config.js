@@ -39,7 +39,9 @@ const nextConfig = {
     domains: [
       'drive.google.com'
     ]
-  }
+  },
+  transpilePackages: ['gsap'],
+  optimizeFonts: true,
 }
 
 module.exports = withBundleAnalyzer(nextConfig);
