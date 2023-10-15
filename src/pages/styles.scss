@@ -114,7 +114,7 @@ body {
   h2 {
     font-size: 1.6em;
     span {
-      @include typed("Full-Stack ","Back-End ","Front-End ", null, (caret-width: 0px, caret-space: 2px, iterations: 1));
+      @include typed("Full-Stack ","Back-End ","Front-End ", 1.3, (caret-width: 0px, caret-space: 2px, iterations: 1));
     }
   }
   .navbar-menu {
