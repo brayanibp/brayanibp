@@ -1,4 +1,4 @@
-import { Html, Head, Main, NextScript } from 'next/document';
+import NextDocument,{ Html, Head, Main, NextScript, DocumentInitialProps, DocumentContext } from 'next/document';
 import { readFileSync } from "fs";
 import { join } from "path";
 
@@ -21,14 +21,27 @@ class InlineStylesHead extends Head {
   };
 }
  
-export default function Document() {
+export default function Document(props: DocumentInitialProps & { nonce: string | undefined }) {
+  const { nonce } = props;
   return (
     <Html>
-      <InlineStylesHead />
-      <body>
+      <InlineStylesHead nonce={nonce} />
+      <body data-nonce={nonce}>
         <Main />
-        <NextScript />
+        <NextScript nonce={nonce} />
       </body>
     </Html>
   )
+}
+
+Document.getInitialProps = async (ctx: DocumentContext): Promise<DocumentInitialProps & { nonce: string | undefined }> => {
+  // read nonce value from headers
+  const nonce = ctx.req?.headers?.['x-nonce'] as string | undefined;
+  
+  const initialProps = await NextDocument.getInitialProps(ctx);
+  
+  return {
+    ...initialProps,
+    nonce
+  }
 }
