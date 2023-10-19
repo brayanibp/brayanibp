@@ -1,9 +1,7 @@
 import { ChangeEvent, FormEvent, createRef, useEffect, useState } from "react";
-// import dynamic from 'next/dynamic';
 import { gsap } from "gsap";
 import Image from "next/image";
 import ReCAPTCHA from "react-google-recaptcha";
-// const ReCAPTCHA = dynamic(()=>import("react-google-recaptcha"));
 
 export default function Contact() {
   const [recaptchaNeeded, setRecaptchaNeeded] = useState(false);
