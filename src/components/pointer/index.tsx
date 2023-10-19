@@ -18,12 +18,6 @@ export default function Pointer() {
     });
   },[]);
   return <>
-    <span id="Pointer" className="white transparent">
-      <span className="white medium">
-        <span className="white strong">
-          <span className="white full"></span>
-        </span>
-      </span>
-    </span>
+    <span id="Pointer" className="white transparent"></span>
   </>;
 }

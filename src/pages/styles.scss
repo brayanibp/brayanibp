@@ -4,7 +4,7 @@
 
 $layout-backgroud: #ffffffdd;
 $sections-background: #ffffff66;
-$pointer-background: #fff70032;
+$pointer-background: #fff700b1;
 
 * {
   outline: none;
@@ -18,34 +18,19 @@ body {
   background-color: rgb(15 23 42);
 }
 
-.white {
-  display: block;
-  position: absolute;
-  width: 100vw;
-  height: 100vh;
-  top: 0;
-  left: 0;
-  background: $pointer-background;
-  clip-path: circle(100px at var(--x, 20%) var(--y, 20%));
-  z-index: -1;
-  filter: drop-shadow(5px 5px 10px rgba(255, 255, 255, 0.5))
-}
-
 #Pointer.white.transparent {
+  display: block;
+  position: fixed;
+  width: 120vh;
+  height: 120vh;
+  transform: translate(-50%, -50%);
+  top: var(--y, 20%);
+  left: var(--x, 20%);
   background: $pointer-background;
-  clip-path: circle(400px at var(--x, 20%) var(--y, 20%));
-  .medium {
-    background: $pointer-background;
-    clip-path: circle(300px at var(--x, 20%) var(--y, 20%));
-    .strong {
-      background: $pointer-background;
-      clip-path: circle(200px at var(--x, 20%) var(--y, 20%));
-      .full {
-        background: $pointer-background;
-        clip-path: circle(100px at var(--x, 20%) var(--y, 20%));
-      }
-    }
-  }
+  z-index: -1;
+  border-radius: 50%;
+  overflow: hidden;
+  background: radial-gradient(circle, $pointer-background 0%, rgba(236,252,70,0) 75%);
 }
 
 #Layout {
