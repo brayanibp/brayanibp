@@ -32,7 +32,7 @@ export default function ProjectCard(project: Project) {
     <li key={project.name} className="project-card">
       <a target="_blank" href={project.link_url} className="project-link">
         <div className="project-image">
-          <Image src={project.image_url} alt={project.name} width={imageSize.width} height={imageSize.height}/>
+          <Image src={encodeURI(project.image_url)} alt={project.name} width={imageSize.width} height={imageSize.height}/>
         </div>
         <div className="project-body">
           <h3 className="project-name">{project.name}</h3>
