@@ -1,0 +1,23 @@
+.social {
+  height: fit-content;
+  width: fit-content;
+  background: #eeeeee44;
+  /* background: cornflowerblue; */
+  backdrop-filter: blur(2px);
+  box-shadow: #55555566 0px 0px 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  position: fixed;
+  top: calc(50vh - 4.5em);
+  left: 0;
+  border-radius: 0 4px 4px 0;
+}
+
+.social ul {
+  display: flex;
+  list-style: none;
+  flex-direction: column;
+  gap: 1em;
+  padding: 10px;
+}

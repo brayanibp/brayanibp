@@ -1,0 +1,75 @@
+{
+  "jobsList": [
+  {
+    "timeline": "July 2021 - Present",
+    "company": "QUIK (YC W22)",
+    "title": "Full Stack Developer", 
+    "achievements": [
+      "Refactor massive updates taking the limit from 500 to +100000 documents.",
+      "Optimize push notification functionality taking the limit from +30000 messages to +100000 by a minor refactor of asynchronous processes handling.",
+      "Reduce by 20% technical debt by monitoring junior programmer's activities.",
+      "Diminish by 99.99% the search response time by implementing Algolia\\'s search engine."
+    ], 
+    "techs": [
+      "Angular 9+",
+      "GCP",
+      "Firebase",
+      "Flutter",
+      "Node.js",
+      "TypeScript",
+      "Git",
+      "Bitbucket",
+      "CI/CD"
+    ],
+    "url": "https://quikpago.com/home"
+  },
+  {
+    "timeline": "July 2019 - Oct 2021",
+    "company": "a2 Academia | a2 Softway",
+    "title": "Full Stack Developer", 
+    "achievements": [
+      "Migrated servers from Centos 6.10 to Ubuntu 20.04 obtaining support by 10 years more.",
+      "Normalized 50% of the SQL databases by new entity abstractions and some script executions to adapt it.",
+      "Created a custom image for VPS initialization on Digital Ocean to start a whole new branch of digital products.",
+      "Implemented React, React Native, Laravel, and Laravel web sockets with Pusher completing 60% of a rebranding."
+    ], 
+    "techs": [
+      "PHP",
+      "Digital Ocean",
+      "MySQL",
+      "MariaDB",
+      "Laravel",
+      "React",
+      "React Native",
+      "Redux",
+      "JavaScript",
+      "Apache",
+      "Ubuntu",
+      "CentOS",
+      "Git",
+      "GitHub"
+    ],
+    "url": "http://www.academiaa2.com/sitio/"
+  },
+  {
+    "timeline": "Sep 2017 - July 2019", 
+    "company": "Salud Vital Medicina Prepagada S. A",
+    "title": "Programmer", 
+    "achievements": [
+      "Increased by 30% queries reutilization by refactoring hard coded SQL queries into Stored Procedures.",
+      "Created and optimized +20 administrative system modules by using VFP 9.0.",
+      "Created a .txt formatter for payroll payments with +3 banks formats.",
+      "Adapted +10000 records to a currency reconversion in 2018."
+    ], 
+    "techs": [
+      "VFP 9.0",
+      "Microsoft SQL Server",
+      "MySQL",
+      "C#",
+      "Git",
+      "Github"
+    ],
+    "url": "https://saludvital.com.ve/"
+  }
+]
+}
