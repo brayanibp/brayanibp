@@ -6,11 +6,11 @@ import style from "./project-card.module.css";
 
 export default function ProjectCard(project: Project) {
   const [imageSize, setImageSize] = useState({
-    height: 100,
-    width: 200
+    height: 125,
+    width: 250
   });
   const techsList = project.techs?.map((tech, index)=> {
-    return <li key={index} className="project-tech">{tech}</li>;
+    return <li key={index} className={style["project-tech"]}>{tech}</li>;
   }) || [];
   const resolveImage = () => {
     if (window.innerWidth < 426) {
@@ -21,8 +21,8 @@ export default function ProjectCard(project: Project) {
       return;
     }
     setImageSize({
-      width: 200, 
-      height:100
+      width: 250, 
+      height:125
     });
     return;
   }
@@ -32,15 +32,15 @@ export default function ProjectCard(project: Project) {
   },[]);
   return <>
     <li key={project.name} className={style["project-card"]}>
-      <a target="_blank" href={project.link_url} className="project-link">
-        <div className="project-image">
+      <a target="_blank" href={project.link_url} className={style["project-link"]}>
+        <h3 className={style["project-name"]}>{project.name}</h3>
+        <div className={style["project-image"]}>
           <Image src={encodeURI(project.image_url)} alt={project.name} width={imageSize.width} height={imageSize.height}/>
         </div>
-        <div className="project-body">
-          <h3 className="project-name">{project.name}</h3>
-          <span className="project-description">{project.description}</span>
+        <div className={style["project-body"]}>
+          <span className={style["project-description"]}>{project.description}</span>
           {techsList.length !== 0 && (
-            <ul>
+            <ul className={style["techs-list"]}>
               {(techsList)}
             </ul>
           )}
