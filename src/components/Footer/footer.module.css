@@ -1,0 +1,9 @@
+.footer {
+  width: 100vw;
+  height: 7em;
+  padding: 1em 25vw;
+  background: #ffffff99;
+  backdrop-filter: blur(3px);
+  display: flex;
+  align-items: center;
+}

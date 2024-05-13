@@ -1,9 +1,10 @@
 import Link from "next/link";
+import style from "./footer.module.css";
 
 const Footer = () => {
   return (
     <>
-      <footer>
+      <footer className={style["footer"]}>
         <ul>
           <li>
             <Link href="/">Home</Link>
