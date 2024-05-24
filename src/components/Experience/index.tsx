@@ -5,8 +5,8 @@ import style from "./experience.module.css";
 
 const Experience = () => {
   const jobsList: Job[]  = jobs.jobsList;
-  const jobsCards: React.JSX.Element[] = jobsList.map((jobData,index)=>{
-    return <JobCard key={index} {...jobData} />;
+  const jobsCards: React.JSX.Element[] = jobsList.map((jobData, index)=>{
+    return <JobCard key={index+jobData.title+jobData.company} {...jobData} />;
   });
   return (
     <>
