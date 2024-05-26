@@ -16,9 +16,12 @@
     "@vercel/analytics": "^1.2.2",
     "gray-matter": "^4.0.3",
     "next": "^14.2.3",
+    "next-mdx-remote": "^5.0.0",
     "react": "^18",
     "react-dom": "^18",
-    "react-google-recaptcha": "^3.1.0"
+    "react-google-recaptcha": "^3.1.0",
+    "react-syntax-highlighter": "^15.5.0",
+    "remark-gfm": "^4.0.0"
   },
   "devDependencies": {
     "@types/node": "^20",
