@@ -9,8 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@mdx-js/loader": "^3.0.1",
+    "@mdx-js/react": "^3.0.1",
+    "@next/mdx": "^14.2.3",
+    "@types/mdx": "^2.0.13",
     "@vercel/analytics": "^1.2.2",
-    "next": "14.1.0",
+    "next": "^14.2.3",
     "react": "^18",
     "react-dom": "^18",
     "react-google-recaptcha": "^3.1.0"
