@@ -20,8 +20,6 @@ const Posts = async ({ params }: { params: { post: string } }) => {
 
   const { frontmatter, content } = await fetchPost(post);
 
-  console.log(frontmatter);
-
   return (
     <section className={styles.main}>
       <h1>{frontmatter.title}</h1>
