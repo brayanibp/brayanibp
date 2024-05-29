@@ -1,0 +1,54 @@
+.blog {
+  padding-top: 8em;
+}
+
+.blog ul {
+  list-style: none;
+}
+
+.preview {
+  display: flex;
+  min-width: 300px;
+  gap: 1em;
+  text-decoration: none;
+  color: #222;
+}
+
+.preview div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2em;
+}
+
+.preview ul {
+  list-style: none;
+  display: flex;
+  gap: 0.15em;
+  flex-wrap: nowrap;
+}
+
+.preview ul li {
+  font-size: .9em;
+  text-transform: capitalize;
+}
+
+.preview ul li::after {
+  content: ",";
+}
+
+.preview ul li:last-child::after {
+  content: "";
+}
+
+.date {
+  margin: 0.2em 0;
+  font-size: 0.7em;
+  font-weight: 700;
+  color: #555;
+}
+
+.preview span {
+  font-size: .95em;
+  font-weight: 500;
+  text-decoration: underline;
+}
