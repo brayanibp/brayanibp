@@ -26,7 +26,7 @@ const Blog = () => {
   console.log(posts);
   return (
     <>
-      <section className={styles.main}>
+      <section className={styles.blog}>
         <h2>My Blog</h2>
         <ul>
           {posts.map((post: any) => (

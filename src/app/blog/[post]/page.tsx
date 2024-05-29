@@ -1,4 +1,4 @@
-import styles from "../../page.module.css";
+import styles from "./page.module.css";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import Image from "next/image";
@@ -21,9 +21,9 @@ const Posts = async ({ params }: { params: { post: string } }) => {
   const { frontmatter, content } = await fetchPost(post);
 
   return (
-    <section className={styles.main}>
+    <section className={styles.post}>
       <h1>{frontmatter.title}</h1>
-      <Image src={frontmatter.thumbnailUrl} width={600} height={400} alt={frontmatter.thumbnailUrl} />
+        <Image src={frontmatter.thumbnailUrl} alt={frontmatter.thumbnailUrl} width={0} height={0} sizes="100%" style={{ width: '100%', height: 'auto' }} />
       <p>{frontmatter.description}</p>
       <ul>
         {frontmatter.tags.map((tag: string) => (
