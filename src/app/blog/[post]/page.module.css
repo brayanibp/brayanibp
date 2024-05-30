@@ -2,6 +2,17 @@
   padding-top: 8em;
 }
 
+.post li {
+  margin-left: 1.1em;
+}
+
 .image {
   width: 100%;
+}
+
+@media screen and (max-width: 425px) {
+  .post {
+    padding: 2em;
+    padding-top: 6em;
+  }
 }

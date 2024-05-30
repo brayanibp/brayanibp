@@ -52,3 +52,19 @@
   font-weight: 500;
   text-decoration: underline;
 }
+
+@media screen and (max-width: 425px) {
+  .blog {
+    padding: 2em;
+    padding-top: 6em;
+  }
+
+  .preview {
+    flex-direction: column;
+  }
+
+  .preview image { 
+    width: 60% !important; 
+    height: auto; 
+  }
+}

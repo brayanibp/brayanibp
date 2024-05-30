@@ -30,3 +30,18 @@ section {
   margin: 0 auto;
   width: 50vw;
 }
+
+@media screen and (max-width: 425px) {
+  main {
+    padding: 1em;
+  }
+
+  section:first-child {
+    padding-top: 4.5em;
+  }
+
+  section {
+    padding-top: 1em;
+    width: 100%;
+  }
+}

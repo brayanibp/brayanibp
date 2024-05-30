@@ -25,7 +25,6 @@ const fetchPostsPreviews = () => {
 
 const Blog = () => {
   const posts = fetchPostsPreviews();
-  console.log(posts);
   return (
     <>
       <section className={styles.blog}>

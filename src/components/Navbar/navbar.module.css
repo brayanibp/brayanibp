@@ -70,3 +70,18 @@
 .nav-ul .active {
   font-weight: bold;
 }
+
+@media screen and (max-width: 425px) {
+  .nav {
+    height: 4.5em;
+  }
+
+  .brand {
+    top: .7em;
+    left: 0em;
+  }
+
+  .name, .slogan {
+    display: none;
+  }
+}

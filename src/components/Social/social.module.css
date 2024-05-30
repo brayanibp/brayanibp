@@ -21,3 +21,15 @@
   gap: 1em;
   padding: 10px;
 }
+
+@media screen and (max-width: 425px) {
+  .social {
+    top: auto;
+    bottom: 0;
+    left: calc(50vw - 6em);
+  }
+
+  .social ul {
+    flex-direction: row;
+  }
+}
