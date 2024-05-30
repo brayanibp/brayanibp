@@ -14,6 +14,10 @@
   margin-left: 1.1em;
 }
 
+.post pre {
+  border-radius: .3em;
+}
+
 .tags li {
   margin: 0;
   text-transform: capitalize;
