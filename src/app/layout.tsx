@@ -82,6 +82,9 @@ export const metadata: Metadata = {
   },
   archives: ["https://v1.brayanibp.dev"],
   category: "technology",
+  verification: {
+    google: "75jwz6yeL2o54tRNmCKC1D08v5ZdbS9LoGZqOiW_hBY",
+  }
       // <meta charSet='utf-8' />
       // <meta name='author' content='Brayan Isaac Bernal Pérez' />
       // <meta name="copyright" content='Brayan Isaac Bernal Pérez' />
