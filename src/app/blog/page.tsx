@@ -39,7 +39,6 @@ const Blog = () => {
                   <br />
                   <p>{post.previewData.description}</p>
                   <p className={styles.date}>{post.previewData.date}</p>
-                  <br />
                   <ul>
                     {post.previewData.tags.map((tag: string) => (
                       <li key={tag}>{tag}</li>

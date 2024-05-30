@@ -2,8 +2,28 @@
   padding-top: 8em;
 }
 
+.tags {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: .3em;
+}
+
 .post li {
   margin-left: 1.1em;
+}
+
+.tags li {
+  margin: 0;
+  text-transform: capitalize;
+  background: #eee;
+  padding: .3em;
+  font-weight: 600;
+}
+
+.tags li::before {
+  content: "#";
 }
 
 .image {

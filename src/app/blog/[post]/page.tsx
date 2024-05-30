@@ -25,7 +25,7 @@ const Posts = async ({ params }: { params: { post: string } }) => {
       <h1>{frontmatter.title}</h1>
       <Image src={frontmatter.thumbnailUrl} alt={frontmatter.thumbnailUrl} width={0} height={0} sizes="100%" style={{ width: '100%', height: 'auto' }} />
       <p>{frontmatter.description}</p>
-      <ul>
+      <ul className={styles.tags}>
         {frontmatter.tags.map((tag: string) => (
           <li key={tag}>{tag}</li>
         ))}
