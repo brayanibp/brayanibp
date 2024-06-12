@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: Props, parent: ResolvingMetad
     openGraph: {
       title: frontmatter.title,
       description: frontmatter.description,
-      images: [frontmatter.thumbnailUrl, ...previousImages],
+      images: [frontmatter.thumbnailUrl],
     },
     keywords: [...(frontmatter.tags || []), ...previousKeywords]
   };
