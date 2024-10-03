@@ -26,8 +26,23 @@ We just used a `###` subheading in our blog post.
 
 <div>
   - El primer paso es crear el proyecto Next.js. (Anexar comandos)
+  <SyntaxHighlighter language="bash">
+    {`$ npx create-next-app blog`}
+  </SyntaxHighlighter>
   - El segundo paso es eliminar los archivos que no utilizaremos.
   - El tercer paso es crear la página principal donde se listaran los articulos.
+  ./src/app/blog/page.tsx
+  <SyntaxHighlighter language="jsx">
+    {`
+    const Blog = () => {
+      return (
+        <>
+          <div>Blog</div>
+        </>
+      );
+    }
+    `}
+  </SyntaxHighlighter>
   - El cuarto paso es crear una ruta dinamica.
   - El quinto paso es instalar las librerias para procesar los archivos .mdx (Explicar librerias y añadir comandos y paso a paso)
   - El sexto paso es crear un archivo .mdx para poder hacer pruebas.

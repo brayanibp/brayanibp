@@ -1,0 +1,312 @@
+--- 
+title: Git from Zero to Functional
+date: "Oct 2, 2024"
+description: Learn about Git versioning tool + GitHub integration.
+thumbnailUrl: "https://drive.google.com/uc?export=view&id=1dcrhNd15UFPZ_3d3y23P1NTfG3Q5pqaX"
+tags: ["version", "git", "bash", "productivity", "code versions"]
+---
+
+<div>
+  Hi to see how Git works I think we should start by knowing what it is<strong>so lets dive on it</strong>.
+</div>
+
+<br />
+
+<div>
+  In this guide we'll learn Git essentials workflow and commands.
+</div>
+
+---
+
+# Git from Zero to Functional: A Guide for Entry & Junior Developers (2024)
+
+## Table of Contents
+1. [Introduction to Git and GitHub](#introduction-to-git-and-github)
+2. [Setting Up Git](#setting-up-git)
+3. [Basic Git Commands](#basic-git-commands)
+4. [Collaborating on GitHub](#collaborating-on-github)
+5. [Branching and Merging](#branching-and-merging)
+6. [Resolving Conflicts](#resolving-conflicts)
+7. [Pull Requests and Code Reviews](#pull-requests-and-code-reviews)
+8. [Setting Up SSH for GitHub](#setting-up-ssh-for-github)
+9. [App Authorizations on GitHub](#app-authorizations-on-github)
+10. [Creating a Personal Access Token](#creating-a-personal-access-token)
+11. [Best Practices](#best-practices)
+12. [Common Pitfalls](#common-pitfalls)
+13. [Conclusion](#conclusion)
+
+---
+
+## 1. Introduction to Git and GitHub
+### What is Git?
+Git is a **version control system (VCS)** designed to manage and track changes to code over time. It allows multiple people to collaborate on a project, manage different versions, and keep a history of changes.
+
+### What is GitHub?
+GitHub is a web-based platform that hosts Git repositories and provides tools for collaboration, like issue tracking, pull requests, and code reviews.
+
+### Why Use Git and GitHub?
+- **Track Changes**: You can revert to previous versions easily.
+- **Collaborate**: Multiple people can work on the same project simultaneously.
+- **Backup**: Keeps a remote copy of your project that can be accessed anywhere.
+
+---
+
+## 2. Setting Up Git
+### Installing Git
+1. **Windows**:
+   - Download the Git installer from [git-scm.com](https://git-scm.com).
+   - Follow the setup instructions.
+   
+2. **macOS**:
+   - Install via Homebrew:
+     ```bash
+     brew install git
+     ```
+
+3. **Linux**:
+   - Install via your package manager (Debian/Ubuntu):
+     ```bash
+     sudo apt install git
+     ```
+
+### Configuring Git
+After installing, configure Git with your user information:
+
+```bash
+git config --global user.name "Your Name"
+git config --global user.email "your.email@example.com"
+```
+
+You can check your configuration with:
+```bash
+git config --list
+```
+
+---
+
+## 3. Basic Git Commands
+### Initialize a Repository
+Create a new Git repository in your project folder:
+```bash
+git init
+```
+
+### Cloning a Repository
+To clone an existing GitHub repository:
+```bash
+git clone https://github.com/username/repo-name.git
+```
+
+### Checking Repository Status
+See which files have changed:
+```bash
+git status
+```
+
+### Staging and Committing Changes
+1. **Stage files** (prepare them for commit):
+   ```bash
+   git add <filename>   # To add specific files
+   git add .            # To add all changes
+   ```
+
+2. **Commit your changes** (save the changes to history):
+   ```bash
+   git commit -m "Describe your changes"
+   ```
+
+### Viewing Commit History
+View a list of commits:
+```bash
+git log
+```
+
+---
+
+## 4. Collaborating on GitHub
+### Pushing Changes to GitHub
+After committing, push changes to your GitHub repository:
+```bash
+git push origin main  # or master depending on the branch
+```
+
+### Pulling Changes from GitHub
+Get the latest changes from the remote repository:
+```bash
+git pull origin main
+```
+
+---
+
+## 5. Branching and Merging
+### Creating and Switching Branches
+Branches allow you to work on different features or bug fixes without affecting the main project. To create a new branch:
+```bash
+git checkout -b feature-branch-name
+```
+
+Switch between branches:
+```bash
+git checkout main
+```
+
+### Merging Branches
+To merge your branch into `main`, first switch to `main`:
+```bash
+git checkout main
+git merge feature-branch-name
+```
+
+---
+
+## 6. Resolving Conflicts
+When multiple people make changes to the same file, Git may encounter conflicts. Conflicts need to be resolved manually:
+1. Open the file with the conflict.
+2. Edit the conflicting sections marked by Git.
+3. After resolving, stage and commit the changes:
+   ```bash
+   git add conflicted-file
+   git commit -m "Resolved conflict"
+   ```
+
+---
+
+## 7. Pull Requests and Code Reviews
+A **Pull Request (PR)** is a request to merge changes from one branch into another (usually from your branch into `main`).
+1. Push your branch to GitHub:
+   ```bash
+   git push origin feature-branch-name
+   ```
+
+2. Create a pull request on GitHub:
+   - Go to the repository on GitHub.
+   - Click **Pull Requests** > **New Pull Request**.
+   - Select the branch and submit your PR.
+
+### Code Reviews
+Before merging, other developers can review your code. They might suggest changes, which can be made by updating your branch and pushing the changes.
+
+---
+
+## 8. Setting Up SSH for GitHub
+### Why Use SSH?
+Using SSH allows you to securely interact with your GitHub repository without needing to enter your password every time you push or pull changes.
+
+### Generating an SSH Key
+1. **Generate a new SSH key**:
+   ```bash
+   ssh-keygen -t ed25519 -C "your.email@example.com"
+   ```
+
+   When prompted, press Enter to accept the default location. Optionally, you can set a passphrase for extra security.
+
+2. **Start the SSH agent**:
+   ```bash
+   eval "$(ssh-agent -s)"
+   ```
+
+3. **Add your SSH key to the agent**:
+   ```bash
+   ssh-add ~/.ssh/id_ed25519
+   ```
+
+4. **Copy your SSH key to the clipboard**:
+   ```bash
+   cat ~/.ssh/id_ed25519.pub
+   ```
+
+   Copy the entire output.
+
+### Adding Your SSH Key to GitHub
+1. Go to GitHub and click on your profile picture, then navigate to **Settings**.
+2. On the left sidebar, click **SSH and GPG keys**.
+3. Click **New SSH Key**.
+4. Paste the SSH key from your clipboard, name it, and click **Add SSH Key**.
+
+Now, your GitHub account is configured to use SSH for secure communication.
+
+---
+
+## 9. App Authorizations on GitHub
+GitHub allows third-party applications to access your account to automate workflows or provide additional tools.
+
+### Authorizing Applications
+1. Go to your **GitHub Settings**.
+2. On the left sidebar, click **Applications**.
+3. Here you will find two tabs: **Authorized OAuth Apps** and **Authorized GitHub Apps**.
+   - **OAuth Apps**: These apps authenticate with GitHub via OAuth and might request various permissions.
+   - **GitHub Apps**: Apps installed on specific repositories or the entire GitHub account.
+
+### Authorizing a New App
+- To authorize a new OAuth app:
+  1. You will usually be redirected to GitHub from the app's website.
+  2. GitHub will ask for permission to grant the app access to your account.
+  3. Review the permissions and click **Authorize**.
+
+You can always revoke or modify permissions from the same settings page.
+
+---
+
+## 10. Creating a Personal Access Token
+### Why Use a Personal Access Token?
+GitHub has deprecated password-based authentication for Git operations, so a **Personal Access Token (PAT)** is used as a secure alternative for authentication.
+
+### Steps to Create a Personal Access Token
+1. **Go to GitHub**:
+   - Navigate to your GitHub profile and click on **Settings**.
+
+2. **Access Developer Settings**:
+   - On the left sidebar, click **Developer settings**.
+
+3. **Generate a New Token**:
+   - Under **Personal Access Tokens**, click **Tokens (classic)**, then click **Generate new token**.
+
+4. **Set Token Scopes**:
+   - Give your token a name and set an expiration date (optional).
+   - Select the scopes (permissions) you want to grant the token. For basic repository usage, check:
+     - `repo`: Full control of private repositories.
+     - `workflow`: Write access to actions and workflows.
+     - `admin:repo_hook`: Read/write access to repository hooks.
+   
+5. **Generate and Store the Token**:
+   - After selecting the scopes, click **Generate token**.
+   - **Important**: Copy the token immediately and store it securely (you won’t be able to see it again).
+
+### Using the Token for Git
+To use your personal access token, you’ll replace your GitHub password with the token when performing Git operations:
+
+```bash
+git clone https://github.com/username/repo.git
+```
+
+When prompted for your password, use the personal access token instead of your password.
+
+---
+
+## 11. Best Practices
+- **Commit Often**: Make small, meaningful commits with clear messages.
+- **Use Branches**: Create a new branch for each feature or bug fix.
+- **Pull Regularly**: Frequently pull changes from the remote repository to avoid conflicts.
+- **Code Reviews**: Always create a pull request and get a code
+
+ review before merging to `main`.
+
+---
+
+## 12. Common Pitfalls
+- **Forgetting to Pull**: Always pull the latest changes before starting new work.
+- **Commit Messages**: Avoid vague messages like “fixed stuff.” Be specific about the changes you made.
+- **Not Using Branches**: Directly committing to `main` can lead to conflicts and unstable code.
+
+---
+
+## 13. Conclusion
+This guide serves as a starting point for developers who are new to Git. Follow these steps and best practices to confidently manage your projects and collaborate effectively using Git and GitHub.
+
+---
+
+### References
+- Git Documentation: [https://git-scm.com/doc](https://git-scm.com/doc)
+- GitHub Documentation: [https://docs.github.com](https://docs.github.com)
+
+---
