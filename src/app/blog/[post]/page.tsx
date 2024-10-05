@@ -1,9 +1,8 @@
 import styles from "./page.module.css";
-import SyntaxHighlighter from "react-syntax-highlighter";
-import { dark, dracula, darcula, github } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import Image from "next/image";
 import { Metadata, ResolvingMetadata } from "next";
+import CodeBlock from "@/components/CodeBlock";
 
 type Props = {
   params: {
@@ -41,19 +40,6 @@ const fetchPost = async (post: string) => {
   };
 };
 
-const CustomSyntaxHighlighter = ({ children, language, style }: { children: string, language: string, style: string }) => {
-  let styleType = dark;
-  if (style === "darcula") styleType = darcula;
-  if (style === "dracula") styleType = dracula;
-  if (style === "github") styleType = github;
-
-  return (
-    <SyntaxHighlighter language={"bash"} style={styleType}>
-      { children }
-    </SyntaxHighlighter>
-  );
-}
-
 const Posts = async ({ params }: { params: { post: string } }) => {
   const { post } = params;
 
@@ -70,7 +56,7 @@ const Posts = async ({ params }: { params: { post: string } }) => {
         ))}
       </ul>
       <br />
-      <MDXRemote source={content} components={{ SyntaxHighlighter: CustomSyntaxHighlighter }} />
+      <MDXRemote source={content} components={{ SyntaxHighlighter: CodeBlock }} />
     </section>
   );
 }

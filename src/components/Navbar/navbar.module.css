@@ -1,4 +1,5 @@
 .nav {
+  z-index: 1;
   width: 100vw;
   height: 7em;
   padding: 1em 25vw;

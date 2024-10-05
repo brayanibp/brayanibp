@@ -1,7 +1,6 @@
 import Link from "next/link";
 import styles from "./page.module.css";
 import Image from "next/image";
-// import style from "react-syntax-highlighter/dist/esm/styles/hljs/a11y-dark";
 
 const fetchPostsPreviews = () => {
   const fs = require("fs");
