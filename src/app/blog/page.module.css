@@ -4,6 +4,11 @@
 
 .blog ul {
   list-style: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 2em;
 }
 
 .preview {
@@ -23,8 +28,9 @@
 .preview ul {
   list-style: none;
   display: flex;
+  flex-direction: row;
   gap: 0.3em;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   justify-content: flex-start;
 }
 
