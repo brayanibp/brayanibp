@@ -60,103 +60,133 @@ GitHub es una plataforma basada en la web que aloja repositorios Git y proporcio
 
 2. **macOS**:
    - Instala usando Homebrew:
-     ```bash
-     brew install git
-     ```
+   <SyntaxHighlighter language="bash" style="dracula">
+   {`
+   brew install git
+   `}
+   </SyntaxHighlighter>
 
 3. **Linux**:
    - Instala usando tu gestor de paquetes (Debian/Ubuntu):
-     ```bash
-     sudo apt install git
-     ```
+   <SyntaxHighlighter language="bash" style="dracula">
+   {`
+   sudo apt install git
+   `}
+   </SyntaxHighlighter>
 
 ### Configuración de Git
 Después de instalar Git, configura tu información de usuario:
 
-```bash
+<SyntaxHighlighter language="bash" style="dracula">
+{`
 git config --global user.name "Tu Nombre"
 git config --global user.email "tu.correo@ejemplo.com"
-```
+`}
+</SyntaxHighlighter>
 
 Puedes verificar tu configuración con:
-```bash
+<SyntaxHighlighter language="bash" style="dracula">
+{`
 git config --list
-```
+`}
+</SyntaxHighlighter>
 
 ---
 
 ## 3. Comandos Básicos de Git
 ### Inicializar un Repositorio
 Crea un nuevo repositorio Git en tu carpeta de proyecto:
-```bash
+<SyntaxHighlighter language="bash" style="dracula">
+{`
 git init
-```
+`}
+</SyntaxHighlighter>
 
 ### Clonar un Repositorio
 Para clonar un repositorio existente de GitHub:
-```bash
+<SyntaxHighlighter language="bash" style="dracula">
+{`
 git clone https://github.com/usuario/nombre-repositorio.git
-```
+`}
+</SyntaxHighlighter>
 
 ### Verificar el Estado del Repositorio
 Ver qué archivos han cambiado:
-```bash
+<SyntaxHighlighter language="bash" style="dracula">
+{`
 git status
-```
+`}
+</SyntaxHighlighter>
 
 ### Etapa y Confirmación de Cambios
 1. **Añadir archivos a la etapa** (prepararlos para confirmación):
-   ```bash
+   <SyntaxHighlighter language="bash" style="dracula">
+   {`
    git add <archivo>   # Para añadir archivos específicos
    git add .           # Para añadir todos los cambios
-   ```
+   `}
+   </SyntaxHighlighter>
 
 2. **Confirmar tus cambios** (guardar los cambios en el historial):
-   ```bash
+   <SyntaxHighlighter language="bash" style="dracula">
+   {`
    git commit -m "Describe tus cambios"
-   ```
+   `}
+   </SyntaxHighlighter>
 
 ### Ver el Historial de Confirmaciones
 Ver una lista de confirmaciones:
-```bash
+<SyntaxHighlighter language="bash" style="dracula">
+{`
 git log
-```
+`}
+</SyntaxHighlighter>
 
 ---
 
 ## 4. Colaboración en GitHub
 ### Subir Cambios a GitHub
 Después de confirmar, sube los cambios a tu repositorio de GitHub:
-```bash
+<SyntaxHighlighter language="bash" style="dracula">
+{`
 git push origin main  # o master, dependiendo de la rama
-```
+`}
+</SyntaxHighlighter>
 
 ### Obtener Cambios desde GitHub
 Obtener los últimos cambios del repositorio remoto:
-```bash
+<SyntaxHighlighter language="bash" style="dracula">
+{`
 git pull origin main
-```
+`}
+</SyntaxHighlighter>
 
 ---
 
 ## 5. Branching y Merging
 ### Crear y Cambiar de Rama
 Las ramas te permiten trabajar en diferentes características o correcciones sin afectar el proyecto principal. Para crear una nueva rama:
-```bash
+<SyntaxHighlighter language="bash" style="dracula">
+{`
 git checkout -b nombre-rama-caracteristica
-```
+`}
+</SyntaxHighlighter>
 
 Cambiar entre ramas:
-```bash
+<SyntaxHighlighter language="bash" style="dracula">
+{`
 git checkout main
-```
+`}
+</SyntaxHighlighter>
 
 ### Fusionar Ramas
 Para fusionar tu rama en `main`, primero cambia a `main`:
-```bash
+<SyntaxHighlighter language="bash" style="dracula">
+{`
 git checkout main
 git merge nombre-rama-caracteristica
-```
+`}
+</SyntaxHighlighter>
 
 ---
 
@@ -165,10 +195,12 @@ Cuando varias personas hacen cambios en el mismo archivo, Git puede encontrar co
 1. Abre el archivo con el conflicto.
 2. Edita las secciones conflictivas marcadas por Git.
 3. Después de resolver, añade y confirma los cambios:
-   ```bash
+   <SyntaxHighlighter language="bash" style="dracula">
+   {`
    git add archivo-con-conflicto
    git commit -m "Conflicto resuelto"
-   ```
+   `}
+   </SyntaxHighlighter>
 
 ---
 
@@ -176,9 +208,11 @@ Cuando varias personas hacen cambios en el mismo archivo, Git puede encontrar co
 Un **Pull Request (PR)** es una solicitud para fusionar cambios de una rama a otra (generalmente de tu rama a `main`).
 
 1. Sube tu rama a GitHub:
-   ```bash
+   <SyntaxHighlighter language="bash" style="dracula">
+   {`
    git push origin nombre-rama-caracteristica
-   ```
+   `}
+   </SyntaxHighlighter>
 
 2. Crea un pull request en GitHub:
    - Ve al repositorio en GitHub.
@@ -196,26 +230,34 @@ Usar SSH te permite interactuar de manera segura con tu repositorio de GitHub si
 
 ### Generar una Clave SSH
 1. **Generar una nueva clave SSH**:
-   ```bash
+   <SyntaxHighlighter language="bash" style="dracula">
+   {`
    ssh-keygen -t ed25519 -C "tu.correo@ejemplo.com"
-   ```
+   `}
+   </SyntaxHighlighter>
 
    Cuando te lo soliciten, presiona Enter para aceptar la ubicación predeterminada. Opcionalmente, puedes establecer una frase de contraseña para mayor seguridad.
 
 2. **Inicia el agente SSH**:
-   ```bash
+   <SyntaxHighlighter language="bash" style="dracula">
+   {`
    eval "$(ssh-agent -s)"
-   ```
+   `}
+   </SyntaxHighlighter>
 
 3. **Añade tu clave SSH al agente**:
-   ```bash
+   <SyntaxHighlighter language="bash" style="dracula">
+   {`
    ssh-add ~/.ssh/id_ed25519
-   ```
+   `}
+   </SyntaxHighlighter>
 
 4. **Copia tu clave SSH al portapapeles**:
-   ```bash
+   <SyntaxHighlighter language="bash" style="dracula">
+   {`
    cat ~/.ssh/id_ed25519.pub
-   ```
+   `}
+   </SyntaxHighlighter>
 
    Copia la salida completa.
 
