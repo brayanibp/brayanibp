@@ -3,6 +3,7 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 import Image from "next/image";
 import { Metadata, ResolvingMetadata } from "next";
 import CodeBlock from "@/components/CodeBlock";
+import Diagram from "@/components/Diagram";
 
 type Props = {
   params: {
@@ -56,7 +57,7 @@ const Posts = async ({ params }: { params: { post: string } }) => {
         ))}
       </ul>
       <br />
-      <MDXRemote source={content} components={{ SyntaxHighlighter: CodeBlock }} />
+      <MDXRemote source={content} components={{ SyntaxHighlighter: CodeBlock, Diagram }} />
     </section>
   );
 }
