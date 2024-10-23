@@ -1,0 +1,56 @@
+.job-card a {
+  /* background: red; */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1em;
+  text-decoration: none;
+  color: #000;
+  margin: 1em 0 2em 0;
+}
+
+.timeline {
+  font-weight: bold;
+  color: #585858;
+  padding: 0.3em;
+  border-bottom: 2px solid #585858aa;
+  min-width: 250px;
+}
+
+.container {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.achievements, .techs-list {
+  list-style: none;
+}
+
+.achievements {
+  display: flex;
+  flex-direction: column;
+  font-weight: 500;
+  gap: 0.5em;
+}
+
+.achievements li::before {
+  content: "•";
+  font-size: 1.3em;
+  color: #222;
+  border-radius: 50%;
+  padding-inline: 0.1em;
+  margin-inline-end: 0.1em;
+}
+
+.techs-list {
+  display: flex;
+  justify-content: flex-start;
+  gap: 0.5em;
+  flex-wrap: wrap;
+}
+
+.techs-list .tech {
+  text-decoration: underline;
+  padding: 0.3em;
+}

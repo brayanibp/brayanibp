@@ -1,0 +1,42 @@
+.post {
+  padding-top: 8em;
+}
+
+.tags {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: .3em;
+}
+
+.post li {
+  margin-left: 1.1em;
+}
+
+.post pre {
+  border-radius: .3em;
+}
+
+.tags li {
+  margin: 0;
+  text-transform: capitalize;
+  background: #eee;
+  padding: .3em;
+  font-weight: 600;
+}
+
+.tags li::before {
+  content: "#";
+}
+
+.image {
+  width: 100%;
+}
+
+@media screen and (max-width: 425px) {
+  .post {
+    padding: 2em;
+    padding-top: 6em;
+  }
+}

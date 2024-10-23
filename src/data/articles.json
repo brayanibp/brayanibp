@@ -1,0 +1,10 @@
+{
+  "metadata": {
+    "title": "Build A Blog With Astro",
+    "date": "2024-05-25",
+    "description": "Learn how to build a blog with Astro",
+    "thumbnailUrl": "/image/image.png",
+    "tags": ["blog", "astro", "frameworks"]
+  },
+  "content": "Texto de orueba"
+}

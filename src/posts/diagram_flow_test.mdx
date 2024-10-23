@@ -1,0 +1,45 @@
+--- 
+title: Diagram Flow Test
+date: "Oct 23, 2024"
+description: A Diagram Flow Showcase in my Blog.
+thumbnailUrl: "https://drive.google.com/uc?export=view&id=1XJmjXZyBG9oaU1e2iyYWnduVzcPm9rGA"
+tags: ["diagram", "example", "test", "productivity"]
+---
+
+<SyntaxHighlighter language="mermaid">
+  {`
+  flowchart TD
+    API[Request start]
+    API-->REQUEST{Request type}
+    REQUEST-->|CRUD Entitys| ENTITY[Entity management]
+    ENTITY-->ENTITY_REQUEST{CRUD Operation}
+    ENTITY_REQUEST-->|Create| CREATE_ENTITY[Create Entity]
+    ENTITY_REQUEST-->|Read| GET_ENTITY[Read Entity]
+    ENTITY_REQUEST-->|Update| UPDATE_ENTITY[Update Entity]
+    ENTITY_REQUEST-->|Eliminar| DELETE_ENTITY[Eliminar Entity]
+    CREATE_ENTITY-->SUCCES_OPERATION[Successful operation]
+    GET_ENTITY-->SUCCES_OPERATION
+    UPDATE_ENTITY-->SUCCES_OPERATION
+    DELETE_ENTITY-->SUCCES_OPERATION
+    SUCCES_OPERATION
+  `}
+</SyntaxHighlighter>
+
+<Diagram>
+  {`
+  flowchart TD
+    API[Request start]
+    API-->REQUEST{Request type}
+    REQUEST-->|CRUD| ENTITY[Entity management]
+    ENTITY-->ENTITY_REQUEST{CRUD Operation}
+    ENTITY_REQUEST-->|Crear| CREATE_ENTITY[Create Entity]
+    ENTITY_REQUEST-->|Read| GET_ENTITY[Read Entity]
+    ENTITY_REQUEST-->|Update| UPDATE_ENTITY[Update Entity]
+    ENTITY_REQUEST-->|Eliminar| DELETE_ENTITY[Eliminar Entity]
+    CREATE_ENTITY-->SUCCES_OPERATION[Successful operation]
+    GET_ENTITY-->SUCCES_OPERATION
+    UPDATE_ENTITY-->SUCCES_OPERATION
+    DELETE_ENTITY-->SUCCES_OPERATION
+    SUCCES_OPERATION
+  `}
+</Diagram>

@@ -1,0 +1,28 @@
+import Job from "@/models/job_model";
+import style from "./job-card.module.css";
+
+export default function JobCard(jobProps: Job): React.JSX.Element {
+  const achievementsList: React.JSX.Element[] = jobProps.achievements.map((achievement, index)=>{
+    return <li key={index+achievement}>{achievement}</li>;
+  });
+  const techsList: React.JSX.Element[] = jobProps.techs.map((tech, index)=>{
+    return <li className={style["tech"]} key={index+tech}>{tech}</li>;
+  });
+  return <>
+    <li key={jobProps.title} className={style["job-card"]}>
+      <a href={jobProps.url} target="_blank" rel="noopener noreferrer">
+        <span className={style["timeline"]}>{jobProps.timeline}</span>
+        <div className={style["container"]}>
+          <h3 className="title">{jobProps.title}</h3>
+          <h4 className="company">{jobProps.company}</h4>
+          <ul className={style["achievements"]}>
+            {achievementsList}
+          </ul>
+          <ul className={style["techs-list"]}>
+            {techsList}
+          </ul>      
+        </div>
+      </a>
+    </li>
+  </>;
+}

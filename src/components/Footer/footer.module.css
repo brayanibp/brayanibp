@@ -1,0 +1,20 @@
+.footer {
+  width: 100vw;
+  height: 7em;
+  padding: 1em 25vw;
+  background: #ffffff99;
+  backdrop-filter: blur(3px);
+  display: flex;
+  align-items: flex-start;
+}
+
+.footer ul {
+  margin: auto 1em;
+  list-style: none;
+}
+
+.footer ul li a {
+  text-decoration: none;
+  color: #000;
+  font-weight: 500;
+}

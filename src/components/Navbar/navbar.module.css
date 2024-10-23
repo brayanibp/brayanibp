@@ -1,0 +1,88 @@
+.nav {
+  z-index: 1;
+  width: 100vw;
+  height: 7em;
+  padding: 1em 25vw;
+  background: #ffffff99;
+  backdrop-filter: blur(3px);
+  display: flex;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.brand {
+  width: fit-content;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  overflow: hidden;
+  color: #000000;
+  position: fixed;
+  top: 0.5em;
+  left: calc(25vw - 136px);
+}
+
+.icon {
+  width: 106px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  overflow: hidden;
+}
+
+.icon img {
+  color: #000;
+  fill: #000;
+}
+
+.name {
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 0.9em;
+}
+
+.slogan {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 0.25em;
+  font-weight: 500;
+  margin: 5px 0;
+}
+
+.nav-ul {
+  display: flex;
+  gap: 3em;
+  width: fit-content;
+  list-style: none;
+  margin: 0 0.5em;
+}
+
+.nav-ul .option {
+  color: #444;
+  text-decoration: none;
+  font-size: 1.2em;
+}
+
+.nav-ul .active {
+  font-weight: bold;
+}
+
+@media screen and (max-width: 425px) {
+  .nav {
+    height: 4.5em;
+  }
+
+  .brand {
+    top: .7em;
+    left: 0em;
+  }
+
+  .name, .slogan {
+    display: none;
+  }
+}

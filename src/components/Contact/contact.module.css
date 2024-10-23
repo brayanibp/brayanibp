@@ -1,0 +1,29 @@
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: flex-start;
+  gap: 1.5em;
+}
+
+.contact-form input, .contact-form textarea {
+  height: 3em;
+  padding: 10px 20px;
+  border-radius: 10px;
+  width: 25vw;
+  border: 1px solid #55555588;
+  font-family: Ubuntu;
+}
+
+.contact-form button {
+  background: cornflowerblue;
+  border: none;
+  color: white;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 10vw;
+  height: 3em;
+  border-radius: 10px;
+}
