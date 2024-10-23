@@ -16,18 +16,6 @@
       ]
     },
     {
-      "name": "brayanibp",
-      "description": "Current portfoleo",
-      "image_url": "https://drive.google.com/uc?export=view&id=1SSqbZKrCzz3K098YAqdtw_65Xh9wX0rQ",
-      "link_url": "https://brayanibp.dev",
-      "techs": [
-        "Next.js",
-        "TypeScript",
-        "SCSS",
-        "JSON"
-      ]
-    },
-    {
       "name": "ejam-frontend-assestment",
       "description": "This is a pixel perfect test",
       "image_url": "https://drive.google.com/uc?export=view&id=1RRtEqKLJiNcvs0ApcGUunf9apce3dV9G",
