@@ -32,8 +32,16 @@ const Blog = () => {
           {posts.map((post: any) => (
             <li key={post.slug}>
               <Link className={styles.preview} href={`/blog/${post.slug}`}>
-                <Image src={post.previewData.thumbnailUrl} width={0} height={0} alt="Next js Image" sizes="100%" style={{ width: '40%', height: 'auto' }}/>
-                <div>
+                <div className={styles["img-container"]}>
+                  <Image 
+                    src={post.previewData.thumbnailUrl} 
+                    alt="Next js Image"
+                    fill
+                    style={{ objectFit: "cover" }} 
+                    sizes="100%"
+                  />
+                </div>
+                <div className={styles.content}>
                   <h3>{post.previewData.title}</h3>
                   <br />
                   <p>{post.previewData.description}</p>
