@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     title: "BrayanIBP",
     description: "I am a Full-Stack Developer with +5 years of experience with Node.js, React.js | Angular, Redux, RxJS, MySQL, GCP and Firebase. I have worked in health insurance companies, software development companies and emerging startups, but also have a B2 English level.",
     type: "website",
-    url: "brayanibp.dev",
+    url: "https://brayanibp.dev",
     siteName: "BrayanIBP",
     locale: "en_US",
     images: [
