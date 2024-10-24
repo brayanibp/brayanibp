@@ -12,7 +12,7 @@
   border-radius: 10px;
   width: 25vw;
   border: 1px solid #55555588;
-  font-family: Ubuntu;
+  font-family: Ubuntu, sans-serif;
 }
 
 .contact-form button {
