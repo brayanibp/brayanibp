@@ -15,6 +15,14 @@
   font-family: Ubuntu, sans-serif;
 }
 
+.contact-form textarea {
+  height: auto;
+  min-height: 3em;
+  max-height: 8em;
+  resize: vertical;
+  field-sizing: content;
+}
+
 .contact-form button {
   background: cornflowerblue;
   border: none;
