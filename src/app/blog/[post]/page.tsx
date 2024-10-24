@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Metadata, ResolvingMetadata } from "next";
 import CodeBlock from "@/components/CodeBlock";
 import Diagram from "@/components/Diagram";
+import PrintButton from "@/components/PrintButton";
 
 type Props = {
   params: {
@@ -15,7 +16,7 @@ export async function generateMetadata({ params }: Props, parent: ResolvingMetad
   const { post } = params;
   const { frontmatter } = await fetchPost(post);
   const previousData = await parent;
-  const previousImages = previousData?.openGraph?.images || [];
+  // const previousImages = previousData?.openGraph?.images || [];
   const previousKeywords = previousData?.keywords || [];
   return {
     title: frontmatter.title,
@@ -48,16 +49,18 @@ const Posts = async ({ params }: { params: { post: string } }) => {
 
   return (
     <section className={styles.post}>
-      <h1>{frontmatter.title}</h1>
-      <Image src={frontmatter.thumbnailUrl} alt={frontmatter.thumbnailUrl} width={0} height={0} sizes="100%" style={{ width: '100%', height: 'auto' }} />
-      <p>{frontmatter.description}</p>
-      <ul className={styles.tags}>
+      <h1 className="no-print">{frontmatter.title}</h1>
+      <Image className="no-print" src={frontmatter.thumbnailUrl} alt={frontmatter.thumbnailUrl} width={0} height={0} sizes="100%" style={{ width: '100%', height: 'auto' }} />
+      <p className="no-print">{frontmatter.description}</p>
+      <ul className={`${styles.tags} no-print`}>
         {frontmatter.tags.map((tag: string) => (
           <li key={tag}>{tag}</li>
         ))}
       </ul>
       <br />
       <MDXRemote source={content} components={{ SyntaxHighlighter: CodeBlock, Diagram }} />
+      <br />
+      <PrintButton />
     </section>
   );
 }

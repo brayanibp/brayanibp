@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     locale: "en_US",
     images: [
       {
-        url: `${ process.env.NEXT_PUBLIC_SITE_PREVIEW_URL || 'https://drive.google.com/uc?export=view&id=1SSqbZKrCzz3K098YAqdtw_65Xh9wX0rQ'}`,
+        url: `${ process.env.NEXT_PUBLIC_SITE_PREVIEW_URL || 'https://drive.google.com/uc?export=view&id=1vjScY6Rp0p7w8sZf0q-ZEBXu2B_mI58L'}`,
         width: 800,
         height: 600,
         alt: "BrayanIBP"
@@ -38,33 +38,33 @@ export const metadata: Metadata = {
     ],
   },
   icons: {
-    icon: "favicon.ico",
-    shortcut: "favicon.ico",
-    apple: "apple-touch-icon.png",
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
     other: [
       {
         rel: "icon",
         type: "image/png",
         sizes: "512x512",
-        url: "android-chrome-512x512.png"
+        url: "/android-chrome-512x512.png"
       },
       {
         rel: "icon",
         type: "image/png",
         sizes: "192x192",
-        url: "android-chrome-192x192.png"
+        url: "/android-chrome-192x192.png"
       },
       {
         rel: "icon",
         type: "image/png",
         sizes: "32x32",
-        url: "android-chrome-32x32.png"
+        url: "/android-chrome-32x32.png"
       },
       {
         rel: "icon",
         type: "image/png",
         sizes: "16x16",
-        url: "android-chrome-16x16.png"
+        url: "/android-chrome-16x16.png"
       },
     ],
   },

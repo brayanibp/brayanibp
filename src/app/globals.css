@@ -45,3 +45,27 @@ section {
     width: 100%;
   }
 }
+
+@media print {
+  body {
+    font-size: 12pt;
+    line-height: 1.6;
+  }
+
+  /* Hide non-printable elements */
+  .no-print, nav, footer {
+    display: none !important;
+  }
+
+  /* Adjust syntax highlighting */
+  pre {
+    border: none;
+    background-color: #f9f9f9;
+    color: black;
+  }
+
+  /* Ensure diagrams and other components fit */
+  .mermaid {
+    max-width: 100%;
+  }
+}

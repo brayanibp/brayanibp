@@ -1,0 +1,15 @@
+.print-button {
+  width: 150px;
+  height: max-content;
+  border: none;
+  border-radius: 5px;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  color: #fff;
+  font-weight: 500;
+  font-size: 0.9rem;
+  background-color: cornflowerblue;
+}
