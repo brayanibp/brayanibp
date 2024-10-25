@@ -72,6 +72,30 @@
   font-weight: bold;
 }
 
+@media (prefers-color-scheme: dark) {
+  .nav, .brand {
+    background-color: #10112088;
+    color: var(--dark-theme-font-color);
+  }
+
+  .brand img {
+    filter: invert(1);
+  }
+
+  .nav-ul .option {
+    color: var(--dark-theme-font-color);
+  }
+
+  .techs-list {
+    color: #8e98e2;
+  }
+
+  .timeline {
+    color: #bbb;
+    border-bottom: 2px solid #bbb;
+  }
+}
+
 @media screen and (max-width: 425px) {
   .nav {
     height: 4.5em;

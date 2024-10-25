@@ -24,9 +24,9 @@
 }
 
 .contact-form button {
-  background: cornflowerblue;
+  background: #6495ed;
   border: none;
-  color: white;
+  color: var(--light-theme-font-color);
   display: flex;
   flex-wrap: nowrap;
   align-items: center;
@@ -34,4 +34,21 @@
   width: 10vw;
   height: 3em;
   border-radius: 10px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .contact-form {
+    background-color: #101120;
+    color: var(--dark-theme-font-color);
+  }
+
+  .contact-form input, .contact-form textarea {
+    background-color: #2d2f48;
+    color: var(--dark-theme-font-color);
+  }
+
+  .contact-form button {
+    background: rgb(72, 108, 174);
+    color: var(--dark-theme-font-color);
+  }
 }

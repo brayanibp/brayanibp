@@ -54,3 +54,23 @@
   text-decoration: underline;
   padding: 0.3em;
 }
+
+@media (prefers-color-scheme: dark) {
+  .job-card, .container, .achievements {
+    background-color: #101120;
+    color: var(--dark-theme-font-color);
+  }
+
+  .achievements li::before {
+    color: #cdcdcd;
+  }
+
+  .techs-list {
+    color: #8e98e2;
+  }
+
+  .timeline {
+    color: #bbb;
+    border-bottom: 2px solid #bbb;
+  }
+}

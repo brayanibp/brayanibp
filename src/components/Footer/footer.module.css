@@ -18,3 +18,10 @@
   color: #000;
   font-weight: 500;
 }
+
+@media (prefers-color-scheme: dark) {
+  .footer {
+    background-color: #101120;
+    color: var(--dark-theme-font-color);
+  }
+}
