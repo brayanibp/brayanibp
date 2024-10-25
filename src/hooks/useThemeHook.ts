@@ -2,10 +2,10 @@ import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
 export default function useTheme(): [string|null, Dispatch<SetStateAction<string|null>>]
 {
-  const [theme, setTheme] = useState(localStorage.getItem('theme'));
+  const [theme, setTheme] = useState<string|null>(null);
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem('theme');
+    const savedTheme = window.localStorage.getItem('theme');
     if (savedTheme) {
       setTheme(savedTheme);
       return;
@@ -24,7 +24,7 @@ export default function useTheme(): [string|null, Dispatch<SetStateAction<string
     }
     document.body.classList.remove('light', 'dark');
     document.body.classList.add(theme);
-    localStorage.setItem('theme', theme);
+    window.localStorage.setItem('theme', theme);
   }, [theme]);
 
   return [theme, setTheme];
