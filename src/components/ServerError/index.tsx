@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 
-const ServerError: React.FC = () => {
+export default function ServerError() {
   return (
     <div style={styles.container}>
       <h1 style={styles.errorCode}>500</h1>
@@ -51,5 +51,3 @@ const styles = {
     fontSize: '0.9rem',
   }
 };
-
-export default ServerError;

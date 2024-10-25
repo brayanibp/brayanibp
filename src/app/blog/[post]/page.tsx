@@ -5,6 +5,7 @@ import { Metadata, ResolvingMetadata } from "next";
 import CodeBlock from "@/components/CodeBlock";
 import Diagram from "@/components/Diagram";
 import PrintButton from "@/components/PrintButton";
+import NotFound from "@/components/NotFound";
 
 type Props = {
   params: {
@@ -69,7 +70,7 @@ const Posts = async ({ params }: { params: { post: string } }) => {
   const { frontmatter, content } = await fetchPost(post);
 
   if (!frontmatter || !content) {
-    return <div>Post not found</div>;
+    return <NotFound />;
   }
 
   return (
