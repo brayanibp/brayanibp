@@ -76,6 +76,22 @@
   text-decoration: underline;
 }
 
+@media (prefers-color-scheme: dark) {
+  .blog, .preview, .achievements {
+    background-color: #101120;
+    color: var(--dark-theme-font-color);
+  }
+
+  .date {
+    color: #cbcbcb;
+  }
+
+  .preview ul li {
+    color: #8e98e2;
+    background-color: #2d2f4888;
+  }
+}
+
 @media screen and (max-width: 425px) {
   .blog {
     padding: 2em;

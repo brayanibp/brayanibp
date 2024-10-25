@@ -1,3 +1,8 @@
+:root {
+  --dark-theme-font-color: #DDD;
+  --light-theme-font-color: #111;
+}
+
 @import url('https://fonts.googleapis.com/css?family=Ubuntu&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Source Sans Pro&display=swap');
 
@@ -68,6 +73,13 @@ section {
 
 .table-of-contents a:hover {
   color: #0056b3; /* Efecto hover */
+}
+
+@media (prefers-color-scheme: dark) {
+  body, section {
+    background-color: #101120;
+    color: var(--dark-theme-font-color);
+  }
 }
 
 @media screen and (max-width: 425px) {
