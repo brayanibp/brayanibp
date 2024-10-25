@@ -31,6 +31,45 @@ section {
   width: 50vw;
 }
 
+.table-of-contents {
+  padding: 20px 0;
+  border-radius: 8px;
+}
+
+.table-of-contents h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.table-of-contents ol {
+  list-style-type: none; /* Eliminar los números predeterminados */
+  padding-left: 0;
+  margin-left: 0;
+}
+
+.table-of-contents li {
+  counter-increment: list; /* Usar contador personalizado */
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+.table-of-contents li::before {
+  content: counter(list) ". "; /* Añadir los números personalizados */
+  font-weight: bold;
+  color: #1a73e8;
+}
+
+.table-of-contents a {
+  text-decoration: none;
+  color: #1a73e8;
+  transition: color 0.3s ease;
+}
+
+.table-of-contents a:hover {
+  color: #0056b3; /* Efecto hover */
+}
+
 @media screen and (max-width: 425px) {
   main {
     padding: 1em;
