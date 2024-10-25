@@ -10,6 +10,7 @@ export default function Component() {
   }, [theme]);
 
   const toggleTheme = () => {
+    alert("comming soon");
     setTheme(prevTheme => prevTheme === "light" ? "dark" : "light");
   }
 
