@@ -1,6 +1,7 @@
 import Link from "next/link";
 import style from "./navbar.module.css";
 import Image from "next/image";
+import ThemeSwitcher from "@/components/ThemeSwitcher";
 
 const Navbar = () => {
   return (
@@ -21,6 +22,7 @@ const Navbar = () => {
             <Link href="/blog" className={style.option}>Blog</Link>
           </li>
         </ul>
+        <ThemeSwitcher />
       </nav>
     </>
   );

@@ -1,6 +1,8 @@
 :root {
   --dark-theme-font-color: #DDD;
+  --dark-theme-background: #10112088;
   --light-theme-font-color: #111;
+  --light-theme-background: #fff;
 }
 
 @import url('https://fonts.googleapis.com/css?family=Ubuntu&display=swap');

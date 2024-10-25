@@ -13,3 +13,10 @@
   font-size: 0.9rem;
   background-color: cornflowerblue;
 }
+
+@media (prefers-color-scheme: dark) {
+  .print-button {
+    background: rgb(72, 108, 174);
+    color: var(--dark-theme-font-color);
+  }
+}
