@@ -29,6 +29,10 @@
     color: var(--dark-theme-font-color);
     box-shadow: #1b1d37be 0px 0px 10px;
   }
+
+  .social ul li img {
+    filter: invert(1);
+  }
 }
 
 @media screen and (max-width: 425px) {
