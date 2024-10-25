@@ -1,28 +1,65 @@
-.theme-switcher {
-  background-color: var(--dark-theme-background);
-  color: var(--dark-theme-font-color);
-  border: 2px solid var(--dark-theme-background);
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  font-size: 20px;
+.switch {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  width: 44px;
+  height: 24px;
+  border-radius: 12px;
+  transition: background-color 0.3s;
   cursor: pointer;
-  transition: all 0.3s ease;
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+.light {
+  background-color: #e2e8f0;
+}
+
+.dark {
+  background-color: #4a5568;
+}
+
+.thumb {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: white;
+  transition: transform 0.3s;
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1;
-  margin: 0 0 0 100px;
 }
 
-.theme-switcher:hover {
-  transform: scale(1.1);
+.thumbLight {
+  transform: translateX(2px);
+}
+
+.thumbDark {
+  transform: translateX(22px);
+}
+
+.icon {
+  width: 14px;
+  height: 14px;
+  color: #4a5568;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
 }
 
 @media screen and (max-width: 425px) {
-  .theme-switcher {
-    width: 30px;
-    height: 30px;
+  .switch {
     margin: 0 0 0 40px;
   }
 }

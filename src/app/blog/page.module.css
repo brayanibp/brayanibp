@@ -1,5 +1,7 @@
 .blog {
   padding-top: 8em;
+  background-color: var(--background-color);
+  color: var(--text-color);
 }
 
 .blog ul {
@@ -53,7 +55,8 @@
 .preview ul li {
   font-size: .9em;
   text-transform: capitalize;
-  background: #eee;
+  background: var(--tags-background);
+  color: var(--tags-color);
   padding: .3em;
   font-weight: 600;
   margin: 0;
@@ -67,29 +70,13 @@
   margin: 0.2em 0;
   font-size: 0.7em;
   font-weight: 700;
-  color: #555;
+  color: var(--dates-color);
 }
 
 .preview span {
   font-size: .95em;
   font-weight: 500;
   text-decoration: underline;
-}
-
-@media (prefers-color-scheme: dark) {
-  .blog, .preview, .achievements {
-    background-color: #101120;
-    color: var(--dark-theme-font-color);
-  }
-
-  .date {
-    color: #cbcbcb;
-  }
-
-  .preview ul li {
-    color: #8e98e2;
-    background-color: #2d2f4888;
-  }
 }
 
 @media screen and (max-width: 425px) {
