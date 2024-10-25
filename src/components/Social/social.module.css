@@ -1,10 +1,10 @@
 .social {
   height: fit-content;
   width: fit-content;
-  background: #eeeeee44;
-  /* background: cornflowerblue; */
+  background: var(--social-background);
   backdrop-filter: blur(2px);
-  box-shadow: #55555566 0px 0px 10px;
+  box-shadow: var(--social-boxshadow) 0px 0px 10px;
+  color: var(--text-color);
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -20,6 +20,10 @@
   flex-direction: column;
   gap: 1em;
   padding: 10px;
+}
+
+.social ul li img {
+  filter: invert(var(--icons-invert));
 }
 
 @media (prefers-color-scheme: dark) {

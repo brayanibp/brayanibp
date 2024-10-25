@@ -3,7 +3,8 @@
   width: 100vw;
   height: 7em;
   padding: 1em 25vw;
-  background: #ffffff99;
+  background: var(--opacity-background);
+  color: var(--text-color);
   backdrop-filter: blur(3px);
   display: flex;
   align-items: center;
@@ -21,7 +22,7 @@
   align-items: center;
   text-align: center;
   overflow: hidden;
-  color: #000000;
+  color: var(--text-color);
   position: fixed;
   top: 0.5em;
   left: calc(25vw - 136px);
@@ -38,8 +39,8 @@
 }
 
 .icon img {
-  color: #000;
-  fill: #000;
+  color: var(--icons-color);
+  fill: var(--icons-color);
 }
 
 .name {
@@ -63,7 +64,7 @@
 }
 
 .nav-ul .option {
-  color: #444;
+  color: var(--nav-options-color);
   text-decoration: none;
   font-size: 1.2em;
 }
@@ -84,15 +85,6 @@
 
   .nav-ul .option {
     color: var(--dark-theme-font-color);
-  }
-
-  .techs-list {
-    color: #8e98e2;
-  }
-
-  .timeline {
-    color: #bbb;
-    border-bottom: 2px solid #bbb;
   }
 }
 

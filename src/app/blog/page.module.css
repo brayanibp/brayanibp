@@ -1,5 +1,7 @@
 .blog {
   padding-top: 8em;
+  background-color: var(--background-color);
+  color: var(--text-color);
 }
 
 .blog ul {
@@ -53,7 +55,8 @@
 .preview ul li {
   font-size: .9em;
   text-transform: capitalize;
-  background: #eee;
+  background: var(--tags-background);
+  color: var(--tags-color);
   padding: .3em;
   font-weight: 600;
   margin: 0;
@@ -67,7 +70,7 @@
   margin: 0.2em 0;
   font-size: 0.7em;
   font-weight: 700;
-  color: #555;
+  color: var(--dates-color);
 }
 
 .preview span {
@@ -77,7 +80,7 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  .blog, .preview, .achievements {
+  .blog, .preview {
     background-color: #101120;
     color: var(--dark-theme-font-color);
   }

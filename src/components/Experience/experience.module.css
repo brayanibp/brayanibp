@@ -1,5 +1,7 @@
 .jobs-list {
   list-style: none;
+  background-color: var(--background-color);
+  color: var(--text-color);
 }
 
 @media (prefers-color-scheme: dark) {

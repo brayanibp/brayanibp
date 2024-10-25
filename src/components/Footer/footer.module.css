@@ -2,7 +2,8 @@
   width: 100vw;
   height: 7em;
   padding: 1em 25vw;
-  background: #ffffff99;
+  background: var(--background-color);
+  color: var(--text-color);
   backdrop-filter: blur(3px);
   display: flex;
   align-items: flex-start;
@@ -15,7 +16,7 @@
 
 .footer ul li a {
   text-decoration: none;
-  color: #000;
+  color: var(--text-color);
   font-weight: 500;
 }
 

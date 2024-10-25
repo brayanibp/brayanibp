@@ -4,6 +4,8 @@
   justify-content: space-evenly;
   align-items: flex-start;
   gap: 1.5em;
+  background: var(--background-color);
+  color: var(--text-color);
 }
 
 .contact-form input, .contact-form textarea {
@@ -11,8 +13,10 @@
   padding: 10px 20px;
   border-radius: 10px;
   width: 25vw;
-  border: 1px solid #55555588;
+  border: 1px solid var(--fields-border);
   font-family: Ubuntu, sans-serif;
+  background-color: var(--fields-background);
+  color: var(--fields-color);
 }
 
 .contact-form textarea {
@@ -24,9 +28,9 @@
 }
 
 .contact-form button {
-  background: #6495ed;
+  background: var(--button-background);
   border: none;
-  color: var(--light-theme-font-color);
+  color: var(--button-color);
   display: flex;
   flex-wrap: nowrap;
   align-items: center;
@@ -48,7 +52,7 @@
   }
 
   .contact-form button {
-    background: rgb(72, 108, 174);
+    background: #486cae;
     color: var(--dark-theme-font-color);
   }
 }

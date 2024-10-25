@@ -1,5 +1,7 @@
 .post {
   padding-top: 8em;
+  background-color: var(--background-color);
+  color: var(--text-color);
 }
 
 .tags {
@@ -21,7 +23,8 @@
 .tags li {
   margin: 0;
   text-transform: capitalize;
-  background: #eee;
+  color: var(--tags-color);
+  background-color: var(--tags-background);
   padding: .3em;
   font-weight: 600;
 }
