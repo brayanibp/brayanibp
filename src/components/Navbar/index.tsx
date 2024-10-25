@@ -22,7 +22,9 @@ const Navbar = () => {
             <Link href="/blog" className={style.option}>Blog</Link>
           </li>
         </ul>
-        <ThemeSwitcher />
+        <div className={style.actions}>
+          <ThemeSwitcher />
+        </div>
       </nav>
     </>
   );

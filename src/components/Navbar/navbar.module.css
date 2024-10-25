@@ -41,6 +41,7 @@
 .icon img {
   color: var(--icons-color);
   fill: var(--icons-color);
+  filter: invert(var(--icons-invert));
 }
 
 .name {
@@ -73,6 +74,16 @@
   font-weight: bold;
 }
 
+.actions {
+  position: fixed;
+  align-self: center;
+  right: 5em;
+  width: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 @media screen and (max-width: 425px) {
   .nav {
     height: 4.5em;
@@ -85,5 +96,15 @@
 
   .name, .slogan {
     display: none;
+  }
+
+  .actions {
+    position: fixed;
+    align-self: center;
+    right: 1em;
+    width: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }

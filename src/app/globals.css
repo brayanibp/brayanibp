@@ -83,7 +83,7 @@ footer,
 section {
   padding: 1em;
   padding-top: 4em;
-  background: var(--background-color);
+  background: none;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -133,23 +133,23 @@ section {
 
 body.dark, section.dark {
   /* update styles variables */
-  --opacity-background: var(--light-theme-transparent-background);
-  --background-color: var(--light-theme-background);
-  --text-color: var(--light-theme-font-color);
-  --dates-color: var(--light-theme-dates-color);
-  --tags-background: var(--light-theme-tags-background);
-  --tags-color: var(--light-theme-tags-color);
-  --fields-border: var(--light-theme-fields-border);
-  --fields-background: var(--light-theme-fields-background);
-  --fields-color: var(--light-theme-fields-color);
-  --button-background: var(--light-theme-button-background);
-  --button-color: var(--light-theme-button-color);
-  --bullet-points-color: var(--light-theme-bullet-points-color);
-  --icons-color: var(--light-theme-icons-color);
-  --icons-invert: var(--light-theme-icons-invert-filter);
-  --nav-options-color: var(--light-theme-nav-options-color);
-  --social-background: var(--light-theme-social-background);
-  --social-boxshadow: var(--light-theme-social-boxshadow);
+  --opacity-background: var(--dark-theme-transparent-background);
+  --background-color: var(--dark-theme-background);
+  --text-color: var(--dark-theme-font-color);
+  --dates-color: var(--dark-theme-dates-color);
+  --tags-background: var(--dark-theme-tags-background);
+  --tags-color: var(--dark-theme-tags-color);
+  --fields-border: var(--dark-theme-fields-border);
+  --fields-background: var(--dark-theme-fields-background);
+  --fields-color: var(--dark-theme-fields-color);
+  --button-background: var(--dark-theme-button-background);
+  --button-color: var(--dark-theme-button-color);
+  --bullet-points-color: var(--dark-theme-bullet-points-color);
+  --icons-color: var(--dark-theme-icons-color);
+  --icons-invert: var(--dark-theme-icons-invert-filter);
+  --nav-options-color: var(--dark-theme-nav-options-color);
+  --social-background: var(--dark-theme-social-background);
+  --social-boxshadow: var(--dark-theme-social-boxshadow);
 
   /* assing values */
   background-color: var(--background-color);
