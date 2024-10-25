@@ -7,6 +7,8 @@ export default function PrintButton() {
     window.print();
   };
   return (
-    <button className={style['print-button']} onClick={handlePrint}>Print <Image src="/assets/icons/printer.png" alt="Printer Icon" width={32} height={32} /></button>
+    <button id="printer" className={style['print-button']} onClick={handlePrint}>
+      <Image src="/assets/icons/printer.png" alt="Printer" width={16} height={16} title="Print"/>
+    </button>
   );
 }

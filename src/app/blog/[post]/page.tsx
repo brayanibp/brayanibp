@@ -49,6 +49,7 @@ const Posts = async ({ params }: { params: { post: string } }) => {
 
   return (
     <section className={styles.post}>
+      <PrintButton />
       <h1 className="no-print">{frontmatter.title}</h1>
       <Image className="no-print" src={frontmatter.thumbnailUrl} alt={frontmatter.thumbnailUrl} width={0} height={0} sizes="100%" style={{ width: '100%', height: 'auto' }} />
       <p className="no-print">{frontmatter.description}</p>
@@ -60,7 +61,6 @@ const Posts = async ({ params }: { params: { post: string } }) => {
       <br />
       <MDXRemote source={content} components={{ SyntaxHighlighter: CodeBlock, Diagram }} />
       <br />
-      <PrintButton />
     </section>
   );
 }

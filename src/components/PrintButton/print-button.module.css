@@ -1,5 +1,6 @@
 .print-button {
-  width: 150px;
+  align-self: flex-end;
+  width: 60px;
   height: max-content;
   border: none;
   border-radius: 5px;

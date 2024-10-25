@@ -44,3 +44,23 @@
     padding-top: 6em;
   }
 }
+
+@media print {
+  .post {
+    margin: 0;
+    padding: 0 !important;
+    width: 100%;
+  }
+
+  .post button {
+    display: none;
+  }
+
+  #printer {
+    display: none;
+  }
+
+  .no-print {
+    display: none;
+  }
+}
