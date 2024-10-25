@@ -15,6 +15,20 @@ type Props = {
 export async function generateMetadata({ params }: Props, parent: ResolvingMetadata): Promise<Metadata> {
   const { post } = params;
   const { frontmatter } = await fetchPost(post);
+  
+  if (!frontmatter) {
+    return {
+      title: "Post not found",
+      description: "Not found",
+      openGraph: {
+        title: "Not found",
+        description: "Not found",
+        images: [frontmatter?.thumbnailUrl],
+      },
+      keywords: []
+    };
+  }
+  
   const previousData = await parent;
   // const previousImages = previousData?.openGraph?.images || [];
   const previousKeywords = previousData?.keywords || [];
@@ -34,6 +48,13 @@ const fetchPost = async (post: string) => {
   const fs = require("fs");
   const path = require("path");
   const matter = require("gray-matter");
+  // check if file exists
+  if (!fs.existsSync(path.join(process.cwd(), "src/posts", post + ".mdx"))) {
+    return {
+      content: null,
+      frontmatter: null
+    };
+  }
   const file = fs.readFileSync(path.join(process.cwd(), "src/posts", post + ".mdx"), "utf8");
   const { content, data } = matter(file);
   return {
@@ -46,6 +67,10 @@ const Posts = async ({ params }: { params: { post: string } }) => {
   const { post } = params;
 
   const { frontmatter, content } = await fetchPost(post);
+
+  if (!frontmatter || !content) {
+    return <div>Post not found</div>;
+  }
 
   return (
     <section className={styles.post}>
