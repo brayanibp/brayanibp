@@ -41,6 +41,7 @@
 .preview .content {
   width: 60%;
   height: auto;
+  color: var(--text-color);
 }
 
 .preview ul {
