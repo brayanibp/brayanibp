@@ -73,21 +73,6 @@
   font-weight: bold;
 }
 
-@media (prefers-color-scheme: dark) {
-  .nav, .brand {
-    background-color: #10112088;
-    color: var(--dark-theme-font-color);
-  }
-
-  .brand img {
-    filter: invert(1);
-  }
-
-  .nav-ul .option {
-    color: var(--dark-theme-font-color);
-  }
-}
-
 @media screen and (max-width: 425px) {
   .nav {
     height: 4.5em;

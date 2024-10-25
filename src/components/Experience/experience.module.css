@@ -3,10 +3,3 @@
   background-color: var(--background-color);
   color: var(--text-color);
 }
-
-@media (prefers-color-scheme: dark) {
-  .jobs-list {
-    background-color: #101120;
-    color: var(--dark-theme-font-color);
-  }
-}

@@ -38,14 +38,3 @@
   text-decoration: underline;
   padding: 0.3em;
 }
-
-@media (prefers-color-scheme: dark) {
-  .project-card, .project-link {
-    background-color: #101120;
-    color: var(--dark-theme-font-color);
-  }
-
-  .techs-list {
-    color: #8e98e2;
-  }
-}

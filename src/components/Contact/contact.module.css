@@ -39,20 +39,3 @@
   height: 3em;
   border-radius: 10px;
 }
-
-@media (prefers-color-scheme: dark) {
-  .contact-form {
-    background-color: #101120;
-    color: var(--dark-theme-font-color);
-  }
-
-  .contact-form input, .contact-form textarea {
-    background-color: #2d2f48;
-    color: var(--dark-theme-font-color);
-  }
-
-  .contact-form button {
-    background: #486cae;
-    color: var(--dark-theme-font-color);
-  }
-}

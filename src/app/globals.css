@@ -156,13 +156,6 @@ body.dark, section.dark {
   color: var(--text-color);
 }
 
-@media (prefers-color-scheme: dark) {
-  body, section {
-    background-color: var(--dark-theme-background);
-    color: var(--dark-theme-font-color);
-  }
-}
-
 @media screen and (max-width: 425px) {
   main {
     padding: 1em;
