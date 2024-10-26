@@ -39,3 +39,13 @@
   height: 3em;
   border-radius: 10px;
 }
+
+@media screen and (max-width: 425px) {
+  .contact-form input, .contact-form textarea {
+    width: 80vw;
+  }
+
+  .contact-form button {
+    width: 30vw;
+  }
+}
