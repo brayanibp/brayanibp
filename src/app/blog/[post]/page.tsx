@@ -6,6 +6,7 @@ import CodeBlock from "@/components/CodeBlock";
 import Diagram from "@/components/Diagram";
 import PrintButton from "@/components/PrintButton";
 import NotFound from "@/components/NotFound";
+import InlineHighlighter from "@/components/InlineHighlighter";
 
 type Props = {
   params: {
@@ -85,7 +86,7 @@ const Posts = async ({ params }: { params: { post: string } }) => {
         ))}
       </ul>
       <br />
-      <MDXRemote source={content} components={{ SyntaxHighlighter: CodeBlock, Diagram }} />
+      <MDXRemote source={content} components={{ SyntaxHighlighter: CodeBlock, Diagram, InlineHighlighter }} />
       <br />
     </section>
   );

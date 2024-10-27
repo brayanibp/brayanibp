@@ -6,15 +6,20 @@ thumbnailUrl: "https://drive.google.com/uc?export=view&id=1SRTBBNXXIw5rkhv4OGISD
 tags: ["frameworks", "nextjs", "typescript"]
 ---
 
-<div>
+<div className="no-print">
   This is a blog post about <strong>Next.js build</strong>. We'll learn how to build a blog with Next.js.
 </div>
 
 <br />
 
-## This is a Markdown sub-heading
+## Ok, so what is Next.js?
 
-We just used a `###` subheading in our blog post.
+Next.js is a powerful tool to develop dynamic web applications using javascript or typescript based in React.js library. It's mission is to make SPA and dynamic page applications easy and fast to develop but for sure functional.
+Some people could say is pretty similar to PHP with a just drop in a jsx file it would be a page in your site. 
+
+## But how does it work?
+
+Next.js within its mission has a built in router functionality to give us mind peace, with a modular approach using <InlineHighlighter>{`src/app`}</InlineHighlighter> folder structure where all files dropped in will work as a page in your web application.
 
 <SyntaxHighlighter language="javascript" style="dracula">
   {`
@@ -27,7 +32,9 @@ We just used a `###` subheading in our blog post.
 <div>
   - El primer paso es crear el proyecto Next.js. (Anexar comandos)
   <SyntaxHighlighter language="bash" style="dracula">
-    {`$ npx create-next-app blog`}
+    {`
+    npx create-next-app blog
+    `}
   </SyntaxHighlighter>
   - El segundo paso es eliminar los archivos que no utilizaremos.
   - El tercer paso es crear la página principal donde se listaran los articulos.
