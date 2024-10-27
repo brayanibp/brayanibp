@@ -8,10 +8,18 @@ export default function NotFound() {
       <div className={styles.container}>
         <h1 className={styles.errorCode}>404</h1>
         <p className={styles.message}>Oops! The page you&apos;re looking for doesn&apos;t exist.</p>
-        <Link className={styles.button} href={`/`}>
+        <Link 
+          className={styles.button} 
+          href={`/`}
+        >
           Go Back Home
         </Link>
-        <Link href={`/blog`} className={styles.link}>Visit my latest posts instead</Link>
+        <Link 
+          href={`/blog`} 
+          className={styles.link}
+        >
+          Visit my latest posts instead
+        </Link>
       </div>
     </>
   );

@@ -1,4 +1,3 @@
-"use client";
 import data from '@/data/projects.json';
 import ProjectCard from '../ProjectCard';
 import style from "./projects.module.css";

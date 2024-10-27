@@ -9,7 +9,7 @@ export default function JobCard(jobProps: Job): React.JSX.Element {
     return <li className={style["tech"]} key={index+tech}>{tech}</li>;
   });
   return <>
-    <li key={jobProps.title} className={style["job-card"]}>
+    <li key={jobProps.title+jobProps.company+jobProps.timeline} className={style["job-card"]}>
       <a href={jobProps.url} target="_blank" rel="noopener noreferrer">
         <span className={style["timeline"]}>{jobProps.timeline}</span>
         <div className={style["container"]}>
