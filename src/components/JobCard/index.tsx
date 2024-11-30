@@ -1,7 +1,8 @@
+import { memo } from 'react';
 import Job from "@/models/job_model";
 import style from "./job-card.module.css";
 
-export default function JobCard(jobProps: Job): React.JSX.Element {
+const JobCard = memo(function JobCard(jobProps: Job): React.JSX.Element {
   const achievementsList: React.JSX.Element[] = jobProps.achievements.map((achievement, index)=>{
     return <li key={index+achievement}>{achievement}</li>;
   });
@@ -25,4 +26,6 @@ export default function JobCard(jobProps: Job): React.JSX.Element {
       </a>
     </li>
   </>;
-}
+});
+
+export default JobCard;

@@ -41,8 +41,8 @@
 
   /* global variables */
   --opacity-background: var(--light-theme-transparent-background);
-  --background-color: var(--light-theme-background);
-  --text-color: var(--light-theme-font-color);
+  --background-color: var(--light-theme-background, #ffffff);
+  --text-color: var(--light-theme-font-color, #111111);
   --dates-color: var(--light-theme-dates-color);
   --tags-background: var(--light-theme-tags-background);
   --tags-color: var(--light-theme-tags-color);
@@ -193,4 +193,8 @@ body.dark, section.dark {
   .mermaid {
     max-width: 100%;
   }
+}
+
+.social ul li img {
+  filter: invert(var(--icons-invert, 0));
 }

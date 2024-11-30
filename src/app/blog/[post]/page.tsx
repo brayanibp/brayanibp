@@ -1,12 +1,12 @@
+import dynamic from "next/dynamic";
 import styles from "./page.module.css";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import Image from "next/image";
 import { Metadata, ResolvingMetadata } from "next";
-import CodeBlock from "@/components/CodeBlock";
-import Diagram from "@/components/Diagram";
 import PrintButton from "@/components/PrintButton";
 import NotFound from "@/components/NotFound";
-import InlineHighlighter from "@/components/InlineHighlighter";
+import remarkGfm from "remark-gfm";
+import { compileMDX } from "next-mdx-remote/rsc";
 
 type Props = {
   params: {
@@ -59,10 +59,37 @@ const fetchPost = async (post: string) => {
   }
   const file = fs.readFileSync(path.join(process.cwd(), "src/posts", post + ".mdx"), "utf8");
   const { content, data } = matter(file);
+  
+  const { content: mdxContent } = await compileMDX({
+    source: content,
+    components,
+    options: {
+      parseFrontmatter: true,
+      mdxOptions: { 
+        remarkPlugins: [remarkGfm],
+        format: "mdx",
+      },
+    },
+  });
   return {
-    content,
+    content: mdxContent,
     frontmatter: data
   };
+};
+
+const components = { 
+  SyntaxHighlighter: dynamic(() => import("@/components/CodeBlock"), { 
+    ssr: false,
+    loading: () => <i>Loading...</i>
+  }),
+  Diagram: dynamic(() => import("@/components/Diagram"), {
+    ssr: false,
+    loading: () => <i>Loading...</i>
+  }),
+  InlineHighlighter: dynamic(() => import("@/components/InlineHighlighter"), {
+    ssr: false,
+    loading: () => <i>Loading...</i>
+  }),
 };
 
 const Posts = async ({ params }: { params: { post: string } }) => {
@@ -86,7 +113,7 @@ const Posts = async ({ params }: { params: { post: string } }) => {
         ))}
       </ul>
       <br />
-      <MDXRemote source={content} components={{ SyntaxHighlighter: CodeBlock, Diagram, InlineHighlighter }} />
+      {content}
       <br />
     </section>
   );

@@ -16,6 +16,8 @@ export default function ProjectCard(project: Project) {
             alt={project.name} 
             width={250} 
             height={125}
+            loading="lazy"
+            quality={75}
           />
         </div>
         <div className={style["project-body"]}>
