@@ -12,56 +12,536 @@ tags: ["frameworks", "nextjs", "typescript"]
 
 <br />
 
-## Ok, so what is Next.js?
+## Introduction
 
-Next.js is a powerful tool to develop dynamic web applications using javascript or typescript based in React.js library. It's mission is to make SPA and dynamic page applications easy and fast to develop but for sure functional.
-Some people could say is pretty similar to PHP with a just drop in a jsx file it would be a page in your site. 
+Next.js is a powerful React framework that enables you to build fast, SEO-friendly websites with server-side rendering capabilities. In this tutorial, we'll build a blog from scratch using Next.js 14, TypeScript, and MDX.
 
-## But how does it work?
+## Step 1: Create Next.js Project
 
-Next.js within its mission has a built in router functionality to give us mind peace, with a modular approach using <InlineHighlighter>{`src/app`}</InlineHighlighter> folder structure where all files dropped in will work as a page in your web application.
+Let's start by creating a new Next.js project. Open your terminal and run:
 
-<SyntaxHighlighter language="javascript" style="dracula">
-  {`
-    const doStuff = () => {
-      return console.log('hey')
-    }
-  `}
+<SyntaxHighlighter language="bash" style="dracula">
+{`npx create-next-app@latest blog
+cd blog`}
 </SyntaxHighlighter>
 
-<div>
-  - El primer paso es crear el proyecto Next.js. (Anexar comandos)
-  <SyntaxHighlighter language="bash" style="dracula">
-    {`
-    npx create-next-app blog
-    `}
-  </SyntaxHighlighter>
-  - El segundo paso es eliminar los archivos que no utilizaremos.
-  - El tercer paso es crear la página principal donde se listaran los articulos.
-  ./src/app/blog/page.tsx
-  <SyntaxHighlighter language="jsx" style="dracula">
-    {`
-    const Blog = () => {
-      return (
-        <>
-          <div>Blog</div>
-        </>
-      );
+You'll be prompted with several configuration options. Here are our recommended choices:
+- ✅ Would you like to use TypeScript? Yes
+- ✅ Would you like to use ESLint? Yes
+- ✅ Would you like to use Tailwind CSS? Yes
+- ✅ Would you like to use `src/` directory? Yes
+- ✅ Would you like to use App Router? Yes
+- ✅ Would you like to customize the default import alias (@/*)? Yes
+
+## Step 2: Remove Unnecessary Files
+
+Let's clean up our project by removing files we won't need:
+
+<SyntaxHighlighter language="bash" style="dracula">
+{`# Remove these files
+rm src/app/page.tsx
+rm src/app/globals.css
+rm -rf src/app/api
+rm -rf public/*`}
+</SyntaxHighlighter>
+
+## Step 3: Create Main Page to List Articles
+
+First, create a new file for our blog listing page:
+
+<SyntaxHighlighter language="typescript" style="dracula">
+{`// src/app/blog/page.tsx
+import Link from 'next/link';
+
+export default function BlogPage() {
+  return (
+    <div className="max-w-4xl mx-auto py-8 px-4">
+      <h1 className="text-3xl font-bold mb-8">Blog Posts</h1>
+      <div className="grid gap-6">
+        {/* We'll add the post list here after setting up MDX */}
+      </div>
+    </div>
+  );
+}`}
+</SyntaxHighlighter>
+
+Create a basic layout file:
+
+<SyntaxHighlighter language="typescript" style="dracula">
+{`// src/app/layout.tsx
+import './globals.css'
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  return (
+    <html lang="en">
+      <body>
+        <main>{children}</main>
+      </body>
+    </html>
+  )
+}`}
+</SyntaxHighlighter>
+
+And create a minimal globals.css:
+
+<SyntaxHighlighter language="css" style="dracula">
+{`@tailwind base;
+@tailwind components;
+@tailwind utilities;`}
+</SyntaxHighlighter>
+
+## Step 4: Create Dynamic Route
+
+Create a dynamic route for individual blog posts. This will handle URLs like `/blog/[slug]`:
+
+<SyntaxHighlighter language="typescript" style="dracula">
+{`// src/app/blog/[slug]/page.tsx
+import { notFound } from 'next/navigation';
+import { getPostBySlug } from '@/lib/mdx';
+
+interface BlogPostProps {
+  params: {
+    slug: string;
+  };
+}
+
+export default async function BlogPost({ params }: BlogPostProps) {
+  const post = await getPostBySlug(params.slug);
+  
+  if (!post) {
+    notFound();
+  }
+
+  return (
+    <article className="prose lg:prose-xl mx-auto py-8 px-4">
+      <h1>{post.title}</h1>
+      <div className="text-gray-600 mb-4">
+        Published on {post.date}
+      </div>
+      <div>{post.content}</div>
+    </article>
+  );
+}`}
+</SyntaxHighlighter>
+
+## Step 5: Install MDX Libraries
+
+We'll need several libraries to handle MDX files properly. Here's what we're installing and why:
+
+- `@next/mdx`: Next.js official MDX integration
+- `@mdx-js/loader`: Loads and transforms MDX files
+- `@mdx-js/react`: React components for MDX
+- `gray-matter`: Parses front matter in MDX files
+- `rehype-highlight`: Syntax highlighting for code blocks
+- `remark-gfm`: GitHub Flavored Markdown support
+
+Install these dependencies:
+
+<SyntaxHighlighter language="bash" style="dracula">
+{`npm install @next/mdx @mdx-js/loader @mdx-js/react gray-matter rehype-highlight remark-gfm`}
+</SyntaxHighlighter>
+
+Now, create the MDX configuration file:
+
+<SyntaxHighlighter language="typescript" style="dracula">
+{`// next.config.mjs
+import createMDX from '@next/mdx';
+import remarkGfm from 'remark-gfm';
+import rehypeHighlight from 'rehype-highlight';
+
+const withMDX = createMDX({
+  options: {
+    remarkPlugins: [remarkGfm],
+    rehypePlugins: [rehypeHighlight],
+  },
+});
+
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
+};
+
+export default withMDX(nextConfig);`}
+</SyntaxHighlighter>
+
+Create a utility file to handle MDX files:
+
+<SyntaxHighlighter language="typescript" style="dracula">
+{`// src/lib/mdx.ts
+import fs from 'fs';
+import path from 'path';
+import matter from 'gray-matter';
+import { compileMDX } from 'next-mdx-remote/rsc';
+
+const postsDirectory = path.join(process.cwd(), 'src/posts');
+
+export async function getAllPosts() {
+  const files = fs.readdirSync(postsDirectory);
+  
+  const posts = await Promise.all(
+    files
+      .filter((file) => file.endsWith('.mdx'))
+      .map(async (file) => {
+        const filePath = path.join(postsDirectory, file);
+        const fileContent = fs.readFileSync(filePath, 'utf8');
+        const { data } = matter(fileContent);
+        
+        return {
+          slug: file.replace('.mdx', ''),
+          title: data.title,
+          date: data.date,
+          description: data.description,
+        };
+      })
+  );
+
+  return posts.sort((a, b) => (a.date < b.date ? 1 : -1));
+}
+
+export async function getPostBySlug(slug: string) {
+  const filePath = path.join(postsDirectory, \`\${slug}.mdx\`);
+  
+  if (!fs.existsSync(filePath)) {
+    return null;
+  }
+
+  const fileContent = fs.readFileSync(filePath, 'utf8');
+  const { data, content } = matter(fileContent);
+  
+  return {
+    ...data,
+    content,
+    slug,
+  };
+}`}
+</SyntaxHighlighter>
+
+## Step 6: Create Test MDX File
+
+Let's create a test blog post to verify our setup. Create a new file at `src/posts/hello-world.mdx`:
+
+<SyntaxHighlighter language="mdx" style="dracula">
+{`---
+title: "Hello, World!"
+date: "2024-05-26"
+description: "This is my first blog post using Next.js and MDX"
+tags: ["nextjs", "mdx", "tutorial"]
+---
+
+# Welcome to My Blog!
+
+This is a test post to verify our MDX setup is working correctly.
+
+## Code Example
+
+\`\`\`typescript
+function greeting(name: string): string {
+  return \`Hello, \${name}!\`;
+}
+\`\`\`
+
+## Features
+
+- ✅ MDX Support
+- ✅ Syntax Highlighting
+- ✅ Front Matter
+- ✅ Dynamic Routing`}
+</SyntaxHighlighter>
+
+## Step 7: Add Styles
+
+Let's enhance our blog with some custom Tailwind styles. Update your `src/app/globals.css`:
+
+<SyntaxHighlighter language="css" style="dracula">
+{`@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .prose-custom {
+    @apply prose lg:prose-xl dark:prose-invert mx-auto py-8;
+  }
+  
+  .blog-card {
+    @apply border rounded-lg p-6 hover:shadow-lg transition-shadow;
+  }
+
+  .tag {
+    @apply inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2;
+  }
+}`}
+</SyntaxHighlighter>
+
+## Step 8: Add Meta Tags
+
+Create a metadata utility to improve SEO. Create `src/lib/metadata.ts`:
+
+<SyntaxHighlighter language="typescript" style="dracula">
+{`// src/lib/metadata.ts
+import type { Metadata } from 'next';
+
+export function generateMetadata({ 
+  title, 
+  description, 
+  tags = [] 
+}: { 
+  title: string;
+  description: string;
+  tags?: string[];
+}): Metadata {
+  return {
+    title: \`\${title} | Your Blog Name\`,
+    description,
+    keywords: tags.join(', '),
+    openGraph: {
+      title,
+      description,
+      type: 'article',
+      url: \`https://yourblog.com/blog/\${title.toLowerCase().replace(/ /g, '-')}\`,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+    },
+  };
+}`}
+</SyntaxHighlighter>
+
+## Step 9: Generate Dynamic Sitemap
+
+Create `src/app/sitemap.ts` to generate a dynamic sitemap:
+
+<SyntaxHighlighter language="typescript" style="dracula">
+{`import { getAllPosts } from '@/lib/mdx';
+import { MetadataRoute } from 'next';
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const posts = await getAllPosts();
+  const baseUrl = 'https://yourblog.com';
+
+  const postsUrls = posts.map((post) => ({
+    url: \`\${baseUrl}/blog/\${post.slug}\`,
+    lastModified: new Date(post.date),
+    changeFrequency: 'weekly' as const,
+    priority: 0.7,
+  }));
+
+  return [
+    {
+      url: baseUrl,
+      lastModified: new Date(),
+      changeFrequency: 'daily',
+      priority: 1,
+    },
+    ...postsUrls,
+  ];
+}`}
+</SyntaxHighlighter>
+
+## Step 10: Export Files to CDN
+
+Create a utility for handling file uploads to a CDN (using AWS S3 as an example):
+
+<SyntaxHighlighter language="typescript" style="dracula">
+{`// src/lib/cdn.ts
+import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
+
+const s3Client = new S3Client({
+  region: process.env.AWS_REGION!,
+  credentials: {
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
+  },
+});
+
+export async function uploadToCDN(file: File) {
+  const fileName = \`\${Date.now()}-\${file.name}\`;
+  
+  await s3Client.send(new PutObjectCommand({
+    Bucket: process.env.AWS_BUCKET_NAME,
+    Key: fileName,
+    Body: file,
+    ContentType: file.type,
+  }));
+
+  return \`https://\${process.env.AWS_BUCKET_NAME}.s3.amazonaws.com/\${fileName}\`;
+}`}
+</SyntaxHighlighter>
+
+## Step 11: Add Comments Section
+
+Implement a comments section using Giscus (GitHub Discussions):
+
+<SyntaxHighlighter language="typescript" style="dracula">
+{`// src/components/Comments.tsx
+"use client";
+import { useEffect, useRef } from 'react';
+
+export default function Comments() {
+  const commentsRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = 'https://giscus.app/client.js';
+    script.setAttribute('data-repo', '[OWNER]/[REPO]');
+    script.setAttribute('data-repo-id', '[REPO-ID]');
+    script.setAttribute('data-category', 'Comments');
+    script.setAttribute('data-category-id', '[CATEGORY-ID]');
+    script.setAttribute('data-mapping', 'pathname');
+    script.setAttribute('data-reactions-enabled', '1');
+    script.setAttribute('data-emit-metadata', '0');
+    script.setAttribute('data-theme', 'light');
+    script.setAttribute('data-lang', 'en');
+    script.crossOrigin = 'anonymous';
+    script.async = true;
+
+    commentsRef.current?.appendChild(script);
+  }, []);
+
+  return <div ref={commentsRef} />;
+}`}
+</SyntaxHighlighter>
+
+## Step 12: Add Email Sending
+
+Set up email functionality using Resend:
+
+<SyntaxHighlighter language="typescript" style="dracula">
+{`// src/lib/email.ts
+import { Resend } from 'resend';
+
+const resend = new Resend(process.env.RESEND_API_KEY);
+
+export async function sendNotification(post: {
+  title: string;
+  description: string;
+  slug: string;
+}) {
+  await resend.emails.send({
+    from: 'blog@yourdomain.com',
+    to: 'subscribers@list.com',
+    subject: \`New Post: \${post.title}\`,
+    html: \`
+      <h1>\${post.title}</h1>
+      <p>\${post.description}</p>
+      <a href="https://yourblog.com/blog/\${post.slug}">Read more</a>
+    \`,
+  });
+}`}
+</SyntaxHighlighter>
+
+## Step 13: Add Security Middlewares
+
+Create `src/middleware.ts` to add security headers:
+
+<SyntaxHighlighter language="typescript" style="dracula">
+{`import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
+
+export function middleware(request: NextRequest) {
+  const response = NextResponse.next();
+
+  // Add security headers
+  response.headers.set('X-Frame-Options', 'DENY');
+  response.headers.set('X-Content-Type-Options', 'nosniff');
+  response.headers.set('Referrer-Policy', 'origin-when-cross-origin');
+  response.headers.set(
+    'Content-Security-Policy',
+    "default-src 'self'; img-src 'self' data: https:; script-src 'self' 'unsafe-eval' 'unsafe-inline';"
+  );
+
+  return response;
+}`}
+</SyntaxHighlighter>
+
+## Step 14: Optimize Page Loading
+
+Implement loading states and React Suspense:
+
+<SyntaxHighlighter language="typescript" style="dracula">
+{`// src/app/blog/loading.tsx
+export default function Loading() {
+  return (
+    <div className="max-w-4xl mx-auto py-8">
+      <div className="animate-pulse">
+        <div className="h-8 bg-gray-200 rounded w-1/4 mb-8" />
+        <div className="space-y-6">
+          {[1, 2, 3].map((i) => (
+            <div key={i} className="border rounded-lg p-6">
+              <div className="h-6 bg-gray-200 rounded w-3/4 mb-4" />
+              <div className="h-4 bg-gray-200 rounded w-1/2" />
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}`}
+</SyntaxHighlighter>
+
+## Step 15: Add reCAPTCHA
+
+Implement reCAPTCHA for forms:
+
+<SyntaxHighlighter language="typescript" style="dracula">
+{`// src/components/ContactForm.tsx
+"use client";
+import { useRef } from 'react';
+import ReCAPTCHA from "react-google-recaptcha";
+
+export default function ContactForm() {
+  const recaptchaRef = useRef<ReCAPTCHA>(null);
+
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+    const token = await recaptchaRef.current?.executeAsync();
+    
+    // Verify token server-side
+    const response = await fetch('/api/verify-recaptcha', {
+      method: 'POST',
+      body: JSON.stringify({ token }),
+    });
+    
+    if (response.ok) {
+      // Process form submission
     }
-    `}
-  </SyntaxHighlighter>
-  - El cuarto paso es crear una ruta dinamica.
-  - El quinto paso es instalar las librerias para procesar los archivos .mdx (Explicar librerias y añadir comandos y paso a paso)
-  - El sexto paso es crear un archivo .mdx para poder hacer pruebas.
-  - El septimo paso es añadir estilos.
-  - El octavo paso es añadir las metatags.
-  - El noveno paso es generar el sitemap dinamico del sitio.
-  - El decimo paso puede ser exportar archivos a un CDN e implementarlo en un API.
-  - El onceavo paso puede ser añadir sección de comentarios.
-  - El doceavo paso puede ser envio de correos.
-  - El terceavo paso puede ser añadir middlewares de seguridad.
-  - El catorceavo paso puede ser optimizar carga de la página con server components y lazy loading de componentes.
-  - Añadir Recaptcha.
-  - Añadir articulo relacionado, cómo crear un dashboard para administrar el blog.
-  - Separar contenido en multiples articulos para hacerlos procesables.
-</div>
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <ReCAPTCHA
+        ref={recaptchaRef}
+        size="invisible"
+        sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
+      />
+      {/* Form fields */}
+    </form>
+  );
+}`}
+</SyntaxHighlighter>
+
+## Conclusion
+
+Congratulations! You've built a fully functional blog with Next.js 14, complete with:
+- MDX support for writing posts
+- Dynamic routing
+- SEO optimization
+- Comments system
+- Email notifications
+- Security features
+- Performance optimizations
+- Form protection with reCAPTCHA
+
+Next steps you might consider:
+- Adding authentication
+- Implementing a CMS
+- Setting up analytics
+- Adding search functionality
+- Creating an RSS feed
+
+For more information, check out the [Next.js documentation](https://nextjs.org/docs).
