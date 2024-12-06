@@ -1,6 +1,6 @@
 --- 
 title: Build A Blog With Next.js 14
-date: "May 26, 2024"
+date: "December 1, 2023"
 description: Learn Next.js by building a Blog
 thumbnailUrl: "https://drive.google.com/uc?export=view&id=1SRTBBNXXIw5rkhv4OGISDSYBez-DUHtm"
 tags: ["frameworks", "nextjs", "typescript"]
@@ -102,6 +102,7 @@ Create a dynamic route for individual blog posts. This will handle URLs like `/b
 {`// src/app/blog/[slug]/page.tsx
 import { notFound } from 'next/navigation';
 import { getPostBySlug } from '@/lib/mdx';
+import { MDXRemote } from 'next-mdx-remote/rsc';
 
 interface BlogPostProps {
   params: {
@@ -110,21 +111,26 @@ interface BlogPostProps {
 }
 
 export default async function BlogPost({ params }: BlogPostProps) {
-  const post = await getPostBySlug(params.slug);
-  
-  if (!post) {
+  try {
+    const post = await getPostBySlug(params.slug);
+    
+    if (!post) {
+      notFound();
+    }
+
+    return (
+      <article className="prose lg:prose-xl mx-auto py-8 px-4">
+        <h1>{post.frontmatter.title}</h1>
+        <div className="text-gray-600 mb-4">
+          Published on {post.frontmatter.date}
+        </div>
+        <MDXRemote source={post.content} components={post.components} />
+      </article>
+    );
+  } catch (error) {
+    console.error('Error loading blog post:', error);
     notFound();
   }
-
-  return (
-    <article className="prose lg:prose-xl mx-auto py-8 px-4">
-      <h1>{post.title}</h1>
-      <div className="text-gray-600 mb-4">
-        Published on {post.date}
-      </div>
-      <div>{post.content}</div>
-    </article>
-  );
 }`}
 </SyntaxHighlighter>
 
@@ -138,14 +144,37 @@ We'll need several libraries to handle MDX files properly. Here's what we're ins
 - `gray-matter`: Parses front matter in MDX files
 - `rehype-highlight`: Syntax highlighting for code blocks
 - `remark-gfm`: GitHub Flavored Markdown support
+- `next-mdx-remote`: For server-side MDX compilation
+- `@tailwindcss/typography`: For styling MDX content
+- `react-google-recaptcha`: For form protection
+- `@aws-sdk/client-s3`: For AWS S3 integration
 
 Install these dependencies:
 
 <SyntaxHighlighter language="bash" style="dracula">
-{`npm install @next/mdx @mdx-js/loader @mdx-js/react gray-matter rehype-highlight remark-gfm`}
+{`npm install @next/mdx @mdx-js/loader @mdx-js/react gray-matter rehype-highlight remark-gfm next-mdx-remote @tailwindcss/typography react-google-recaptcha @aws-sdk/client-s3`}
 </SyntaxHighlighter>
 
-Now, create the MDX configuration file:
+## Step 6: Configure Tailwind and MDX
+
+First, update your `tailwind.config.js`:
+
+<SyntaxHighlighter language="javascript" style="dracula">
+{`/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: [
+    './src/**/*.{js,ts,jsx,tsx,mdx}',
+  ],
+  theme: {
+    extend: {},
+  },
+  plugins: [
+    require('@tailwindcss/typography'),
+  ],
+}`}
+</SyntaxHighlighter>
+
+Create the MDX configuration file:
 
 <SyntaxHighlighter language="typescript" style="dracula">
 {`// next.config.mjs
@@ -163,64 +192,50 @@ const withMDX = createMDX({
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
+  env: {
+    AWS_REGION: process.env.AWS_REGION,
+    AWS_BUCKET_NAME: process.env.AWS_BUCKET_NAME,
+    RESEND_API_KEY: process.env.RESEND_API_KEY,
+    NEXT_PUBLIC_RECAPTCHA_SITE_KEY: process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY,
+  },
 };
 
 export default withMDX(nextConfig);`}
 </SyntaxHighlighter>
 
-Create a utility file to handle MDX files:
+## Step 7: Set Up Environment Variables
 
-<SyntaxHighlighter language="typescript" style="dracula">
-{`// src/lib/mdx.ts
-import fs from 'fs';
-import path from 'path';
-import matter from 'gray-matter';
-import { compileMDX } from 'next-mdx-remote/rsc';
+Create a `.env.local` file in your project root:
 
-const postsDirectory = path.join(process.cwd(), 'src/posts');
+<SyntaxHighlighter language="bash" style="dracula">
+{`# AWS Configuration
+AWS_REGION=your-region
+AWS_ACCESS_KEY_ID=your-access-key
+AWS_SECRET_ACCESS_KEY=your-secret-key
+AWS_BUCKET_NAME=your-bucket-name
 
-export async function getAllPosts() {
-  const files = fs.readdirSync(postsDirectory);
-  
-  const posts = await Promise.all(
-    files
-      .filter((file) => file.endsWith('.mdx'))
-      .map(async (file) => {
-        const filePath = path.join(postsDirectory, file);
-        const fileContent = fs.readFileSync(filePath, 'utf8');
-        const { data } = matter(fileContent);
-        
-        return {
-          slug: file.replace('.mdx', ''),
-          title: data.title,
-          date: data.date,
-          description: data.description,
-        };
-      })
-  );
+# Email Configuration
+RESEND_API_KEY=your-resend-api-key
 
-  return posts.sort((a, b) => (a.date < b.date ? 1 : -1));
-}
+# reCAPTCHA Configuration
+NEXT_PUBLIC_RECAPTCHA_SITE_KEY=your-recaptcha-site-key
+RECAPTCHA_SECRET_KEY=your-recaptcha-secret-key
 
-export async function getPostBySlug(slug: string) {
-  const filePath = path.join(postsDirectory, \`\${slug}.mdx\`);
-  
-  if (!fs.existsSync(filePath)) {
-    return null;
-  }
-
-  const fileContent = fs.readFileSync(filePath, 'utf8');
-  const { data, content } = matter(fileContent);
-  
-  return {
-    ...data,
-    content,
-    slug,
-  };
-}`}
+# Blog Configuration
+NEXT_PUBLIC_SITE_URL=http://localhost:3000`}
 </SyntaxHighlighter>
 
-## Step 6: Create Test MDX File
+Make sure to add `.env.local` to your `.gitignore` file.
+
+## Step 8: Create Posts Directory
+
+Set up the posts directory and create a test post:
+
+<SyntaxHighlighter language="bash" style="dracula">
+{`mkdir -p src/posts`}
+</SyntaxHighlighter>
+
+## Step 9: Create Test MDX File
 
 Let's create a test blog post to verify our setup. Create a new file at `src/posts/hello-world.mdx`:
 
@@ -252,7 +267,7 @@ function greeting(name: string): string {
 - ✅ Dynamic Routing`}
 </SyntaxHighlighter>
 
-## Step 7: Add Styles
+## Step 10: Add Styles
 
 Let's enhance our blog with some custom Tailwind styles. Update your `src/app/globals.css`:
 
@@ -276,7 +291,7 @@ Let's enhance our blog with some custom Tailwind styles. Update your `src/app/gl
 }`}
 </SyntaxHighlighter>
 
-## Step 8: Add Meta Tags
+## Step 11: Add Meta Tags
 
 Create a metadata utility to improve SEO. Create `src/lib/metadata.ts`:
 
@@ -312,7 +327,7 @@ export function generateMetadata({
 }`}
 </SyntaxHighlighter>
 
-## Step 9: Generate Dynamic Sitemap
+## Step 12: Generate Dynamic Sitemap
 
 Create `src/app/sitemap.ts` to generate a dynamic sitemap:
 
@@ -343,7 +358,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 }`}
 </SyntaxHighlighter>
 
-## Step 10: Export Files to CDN
+## Step 13: Export Files to CDN
 
 Create a utility for handling file uploads to a CDN (using AWS S3 as an example):
 
@@ -373,7 +388,7 @@ export async function uploadToCDN(file: File) {
 }`}
 </SyntaxHighlighter>
 
-## Step 11: Add Comments Section
+## Step 14: Add Comments Section
 
 Implement a comments section using Giscus (GitHub Discussions):
 
@@ -407,35 +422,42 @@ export default function Comments() {
 }`}
 </SyntaxHighlighter>
 
-## Step 12: Add Email Sending
+## Step 15: Add Email Sending
 
 Set up email functionality using Resend:
 
 <SyntaxHighlighter language="typescript" style="dracula">
 {`// src/lib/email.ts
 import { Resend } from 'resend';
-
-const resend = new Resend(process.env.RESEND_API_KEY);
+import { validateConfig } from './error';
 
 export async function sendNotification(post: {
   title: string;
   description: string;
   slug: string;
 }) {
-  await resend.emails.send({
-    from: 'blog@yourdomain.com',
-    to: 'subscribers@list.com',
-    subject: \`New Post: \${post.title}\`,
-    html: \`
-      <h1>\${post.title}</h1>
-      <p>\${post.description}</p>
-      <a href="https://yourblog.com/blog/\${post.slug}">Read more</a>
-    \`,
-  });
+  try {
+    validateConfig();
+    const resend = new Resend(process.env.RESEND_API_KEY);
+    
+    await resend.emails.send({
+      from: 'blog@yourdomain.com',
+      to: 'subscribers@list.com',
+      subject: \`New Post: \${post.title}\`,
+      html: \`
+        <h1>\${post.title}</h1>
+        <p>\${post.description}</p>
+        <a href="\${process.env.NEXT_PUBLIC_SITE_URL}/blog/\${post.slug}">Read more</a>
+      \`,
+    });
+  } catch (error) {
+    console.error('Failed to send email:', error);
+    throw error;
+  }
 }`}
 </SyntaxHighlighter>
 
-## Step 13: Add Security Middlewares
+## Step 16: Add Security Middlewares
 
 Create `src/middleware.ts` to add security headers:
 
@@ -445,21 +467,31 @@ import type { NextRequest } from 'next/server';
 
 export function middleware(request: NextRequest) {
   const response = NextResponse.next();
+  const nonce = crypto.randomUUID();
 
   // Add security headers
   response.headers.set('X-Frame-Options', 'DENY');
   response.headers.set('X-Content-Type-Options', 'nosniff');
   response.headers.set('Referrer-Policy', 'origin-when-cross-origin');
-  response.headers.set(
-    'Content-Security-Policy',
-    "default-src 'self'; img-src 'self' data: https:; script-src 'self' 'unsafe-eval' 'unsafe-inline';"
-  );
+  
+  // Comprehensive CSP that includes all necessary sources
+  const csp = [
+    "default-src 'self'",
+    "img-src 'self' data: https: *.google.com *.githubusercontent.com",
+    "script-src 'self' 'unsafe-eval' 'unsafe-inline' https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/ https://giscus.app",
+    "frame-src 'self' https://www.google.com/recaptcha/ https://giscus.app",
+    "style-src 'self' 'unsafe-inline' https://giscus.app",
+    "connect-src 'self' https://api.github.com",
+    `script-src-elem 'self' 'unsafe-inline' https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/ https://giscus.app 'nonce-${nonce}'`,
+  ].join('; ');
+
+  response.headers.set('Content-Security-Policy', csp);
 
   return response;
 }`}
 </SyntaxHighlighter>
 
-## Step 14: Optimize Page Loading
+## Step 17: Optimize Page Loading
 
 Implement loading states and React Suspense:
 
@@ -484,7 +516,7 @@ export default function Loading() {
 }`}
 </SyntaxHighlighter>
 
-## Step 15: Add reCAPTCHA
+## Step 18: Add reCAPTCHA
 
 Implement reCAPTCHA for forms:
 
@@ -522,6 +554,52 @@ export default function ContactForm() {
       {/* Form fields */}
     </form>
   );
+}`}
+</SyntaxHighlighter>
+
+## Step 19: Add Error Handling
+
+Create utility functions for error handling:
+
+<SyntaxHighlighter language="typescript" style="dracula">
+{`// src/lib/error.ts
+export class ConfigError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = 'ConfigError';
+  }
+}
+
+export function validateConfig() {
+  const requiredEnvVars = [
+    'AWS_REGION',
+    'AWS_ACCESS_KEY_ID',
+    'AWS_SECRET_ACCESS_KEY',
+    'AWS_BUCKET_NAME',
+    'RESEND_API_KEY',
+    'NEXT_PUBLIC_RECAPTCHA_SITE_KEY',
+  ];
+
+  for (const envVar of requiredEnvVars) {
+    if (!process.env[envVar]) {
+      throw new ConfigError(\`Missing required environment variable: \${envVar}\`);
+    }
+  }
+}
+
+export function handleApiError(error: unknown) {
+  if (error instanceof ConfigError) {
+    console.error('Configuration Error:', error.message);
+    return { status: 500, message: 'Server configuration error' };
+  }
+  
+  if (error instanceof Error) {
+    console.error('Server Error:', error.message);
+    return { status: 500, message: 'Internal server error' };
+  }
+  
+  console.error('Unknown Error:', error);
+  return { status: 500, message: 'Unknown error occurred' };
 }`}
 </SyntaxHighlighter>
 
