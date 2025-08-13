@@ -34,4 +34,4 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-**/time_estimation.mdx
+**/time_estimation*.mdx

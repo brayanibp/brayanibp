@@ -1,6 +1,5 @@
 import dynamic from "next/dynamic";
 import styles from "./page.module.css";
-import { MDXRemote } from "next-mdx-remote/rsc";
 import Image from "next/image";
 import { Metadata, ResolvingMetadata } from "next";
 import PrintButton from "@/components/PrintButton";
@@ -87,6 +86,10 @@ const components = {
     loading: () => <i>Loading...</i>
   }),
   InlineHighlighter: dynamic(() => import("@/components/InlineHighlighter"), {
+    ssr: false,
+    loading: () => <i>Loading...</i>
+  }),
+  Image: dynamic(() => import("@/components/Image"), {
     ssr: false,
     loading: () => <i>Loading...</i>
   }),
