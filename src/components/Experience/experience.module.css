@@ -1,5 +1,10 @@
 .jobs-list {
   list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
   background-color: var(--background-color);
   color: var(--text-color);
 }

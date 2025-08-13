@@ -3,15 +3,23 @@
   flex-wrap: wrap;
   gap: 1em;
   text-decoration: none;
-  background-color: var(--backgroud-color);
+  background-color: var(--surface);
   color: var(--text-color);
-  margin: 1em 0 2em 0;
+  margin: 0.5em 0 1.25em 0;
+  padding: 1rem;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-soft);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.job-card a:hover {
+  transform: translateY(-2px);
 }
 
 .timeline {
-  font-weight: bold;
+  font-weight: 600;
   color: var(--dates-color);
-  padding: 0.3em;
+  padding: 0.3em 0;
   border-bottom: 2px solid var(--dates-color);
   min-width: 250px;
 }
@@ -20,13 +28,15 @@
   display: flex;
   justify-content: space-around;
   flex-direction: column;
-  gap: 1em;
-  background-color: var(--backgroud-color);
+  gap: 0.75em;
+  background-color: transparent;
   color: var(--text-color);
 }
 
 .achievements, .techs-list {
   list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 .achievements {
@@ -34,7 +44,7 @@
   flex-direction: column;
   font-weight: 500;
   gap: 0.5em;
-  background-color: var(--backgroud-color);
+  background-color: transparent;
   color: var(--text-color);
 }
 
@@ -56,6 +66,8 @@
 }
 
 .techs-list .tech {
-  text-decoration: underline;
-  padding: 0.3em;
+  padding: 0.3em 0.5em;
+  background: var(--tags-background);
+  border-radius: 999px;
+  text-decoration: none;
 }

@@ -1,18 +1,22 @@
 .contact-form {
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: flex-start;
   align-items: flex-start;
-  gap: 1.5em;
-  background: var(--background-color);
+  gap: 1rem;
+  background: var(--surface);
   color: var(--text-color);
+  padding: 1rem;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-soft);
 }
 
 .contact-form input, .contact-form textarea {
   height: 3em;
-  padding: 10px 20px;
-  border-radius: 10px;
-  width: 25vw;
+  padding: 10px 14px;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 520px;
   border: 1px solid var(--fields-border);
   font-family: Ubuntu, sans-serif;
   background-color: var(--fields-background);
@@ -28,16 +32,22 @@
 }
 
 .contact-form button {
-  background: var(--button-background);
+  background: var(--accent-fg);
   border: none;
   color: var(--button-color);
-  display: flex;
-  flex-wrap: nowrap;
+  display: inline-flex;
+  gap: 0.5rem;
   align-items: center;
-  justify-content: space-evenly;
-  width: 10vw;
-  height: 3em;
-  border-radius: 10px;
+  justify-content: center;
+  padding: 0 14px;
+  height: 2.5rem;
+  border-radius: 8px;
+  transition: background-color var(--transition), transform var(--transition);
+}
+
+.contact-form button:hover {
+  background: var(--accent-fg-hover);
+  transform: translateY(-1px);
 }
 
 @media screen and (max-width: 425px) {

@@ -1,24 +1,26 @@
 .social {
   height: fit-content;
   width: fit-content;
-  background: var(--social-background);
-  backdrop-filter: blur(2px);
-  box-shadow: var(--social-boxshadow) 0px 0px 10px;
+  background: rgba(128,128,128,0.15);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 6px 20px rgba(16, 24, 40, 0.06);
   color: var(--text-color);
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   position: fixed;
-  top: calc(50vh - 4.5em);
-  left: 0;
-  border-radius: 0 4px 4px 0;
+  top: calc(50vh - 5.5em);
+  right: 1rem;
+  border-radius: 8px;
+  border: 1px solid rgba(128,128,128,0.2);
+  z-index: 5;
 }
 
 .social ul {
   display: flex;
   list-style: none;
   flex-direction: column;
-  gap: 1em;
+  gap: 0.75em;
   padding: 10px;
 }
 
@@ -29,8 +31,9 @@
 @media screen and (max-width: 425px) {
   .social {
     top: auto;
-    bottom: 0;
-    left: calc(50vw - 6em);
+    bottom: 0.5rem;
+    right: 0.5rem;
+    left: auto;
   }
 
   .social ul {
