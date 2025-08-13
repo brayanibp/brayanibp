@@ -22,11 +22,16 @@
 
 .tags li {
   margin: 0;
-  text-transform: capitalize;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.9em;
+  line-height: 1;
+  text-transform: none;
   color: var(--tags-color);
   background-color: var(--tags-background);
-  padding: .3em;
-  font-weight: 600;
+  padding: 0.35rem 0.55rem;
+  border: 1px solid rgba(128,128,128,0.25);
+  border-radius: 8px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.03);
 }
 
 .tags li::before {

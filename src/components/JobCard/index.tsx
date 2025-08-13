@@ -11,11 +11,11 @@ const JobCard = memo(function JobCard(jobProps: Job): React.JSX.Element {
   });
   return <>
     <li key={jobProps.title+jobProps.company+jobProps.timeline} className={style["job-card"]}>
-      <a href={jobProps.url} target="_blank" rel="noopener noreferrer">
+      <a href={jobProps.url} target="_blank" rel="noopener noreferrer" aria-label={`${jobProps.title} at ${jobProps.company}`}>
         <span className={style["timeline"]}>{jobProps.timeline}</span>
         <div className={style["container"]}>
           <h3 className="title">{jobProps.title}</h3>
-          <h4 className="company">{jobProps.company}</h4>
+          <h4 className="company" aria-label="Company">{jobProps.company}</h4>
           <ul className={style["achievements"]}>
             {achievementsList}
           </ul>

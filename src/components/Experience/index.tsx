@@ -12,7 +12,7 @@ const Experience = () => {
     <>
       <section id="experience">
         <h2>Experience</h2>
-        <ul className={style["jobs-list"]}>
+        <ul className={style["jobs-list"]} aria-label="Experience timeline">
           {jobsCards}
         </ul>
       </section>
