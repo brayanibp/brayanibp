@@ -27,14 +27,23 @@
 
 .techs-list {
   display: flex;
+  align-items: center;
   justify-content: flex-start;
-  gap: 0.5em;
   flex-wrap: wrap;
+  gap: 0.5rem;
   list-style: none;
   color: var(--tags-color);
 }
 
 .techs-list .project-tech {
-  text-decoration: underline;
-  padding: 0.3em;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.9em;
+  line-height: 1;
+  padding: 0.35rem 0.55rem;
+  background: var(--tags-background);
+  color: var(--tags-color);
+  border: 1px solid rgba(128,128,128,0.25);
+  border-radius: 8px;
+  text-decoration: none;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.03);
 }
