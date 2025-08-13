@@ -1,6 +1,6 @@
 "use client";
 import { ChangeEvent, FormEvent, createRef, useState } from "react";
-import Image from "next/image";
+import { ArrowRight } from "lucide-react";
 import ReCAPTCHA from "react-google-recaptcha";
 import style from "./contact.module.css";
 
@@ -60,11 +60,10 @@ export default function Contact() {
       submitButton?.classList.toggle('error');
     } finally {
       setTimeout(
-        ()=>(
+        ()=>
           submitButton?.classList.contains('success') 
             ? submitButton?.classList.toggle('success') 
             : submitButton?.classList.toggle('error')
-        )
       ,700);
       if (recaptchaRef.current?.state) recaptchaRef.current?.reset();
       setEmail({
@@ -92,7 +91,7 @@ export default function Contact() {
       />
       <button type="submit">
         Submit
-        <Image src="/assets/icons/arrow.png" alt="Submit Icon" width={32} height={32}/>
+        <ArrowRight className={style.arrowIcon} aria-hidden="true" />
       </button>
       {
         recaptchaNeeded && (

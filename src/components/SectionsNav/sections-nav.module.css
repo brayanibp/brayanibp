@@ -1,10 +1,11 @@
 .nav {
 	position: fixed;
-	top: 6rem;
-	left: 1rem;
-	height: calc(100vh - 6rem);
+	top: 5.4rem;
+	left: calc(50% - 35vw); /* 50% - (contentWidth/2) - (navWidth + gap) => 50% - 550 - 240 */
+	width: 300px;
+	height: calc(100vh - 5.5rem);
 	padding-right: 1rem;
-	border-right: 1px solid rgba(128,128,128,0.2);
+	border-left: 1px solid rgba(128,128,128,0.2);
 	z-index: 4;
 }
 
