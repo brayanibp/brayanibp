@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 
 const navItems = [
-  { name: 'Home', href: '/', id: 'home', isExternal: false },
+  { name: 'Home', href: '/', id: 'home' },
   { name: 'About', href: '/#about', id: 'about' },
   { name: 'Experience', href: '/#experience', id: 'experience' },
   { name: 'Projects', href: '/#projects', id: 'projects' },
@@ -15,7 +15,7 @@ const navItems = [
 
 export const Sidebar = ({ isMobile = false }: { isMobile?: boolean }) => {
   const pathname = usePathname();
-  const [activeSection, setActiveSection] = useState('about');
+  const [activeSection, setActiveSection] = useState('home'); // Default to 'home'
   const isHome = pathname === '/';
 
   useEffect(() => {
@@ -73,9 +73,7 @@ export const Sidebar = ({ isMobile = false }: { isMobile?: boolean }) => {
         {navItems.map((item) => {
           const isActive = item.isExternal 
             ? pathname === '/blog' 
-            : item.id === 'home' 
-              ? pathname === '/' 
-              : isHome && activeSection === item.id;
+            : isHome && (activeSection === item.id || (item.id === 'home' && activeSection === 'home'));
           
           return (
             <li key={item.name}>
