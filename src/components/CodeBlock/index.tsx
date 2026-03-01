@@ -1,19 +1,73 @@
 "use client";
-import { useState } from 'react';
+
+import { useState, useEffect, ReactNode } from "react";
 import { Highlight, themes } from "prism-react-renderer";
 
-const CodeBlock = ({ children, language }: { children?: string; language?: string }) => {
-  const [isCopied, setIsCopied] = useState(false);
+// Wrapper para SyntaxHighlighter que maneja el template literal con debug
+const SyntaxHighlighter = ({ children, language, style, ...props }: { 
+  children?: ReactNode; 
+  language?: string;
+  style?: any;
+  [key: string]: any;
+}) => {
+  const [code, setCode] = useState("");
+  const [debug, setDebug] = useState<any>(null);
+
+  useEffect(() => {
+    let extractedCode = "";
+    
+    // Debug what's coming in
+    setDebug({
+      type: typeof children,
+      isString: typeof children === 'string',
+      isObject: typeof children === 'object',
+      hasProps: children && typeof children === 'object' ? 'props' in children : false,
+      preview: typeof children === 'string' ? children.slice(0, 50) : String(children).slice(0, 50)
+    });
+    
+    // Handle template literal {`code`}
+    if (typeof children === 'string') {
+      extractedCode = children;
+    } else if (children && typeof children === 'object') {
+      const childObj = children as any;
+      
+      // Try props.children first
+      if (childObj.props?.children) {
+        extractedCode = String(childObj.props.children);
+      } 
+      // Try any string property
+      else {
+        const values = Object.values(childObj).filter((v): v is string => typeof v === 'string' && v.length > 0);
+        if (values.length > 0) {
+          extractedCode = values[0];
+        }
+      }
+    }
+    
+    // Clean up - remove backticks if present
+    if (extractedCode) {
+      extractedCode = extractedCode.replace(/^`/, '').replace(/`$/, '').trim();
+    }
+    
+    setCode(extractedCode);
+  }, [children]);
 
   const handleCopy = async () => {
-    if (children) {
-      await navigator.clipboard.writeText(children);
-      setIsCopied(true);
-      setTimeout(() => setIsCopied(false), 2000);
+    if (code) {
+      await navigator.clipboard.writeText(code);
     }
   };
 
-  const code = typeof children === 'string' ? children : String(children || '');
+  if (!code) {
+    return (
+      <div className="bg-zinc-900 p-4 rounded-lg my-4">
+        <p className="text-yellow-500 text-sm mb-2">Debug - No code extracted:</p>
+        <pre className="text-xs text-zinc-400 overflow-x-auto">
+          {JSON.stringify(debug, null, 2)}
+        </pre>
+      </div>
+    );
+  }
 
   return (
     <div style={{ position: 'relative', marginBottom: '1.5rem' }}>
@@ -33,7 +87,7 @@ const CodeBlock = ({ children, language }: { children?: string; language?: strin
           zIndex: 10
         }}
       >
-        {isCopied ? 'Copied!' : 'Copy'}
+        Copy
       </button>
       <Highlight theme={themes.dracula} code={code} language={language || 'bash'}>
         {({ className, style, tokens, getLineProps, getTokenProps }) => (
@@ -55,4 +109,4 @@ const CodeBlock = ({ children, language }: { children?: string; language?: strin
   );
 };
 
-export default CodeBlock;
+export default SyntaxHighlighter;
