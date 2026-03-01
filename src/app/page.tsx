@@ -1,6 +1,5 @@
 "use client";
 import dynamic from "next/dynamic";
-import SectionsNav from "@/components/SectionsNav";
 
 const About = dynamic(() => import("@/components/About").then((res)=>res));
 const Contact = dynamic(() => import("@/components/Contact"));
@@ -12,7 +11,6 @@ const Social = dynamic(() => import("@/components/Social"), {
 const Home = () => {
   return (
     <main>
-      <SectionsNav />
       <About />
       <Experience />
       <Projects />

@@ -5,14 +5,27 @@ import { usePathname } from 'next/navigation';
 import { motion } from 'framer-motion';
 
 const navItems = [
-  { name: 'About', href: '/' },
-  { name: 'Experience', href: '/experience' },
-  { name: 'Articles', href: '/blog' },
-  { name: 'Projects', href: '/projects' },
+  { name: 'About', href: '/#about', isAnchor: true },
+  { name: 'Experience', href: '/#experience', isAnchor: true },
+  { name: 'Projects', href: '/#projects', isAnchor: true },
+  { name: 'Articles', href: '/blog', isAnchor: false },
 ];
+
+const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string, isAnchor: boolean) => {
+  if (isAnchor) {
+    e.preventDefault();
+    const id = href.replace('/#', '');
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      window.history.pushState(null, '', href);
+    }
+  }
+};
 
 export const Sidebar = ({ isMobile = false }: { isMobile?: boolean }) => {
   const pathname = usePathname();
+  const isHome = pathname === '/';
 
   return (
     <nav className={`${isMobile ? 'flex flex-col' : 'w-64 border-r border-zinc-800 h-screen sticky top-0 p-8 hidden md:block'} bg-black`}>
@@ -29,10 +42,14 @@ export const Sidebar = ({ isMobile = false }: { isMobile?: boolean }) => {
 
       <ul className="space-y-4">
         {navItems.map((item) => {
-          const isActive = pathname === item.href;
+          const isActive = isHome && item.isAnchor && pathname + item.href.replace('/', '') === pathname + item.href.slice(1);
           return (
             <li key={item.name}>
-              <Link href={item.href} className="relative group flex items-center">
+              <Link 
+                href={item.href} 
+                onClick={(e) => handleClick(e, item.href, item.isAnchor)}
+                className="relative group flex items-center"
+              >
                 <span 
                   className={`text-sm transition-colors duration-200 ${
                     isActive ? 'text-blue-500 font-semibold' : 'text-zinc-400 group-hover:text-white'
