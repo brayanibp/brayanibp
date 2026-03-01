@@ -22,41 +22,46 @@ export default function ThemeSwitcher() {
   useEffect(() => {
     if (!mounted) return;
     
-    // Save to localStorage
     localStorage.setItem('theme', theme);
-    
-    // Apply to body and html
     document.documentElement.setAttribute('data-theme', theme);
     document.body.className = theme;
-    
-    console.log('Theme switched to:', theme);
   }, [theme, mounted]);
 
   const toggleTheme = useCallback(() => {
+    console.log('Toggle clicked, current:', theme);
     setTheme(prev => prev === 'light' ? 'dark' : 'light');
-  }, []);
+  }, [theme]);
 
   if (!mounted) {
     return (
-      <div 
-        style={{ width: 52, height: 28, borderRadius: 14, background: '#252525' }} 
+      <button
+        className={`${styles.switch} ${styles.dark}`}
+        style={{ width: 48, height: 28, cursor: 'default' }}
         aria-hidden="true"
-      />
+      >
+        <span className={`${styles.thumb} ${styles.thumbDark}`} style={{ transform: 'translateX(22px)' }}>
+          <Moon size={12} />
+        </span>
+      </button>
     );
   }
 
   return (
     <button
       onClick={toggleTheme}
+      onTouchEnd={toggleTheme}
       className={`${styles.switch} ${theme === 'dark' ? styles.dark : styles.light}`}
+      style={{ minWidth: 48, minHeight: 28, padding: 2 }}
       role="switch"
       aria-checked={theme === 'dark'}
-      aria-label={`Currently ${theme} mode. Click to switch to ${theme === 'dark' ? 'light' : 'dark'} mode.`}
+      aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
     >
       <span className={styles.srOnly}>
-        Currently {theme} mode. Click to switch to {theme === 'dark' ? 'light' : 'dark'} mode.
+        {theme === 'dark' ? 'Dark mode' : 'Light mode'}
       </span>
-      <span className={`${styles.thumb} ${theme === 'dark' ? styles.thumbDark : styles.thumbLight}`}>
+      <span 
+        className={`${styles.thumb} ${theme === 'dark' ? styles.thumbDark : styles.thumbLight}`}
+      >
         {theme === 'dark' ? (
           <Moon size={12} aria-hidden="true" />
         ) : (
