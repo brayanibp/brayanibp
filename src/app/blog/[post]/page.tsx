@@ -1,9 +1,9 @@
-import dynamic from "next/dynamic";
 import styles from "./page.module.css";
+import { MDXRemote } from "next-mdx-remote/rsc";
 import Image from "next/image";
 import { Metadata, ResolvingMetadata } from "next";
-import PrintButton from "@/components/PrintButton";
-import NotFound from "@/components/NotFound";
+import CodeBlock from "@/components/CodeBlock";
+import Diagram from "@/components/Diagram";
 import { getPostBySlug } from "@/lib/blog-firestore";
 
 type Props = {
@@ -37,33 +37,36 @@ export async function generateMetadata({ params }: { params: Promise<{ post: str
   };
 }
 
-// Client component to render MDX content
-const MDXContent = dynamic(() => import("@/components/MDXContent"), {
-  loading: () => <div className="p-8 text-zinc-400">Loading content...</div>
-});
+const components = {
+  SyntaxHighlighter: CodeBlock,
+  Diagram,
+};
 
 const Posts = async ({ params }: { params: Promise<{ post: string }> }) => {
   const { post } = await params;
   const postData = await getPostBySlug(post);
 
   if (!postData || !postData.content) {
-    return <NotFound />;
+    return (
+      <section className={styles.post}>
+        <h1>Post not found</h1>
+        <p>The requested post could not be found.</p>
+      </section>
+    );
   }
 
   return (
     <section className={styles.post}>
-      <PrintButton />
-      <h1 className="no-print">{postData.title}</h1>
-      <Image className="no-print" src={postData.thumbnailUrl} alt={postData.thumbnailUrl} width={0} height={0} sizes="100%" style={{ width: '100%', height: 'auto' }} />
-      <p className="no-print">{postData.description}</p>
-      <ul className={`${styles.tags} no-print`}>
+      <h1>{postData.title}</h1>
+      <Image src={postData.thumbnailUrl} alt={postData.thumbnailUrl} width={0} height={0} sizes="100%" style={{ width: '100%', height: 'auto' }} />
+      <p>{postData.description}</p>
+      <ul className={styles.tags}>
         {postData.tags.map((tag: string) => (
           <li key={tag}>{tag}</li>
         ))}
       </ul>
       <br />
-      <MDXContent content={postData.content} />
-      <br />
+      <MDXRemote source={postData.content} components={components} />
     </section>
   );
 }
