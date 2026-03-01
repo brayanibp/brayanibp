@@ -1,12 +1,16 @@
 "use client";
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import mermaid from 'mermaid';
 
 mermaid.initialize({
   startOnLoad: false,
   theme: 'dark',
   securityLevel: 'loose',
+  flowchart: {
+    useMaxWidth: false,
+    htmlLabels: true,
+  },
 });
 
 type DiagramProps = {
@@ -16,8 +20,8 @@ type DiagramProps = {
 
 export default function Diagram({ children, chart }: DiagramProps) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [error, setError] = useState(false);
   
-  // Get the diagram code from children or chart prop
   let diagramCode = '';
   if (typeof children === 'string') {
     diagramCode = children;
@@ -32,19 +36,33 @@ export default function Diagram({ children, chart }: DiagramProps) {
       if (!containerRef.current || !diagramCode) return;
       
       try {
+        // Clean the code - remove any template literal syntax
+        const cleanCode = diagramCode.trim().replace(/^{|`}$/g, '').trim();
         const id = `mermaid-${Math.random().toString(36).substr(2, 9)}`;
-        const { svg } = await mermaid.render(id, diagramCode);
+        const { svg } = await mermaid.render(id, cleanCode);
         containerRef.current.innerHTML = svg;
-      } catch (error) {
-        console.error('Mermaid render error:', error);
-        containerRef.current.innerHTML = `<pre class="text-red-400 p-4">${diagramCode}</pre>`;
+        setError(false);
+      } catch (err) {
+        console.error('Mermaid render error:', err);
+        setError(true);
       }
     };
 
-    renderDiagram();
+    if (diagramCode) {
+      renderDiagram();
+    }
   }, [diagramCode]);
 
   if (!diagramCode) return null;
+
+  if (error) {
+    return (
+      <div className="my-6 p-4 bg-red-900/20 border border-red-800 rounded-lg">
+        <p className="text-red-400 text-sm">Failed to render diagram</p>
+        <pre className="mt-2 text-xs text-zinc-400 overflow-x-auto">{diagramCode}</pre>
+      </div>
+    );
+  }
 
   return (
     <div 
