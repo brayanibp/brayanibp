@@ -6,7 +6,39 @@ html {
   scroll-behavior: smooth;
 }
 
-:root {
+:root, [data-theme="light"] {
+  --background: #ffffff;
+  --foreground: #0a0a0a;
+  --laravel-blue: #215be1;
+  
+  /* Laravel-like light theme */
+  --bg-primary: #fafafa;
+  --bg-secondary: #f4f4f5;
+  --bg-tertiary: #e4e4e7;
+  --surface: #ffffff;
+  --text-color: #18181b;
+  --text-muted: #52525b;
+  --text-muted-light: #71717a;
+  --dates-color: #2563eb;
+  --accent-fg: #2563eb;
+  --accent-blue: #215be1;
+  --bullet-points-color: #2563eb;
+  --tags-color: #18181b;
+  --tags-background: #f4f4f5;
+  --nav-options-color: #52525b;
+  --border-color: #e4e4e7;
+  --border-light: #d4d4d8;
+  
+  /* Effects */
+  --radius: 0.5rem;
+  --shadow-soft: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --transition: 200ms ease;
+  --opacity-background: rgba(255, 255, 255, 0.9);
+  --icons-color: #52525b;
+  --icons-invert: 1;
+}
+
+[data-theme="dark"] {
   --background: #000000;
   --foreground: #ffffff;
   --laravel-blue: #215be1;
