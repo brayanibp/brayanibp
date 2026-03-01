@@ -9,7 +9,7 @@ const navItems = [
   { name: 'About', href: '/#about', id: 'about' },
   { name: 'Experience', href: '/#experience', id: 'experience' },
   { name: 'Projects', href: '/#projects', id: 'projects' },
-  { name: 'Articles', href: '/blog', id: 'blog' },
+  { name: 'Blog', href: '/blog', id: 'blog', isExternal: true },
 ];
 
 export const Sidebar = ({ isMobile = false }: { isMobile?: boolean }) => {
@@ -70,7 +70,7 @@ export const Sidebar = ({ isMobile = false }: { isMobile?: boolean }) => {
 
       <ul className="space-y-4">
         {navItems.map((item) => {
-          const isActive = item.id === 'blog' 
+          const isActive = item.isExternal 
             ? pathname === '/blog' 
             : isHome && activeSection === item.id;
           
@@ -78,11 +78,11 @@ export const Sidebar = ({ isMobile = false }: { isMobile?: boolean }) => {
             <li key={item.name}>
               <Link 
                 href={item.href} 
-                onClick={(e) => handleClick(e, item.href, item.id !== 'blog')}
+                onClick={(e) => handleClick(e, item.href, !item.isExternal)}
                 className="relative group flex items-center"
               >
                 <span 
-                  className={`text-sm transition-colors duration-200 ${
+                  className={`${item.isExternal ? 'text-base' : 'text-sm'} transition-colors duration-200 ${
                     isActive ? 'text-blue-500 font-semibold' : 'text-zinc-400 group-hover:text-white'
                   }`}
                 >
