@@ -1,29 +1,59 @@
 "use client";
 
-import { useState } from "react";
 import { Highlight, themes } from "prism-react-renderer";
-import React from "react";
+import React, { useState } from "react";
 
-// Handle MDX SyntaxHighlighter component with clipboard
-function SyntaxHighlighter(props: { children?: any; language?: string; style?: any; className?: string }) {
-  const { children, language = "text", style: _style, className: _className } = props;
+// SyntaxHighlighter for MDX - handles content from MDX children
+export default function SyntaxHighlighter({ children, language = "bash" }: { children?: React.ReactNode; language?: string }) {
   const [copied, setCopied] = useState(false);
   
+  // Extract text from children
   let code = "";
-  if (typeof children === "string") {
-    code = children;
-  } else if (children && typeof children === "object") {
-    const childStr = String(children);
-    code = childStr;
+  try {
+    if (typeof children === 'string') {
+      code = children;
+    } else if (React.isValidElement(children)) {
+      const childElement = children as React.ReactElement<any>;
+      if (childElement.props && typeof childElement.props.children === 'string') {
+        code = childElement.props.children;
+      } else if (childElement.props && Array.isArray(childElement.props.children)) {
+        code = childElement.props.children.join('');
+      } else {
+        // Try to get any string prop
+        const props = childElement.props;
+        if (props) {
+          const stringProps = Object.values(props).filter(v => typeof v === 'string');
+          if (stringProps.length > 0) {
+            code = stringProps[0] as string;
+          }
+        }
+      }
+    }
+  } catch (e) {
+    console.error('Error extracting code:', e);
   }
   
+  // Fallback: try to get any string from children
+  if (!code && children) {
+    code = String(children);
+  }
+
   const lang = (language?.replace("language-", "") || "bash").trim() || "bash";
 
   const handleCopy = async () => {
+    if (!code) return;
     await navigator.clipboard.writeText(code.trim());
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
+
+  if (!code) {
+    return (
+      <pre className="bg-zinc-900 border border-zinc-800 rounded-lg p-4 text-zinc-400 my-4">
+        No code to display
+      </pre>
+    );
+  }
 
   return (
     <div className="relative group my-4">
@@ -51,5 +81,3 @@ function SyntaxHighlighter(props: { children?: any; language?: string; style?: a
     </div>
   );
 }
-
-export default SyntaxHighlighter;
