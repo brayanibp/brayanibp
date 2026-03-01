@@ -7,35 +7,56 @@ import React, { useState } from "react";
 export default function SyntaxHighlighter({ children, language = "bash" }: { children?: React.ReactNode; language?: string }) {
   const [copied, setCopied] = useState(false);
   
-  // Extract text from children
+  // Extract text from children - handle various MDX patterns
   let code = "";
   try {
     if (typeof children === 'string') {
       code = children;
-    } else if (React.isValidElement(children)) {
-      const childElement = children as React.ReactElement<any>;
-      if (childElement.props && typeof childElement.props.children === 'string') {
-        code = childElement.props.children;
-      } else if (childElement.props && Array.isArray(childElement.props.children)) {
-        code = childElement.props.children.join('');
+    } else if (children && typeof children === 'object') {
+      // Handle template literal pattern: {`code`}
+      // This comes as an object with a "props" containing the string value
+      const childObj = children as any;
+      
+      // Check if it's a React element with $$typeof symbol
+      if (childObj.$$typeof) {
+        // It's a React element - extract from props
+        if (childObj.props && typeof childObj.props.children === 'string') {
+          code = childObj.props.children;
+        } else if (childObj.props && Array.isArray(childObj.props.children)) {
+          code = childObj.props.children.join('').replace(/[\n\r]/g, '');
+        }
       } else {
-        // Try to get any string prop
-        const props = childElement.props;
-        if (props) {
-          const stringProps = Object.values(props).filter(v => typeof v === 'string');
-          if (stringProps.length > 0) {
-            code = stringProps[0] as string;
+        // Try direct props access
+        if (childObj.props?.children) {
+          if (typeof childObj.props.children === 'string') {
+            code = childObj.props.children;
+          }
+        }
+        
+        // Try to find any string property
+        if (!code) {
+          const values = Object.values(childObj).filter((v: unknown) => typeof v === 'string' && (v as string).length > 5) as string[];
+          if (values.length > 0) {
+            code = values[0];
           }
         }
       }
     }
+    
+    // Clean up the code - remove template literal markers if present
+    code = code.replace(/^```[\s\S]*?```$/, '').trim();
+    
+    // If still empty, try to extract from the raw input
+    if (!code && children) {
+      const str = String(children);
+      // Check for template literal content
+      const match = str.match(/`([^`]*)`/);
+      if (match) {
+        code = match[1];
+      }
+    }
   } catch (e) {
     console.error('Error extracting code:', e);
-  }
-  
-  // Fallback: try to get any string from children
-  if (!code && children) {
-    code = String(children);
   }
 
   const lang = (language?.replace("language-", "") || "bash").trim() || "bash";
@@ -47,10 +68,11 @@ export default function SyntaxHighlighter({ children, language = "bash" }: { chi
     setTimeout(() => setCopied(false), 2000);
   };
 
-  if (!code) {
+  if (!code || code.length < 2) {
     return (
-      <pre className="bg-zinc-900 border border-zinc-800 rounded-lg p-4 text-zinc-400 my-4">
-        No code to display
+      <pre className="bg-zinc-900 border border-zinc-800 rounded-lg p-4 text-zinc-400 my-4 overflow-x-auto">
+        {/* Debug: show what we got */}
+        {children ? JSON.stringify(children).slice(0, 200) : 'No children'}
       </pre>
     );
   }
