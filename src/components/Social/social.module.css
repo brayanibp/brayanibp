@@ -1,9 +1,9 @@
 .social {
   height: fit-content;
   width: fit-content;
-  background: rgba(128,128,128,0.15);
+  background: rgba(128,128,128,0.2);
   backdrop-filter: blur(6px);
-  box-shadow: 0 6px 20px rgba(16, 24, 40, 0.06);
+  box-shadow: 0 6px 20px rgba(16, 24, 40, 0.1);
   color: var(--text-color);
   display: flex;
   flex-direction: column;
@@ -12,7 +12,7 @@
   top: calc(50vh - 5.5em);
   right: 1rem;
   border-radius: 8px;
-  border: 1px solid rgba(128,128,128,0.2);
+  border: 1px solid rgba(128,128,128,0.3);
   z-index: 5;
 }
 
@@ -24,8 +24,25 @@
   padding: 10px;
 }
 
+.social ul li a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.1);
+  transition: all 0.2s ease;
+}
+
+.social ul li a:hover {
+  background: rgba(59, 130, 246, 0.2);
+  transform: scale(1.1);
+}
+
 .social ul li img {
-  filter: invert(var(--icons-invert));
+  width: 24px;
+  height: 24px;
+  filter: brightness(0) invert(1);
 }
 
 @media screen and (max-width: 425px) {

@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
+import ThemeSwitcher from '@/components/ThemeSwitcher';
 
 const navItems = [
   { name: 'Home', href: '/', id: 'home', isParent: true, subSections: ['home', 'about', 'experience', 'projects'] },
@@ -109,6 +110,10 @@ export const Sidebar = ({ isMobile = false }: { isMobile?: boolean }) => {
           );
         })}
       </ul>
+
+      <div className="mt-8 pt-4 border-t border-zinc-800">
+        <ThemeSwitcher />
+      </div>
     </nav>
   );
 };
