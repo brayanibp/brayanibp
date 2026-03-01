@@ -73,38 +73,30 @@ html {
 @layer base {
   body {
     background-color: var(--background);
-    color: var(--text-color);
+    color: var(--foreground);
     @apply antialiased selection:bg-blue-500/30;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-bold tracking-tight;
-    color: var(--text-color);
+    @apply font-bold tracking-tight text-white;
   }
 
   a {
     @apply transition-colors duration-200;
-    color: var(--accent-fg);
   }
 }
 
 @layer components {
   .about_me {
-    @apply leading-relaxed text-lg;
-    color: var(--text-muted);
+    @apply text-zinc-400 leading-relaxed text-lg;
   }
 
   .about_me b {
-    @apply font-semibold;
-    color: var(--text-color);
+    @apply text-white font-semibold;
   }
 
   .laravel-link {
-    color: var(--accent-fg);
-  }
-
-  .laravel-link:hover {
-    color: var(--accent-blue);
+    @apply text-blue-500 hover:text-blue-400 font-medium;
   }
 
   .section-container {
@@ -113,42 +105,32 @@ html {
 
   /* Laravel-like card styles */
   .card {
-    background-color: var(--bg-secondary);
-    border: 1px solid var(--border-color);
-    @apply rounded-lg p-6 transition-all duration-200;
+    @apply bg-zinc-900 border border-zinc-800 rounded-lg p-6 transition-all duration-200;
   }
 
   .card:hover {
-    border-color: var(--border-light);
-    box-shadow: var(--shadow-soft);
+    @apply border-zinc-700 shadow-lg;
   }
 
   /* Blog content styles */
   .blog-content h1 {
-    @apply text-3xl font-bold mt-8 mb-4;
-    color: var(--text-color);
+    @apply text-3xl font-bold mt-8 mb-4 text-white;
   }
 
   .blog-content h2 {
-    @apply text-2xl font-bold mt-8 mb-4;
-    color: var(--text-color);
-    border-bottom: 1px solid var(--border-color);
-    padding-bottom: 0.5rem;
+    @apply text-2xl font-bold mt-8 mb-4 text-white border-b border-zinc-800 pb-2;
   }
 
   .blog-content h3 {
-    @apply text-xl font-semibold mt-6 mb-3;
-    color: var(--text-color);
+    @apply text-xl font-semibold mt-6 mb-3 text-white;
   }
 
   .blog-content p {
-    @apply leading-relaxed mb-4;
-    color: var(--text-muted);
+    @apply text-zinc-300 leading-relaxed mb-4;
   }
 
   .blog-content ul, .blog-content ol {
-    @apply mb-4 pl-6;
-    color: var(--text-muted);
+    @apply mb-4 pl-6 text-zinc-300;
   }
 
   .blog-content ul {
