@@ -78,24 +78,21 @@ const fetchPost = async (post: string) => {
 
 const components = { 
   SyntaxHighlighter: dynamic(() => import("@/components/CodeBlock"), { 
-    ssr: false,
     loading: () => <i>Loading...</i>
   }),
   Diagram: dynamic(() => import("@/components/Diagram"), {
-    ssr: false,
     loading: () => <i>Loading...</i>
   }),
   InlineHighlighter: dynamic(() => import("@/components/InlineHighlighter"), {
-    ssr: false,
     loading: () => <i>Loading...</i>
   }),
   Image: dynamic(() => import("@/components/Image"), {
-    ssr: false,
     loading: () => <i>Loading...</i>
   }),
 };
 
-const Posts = async ({ params }: { params: { post: string } }) => {
+const Posts = async ({ params }: { params: Promise<{ post: string }> }) => {
+  const { post } = await params;
   const { post } = params;
 
   const { frontmatter, content } = await fetchPost(post);

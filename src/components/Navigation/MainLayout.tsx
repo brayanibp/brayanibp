@@ -1,5 +1,5 @@
+"use client";
 import { BackgroundDots } from "../UI/BackgroundDots";
-'use client';
 
 import { useState } from 'react';
 import { Sidebar } from './Sidebar';
