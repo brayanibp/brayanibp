@@ -1,43 +1,15 @@
-"use client";
-import { useState } from 'react';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
-import SyntaxHighlighter from "react-syntax-highlighter";
-import { dracula } from "react-syntax-highlighter/dist/esm/styles/hljs";
+import React from 'react';
 
-const CodeBlock = ({ children, language }: { children: string, language: string }) => {
-  const [isCopied, setIsCopied] = useState(false);
+interface CodeBlockProps {
+  children: React.ReactNode;
+  language?: string;
+}
 
-  const handleCopy = () => {
-    setIsCopied(true);
-    setTimeout(() => {
-      setIsCopied(false);
-    }, 2000); // Reset the copied state after 2 seconds
-  };
-
+const CodeBlock = ({ children, language }: CodeBlockProps) => {
   return (
-    <div style={{ zIndex: 0, position: 'relative', marginBottom: '1.5rem' }}>
-      <CopyToClipboard text={children} onCopy={handleCopy}>
-        <button 
-          style={{
-            zIndex: 0,
-            position: 'absolute',
-            right: '10px',
-            top: '10px',
-            background: '#4A5568', /* Dark background for the button */
-            color: 'white',
-            border: 'none',
-            padding: '5px 10px',
-            borderRadius: '5px',
-            cursor: 'pointer'
-          }}
-        >
-          {isCopied ? 'Copied!' : 'Copy'}
-        </button>
-      </CopyToClipboard>
-      <SyntaxHighlighter language={language} style={dracula}>
-        {children}
-      </SyntaxHighlighter>
-    </div>
+    <pre className={`language-${language} rounded-lg p-4 bg-zinc-900 overflow-x-auto`}>
+      <code>{children}</code>
+    </pre>
   );
 };
 
