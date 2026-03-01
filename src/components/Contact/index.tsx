@@ -11,7 +11,7 @@ export default function Contact() {
     message: ''
   });
 
-  const recaptchaRef = createRef{/* <ReCAPTCHA>();
+  const recaptchaRef = createRef{/* {/* <ReCAPTCHA>();
 
   const handleSubmit = (ev: FormEvent) => {
     ev.preventDefault();
@@ -95,7 +95,7 @@ export default function Contact() {
       </button>
       {
         recaptchaNeeded && (
-          {/* <ReCAPTCHA 
+          {/* {/* <ReCAPTCHA 
             ref={recaptchaRef}
             size="invisible"
             sitekey={process?.env?.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || '6LdNEYkoAAAAADFBld6gZ6X1A93XRKJ_Vm8XsxoV'}

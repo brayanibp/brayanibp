@@ -16,7 +16,7 @@ const CodeBlock = ({ children, language }: { children: string, language: string 
 
   return (
     <div style={{ zIndex: 0, position: 'relative', marginBottom: '1.5rem' }}>
-      <CopyToClipboard text={children} onCopy={handleCopy}>
+      <div text={children} onCopy={handleCopy}>
         <button 
           style={{
             zIndex: 0,
@@ -33,7 +33,7 @@ const CodeBlock = ({ children, language }: { children: string, language: string 
         >
           {isCopied ? 'Copied!' : 'Copy'}
         </button>
-      </CopyToClipboard>
+      </div>>
       <SyntaxHighlighter language={language} style={dracula}>
         {children}
       </SyntaxHighlighter>
