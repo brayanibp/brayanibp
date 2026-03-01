@@ -6,11 +6,11 @@ import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 
 const navItems = [
-  { name: 'Home', href: '/', id: 'home' },
-  { name: 'About', href: '/#about', id: 'about' },
-  { name: 'Experience', href: '/#experience', id: 'experience' },
-  { name: 'Projects', href: '/#projects', id: 'projects' },
-  { name: 'Blog', href: '/blog', id: 'blog', isExternal: true },
+  { name: 'Home', href: '/', id: 'home', isSection: true },
+  { name: 'About', href: '/#about', id: 'about', isSection: true },
+  { name: 'Experience', href: '/#experience', id: 'experience', isSection: true },
+  { name: 'Projects', href: '/#projects', id: 'projects', isSection: true },
+  { name: 'Blog', href: '/blog', id: 'blog', isSection: false },
 ];
 
 export const Sidebar = ({ isMobile = false }: { isMobile?: boolean }) => {
@@ -21,19 +21,24 @@ export const Sidebar = ({ isMobile = false }: { isMobile?: boolean }) => {
   useEffect(() => {
     if (!isHome) return;
 
-    const sections = ['about', 'experience', 'projects'];
+    const sections = ['home', 'about', 'experience', 'projects'];
     
     const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveSection(entry.target.id);
-          }
-        });
+        // Find which section is currently visible
+        const visibleSections = entries.filter(e => e.isIntersecting);
+        if (visibleSections.length > 0) {
+          // Get the first visible section (topmost)
+          const topSection = visibleSections.reduce((prev, curr) => 
+            curr.boundingClientRect.top < prev.boundingClientRect.top ? curr : prev
+          );
+          setActiveSection(topSection.target.id);
+        }
       },
-      { rootMargin: '-20% 0px -60% 0px' }
+      { rootMargin: '-30% 0px -50% 0px' }
     );
 
+    // Also observe if NO section is in view (meaning we're at the very top)
     sections.forEach((id) => {
       const el = document.getElementById(id);
       if (el) observer.observe(el);
@@ -71,19 +76,19 @@ export const Sidebar = ({ isMobile = false }: { isMobile?: boolean }) => {
 
       <ul className="space-y-4">
         {navItems.map((item) => {
-          const isActive = item.isExternal 
+          const isActive = !item.isSection 
             ? pathname === '/blog' 
-            : isHome && (activeSection === item.id || (item.id === 'home' && activeSection === 'home'));
+            : isHome && activeSection === item.id;
           
           return (
             <li key={item.name}>
               <Link 
                 href={item.href} 
-                onClick={(e) => handleClick(e, item.href, !item.isExternal)}
+                onClick={(e) => handleClick(e, item.href, item.isSection)}
                 className="relative group flex items-center"
               >
                 <span 
-                  className={`${item.isExternal ? 'text-base' : 'text-sm'} transition-colors duration-200 ${
+                  className={`${item.isSection ? 'text-sm' : 'text-base'} transition-colors duration-200 ${
                     isActive ? 'text-blue-500 font-semibold' : 'text-zinc-400 group-hover:text-white'
                   }`}
                 >
