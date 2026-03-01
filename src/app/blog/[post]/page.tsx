@@ -2,7 +2,7 @@ import styles from "./page.module.css";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import Image from "next/image";
 import { Metadata, ResolvingMetadata } from "next";
-import CodeBlock from "@/components/CodeBlock";
+import SyntaxHighlighter from "@/components/CodeBlock";
 import Diagram from "@/components/Diagram";
 import { getPostBySlug } from "@/lib/blog-firestore";
 import remarkGfm from "remark-gfm";
@@ -38,25 +38,13 @@ export async function generateMetadata({ params }: { params: Promise<{ post: str
   };
 }
 
+// Mapear el componente pre para usar SyntaxHighlighter
 const components = {
-  SyntaxHighlighter: (props: any) => {
-    // Extraer el contenido del template literal
-    let code = "";
-    
-    if (props.children) {
-      if (typeof props.children === 'string') {
-        code = props.children;
-      } else if (typeof props.children === 'object') {
-        // El template literal viene como un objeto especial
-        // Intentar encontrar el valor
-        const childStr = String(props.children);
-        // Remover las llaves y backticks si existen
-        code = childStr.replace(/^\{[`,]*|[`,]*\}$/g, '').trim();
-      }
-    }
-    
-    return <CodeBlock language={props.language}>{code}</CodeBlock>;
+  pre: (props: any) => {
+    // El contenido viene en props.children
+    return <SyntaxHighlighter {...props} />;
   },
+  SyntaxHighlighter,
   Diagram,
 };
 
