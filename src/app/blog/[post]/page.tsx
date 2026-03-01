@@ -5,6 +5,7 @@ import { Metadata, ResolvingMetadata } from "next";
 import CodeBlock from "@/components/CodeBlock";
 import Diagram from "@/components/Diagram";
 import { getPostBySlug } from "@/lib/blog-firestore";
+import remarkGfm from "remark-gfm";
 
 type Props = {
   params: {
@@ -38,7 +39,24 @@ export async function generateMetadata({ params }: { params: Promise<{ post: str
 }
 
 const components = {
-  SyntaxHighlighter: CodeBlock,
+  SyntaxHighlighter: (props: any) => {
+    // Extraer el contenido del template literal
+    let code = "";
+    
+    if (props.children) {
+      if (typeof props.children === 'string') {
+        code = props.children;
+      } else if (typeof props.children === 'object') {
+        // El template literal viene como un objeto especial
+        // Intentar encontrar el valor
+        const childStr = String(props.children);
+        // Remover las llaves y backticks si existen
+        code = childStr.replace(/^\{[`,]*|[`,]*\}$/g, '').trim();
+      }
+    }
+    
+    return <CodeBlock language={props.language}>{code}</CodeBlock>;
+  },
   Diagram,
 };
 
@@ -66,7 +84,15 @@ const Posts = async ({ params }: { params: Promise<{ post: string }> }) => {
         ))}
       </ul>
       <br />
-      <MDXRemote source={postData.content} components={components} />
+      <MDXRemote 
+        source={postData.content} 
+        components={components}
+        options={{
+          mdxOptions: {
+            remarkPlugins: [remarkGfm],
+          }
+        }}
+      />
     </section>
   );
 }

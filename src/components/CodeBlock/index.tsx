@@ -3,7 +3,7 @@
 import { useState, useEffect, ReactNode } from "react";
 import { Highlight, themes } from "prism-react-renderer";
 
-// Wrapper para SyntaxHighlighter que maneja el template literal con debug
+// SyntaxHighlighter que maneja el template literal de MDX
 const SyntaxHighlighter = ({ children, language, style, ...props }: { 
   children?: ReactNode; 
   language?: string;
@@ -11,42 +11,46 @@ const SyntaxHighlighter = ({ children, language, style, ...props }: {
   [key: string]: any;
 }) => {
   const [code, setCode] = useState("");
-  const [debug, setDebug] = useState<any>(null);
 
   useEffect(() => {
     let extractedCode = "";
     
-    // Debug what's coming in
-    setDebug({
-      type: typeof children,
-      isString: typeof children === 'string',
-      isObject: typeof children === 'object',
-      hasProps: children && typeof children === 'object' ? 'props' in children : false,
-      preview: typeof children === 'string' ? children.slice(0, 50) : String(children).slice(0, 50)
-    });
-    
-    // Handle template literal {`code`}
+    // El template literal {`code`} se pasa de forma diferente en MDX
+    // Primero intentamos obtener el valor directamente
     if (typeof children === 'string') {
       extractedCode = children;
-    } else if (children && typeof children === 'object') {
-      const childObj = children as any;
-      
-      // Try props.children first
-      if (childObj.props?.children) {
-        extractedCode = String(childObj.props.children);
-      } 
-      // Try any string property
-      else {
-        const values = Object.values(childObj).filter((v): v is string => typeof v === 'string' && v.length > 0);
-        if (values.length > 0) {
-          extractedCode = values[0];
+    } 
+    // Si es un objeto, buscamos en cualquier propiedad
+    else if (children && typeof children === 'object') {
+      // Buscar recursively en el objeto
+      const findString = (obj: any): string | null => {
+        if (!obj) return null;
+        if (typeof obj === 'string') return obj;
+        if (typeof obj === 'number') return String(obj);
+        if (Array.isArray(obj)) {
+          for (const item of obj) {
+            const found = findString(item);
+            if (found) return found;
+          }
         }
-      }
+        if (typeof obj === 'object') {
+          for (const value of Object.values(obj)) {
+            const found = findString(value);
+            if (found) return found;
+          }
+        }
+        return null;
+      };
+      
+      extractedCode = findString(children) || "";
     }
     
-    // Clean up - remove backticks if present
+    // Limpiar el código
     if (extractedCode) {
-      extractedCode = extractedCode.replace(/^`/, '').replace(/`$/, '').trim();
+      // Remover backticks del inicio y final
+      extractedCode = extractedCode.replace(/^```[\s\S]*?```$/, ''); // código bloque
+      extractedCode = extractedCode.replace(/^`/, '').replace(/`$/, ''); // backticks simples
+      extractedCode = extractedCode.trim();
     }
     
     setCode(extractedCode);
@@ -60,11 +64,8 @@ const SyntaxHighlighter = ({ children, language, style, ...props }: {
 
   if (!code) {
     return (
-      <div className="bg-zinc-900 p-4 rounded-lg my-4">
-        <p className="text-yellow-500 text-sm mb-2">Debug - No code extracted:</p>
-        <pre className="text-xs text-zinc-400 overflow-x-auto">
-          {JSON.stringify(debug, null, 2)}
-        </pre>
+      <div className="bg-zinc-900 p-4 rounded-lg my-4 border border-zinc-700">
+        <p className="text-yellow-500 text-sm mb-2">Empty code block</p>
       </div>
     );
   }
