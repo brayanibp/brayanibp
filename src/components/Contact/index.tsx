@@ -1,32 +1,15 @@
-"use client";
-import { ChangeEvent, FormEvent, createRef, useState } from "react";
-import { ArrowRight } from "lucide-react";
-// // import ReCAPTCHA from "react-google-recaptcha";
-import style from "./contact.module.css";
+import React from 'react';
 
-export default function Contact() {
-  const [recaptchaNeeded, setRecaptchaNeeded] = useState(false);
-  const [email, setEmail] = useState({
-    email: '',
-    message: ''
-  });
+const Contact = () => {
+  return (
+    <section id="contact" className="py-20">
+      <h2 className="text-3xl font-bold mb-8">Contact</h2>
+      <p className="text-zinc-400 mb-8">Form temporarily disabled for v3 architecture migration.</p>
+      <div className="p-8 border border-zinc-800 rounded-lg bg-zinc-900/50">
+        <p>Email: brayanibp@brayanibp.dev</p>
+      </div>
+    </section>
+  );
+};
 
-  const recaptchaRef = createRef{/* {/* <div>[ReCAPTCHA Disabled for v3 Build]</div>
-      <textarea 
-        required 
-        name="message" 
-        placeholder="Hi, I wanted to contact you..."
-        onChange={(ev)=>handleChange(ev)}
-      />
-      <button type="submit">
-        Submit
-        <ArrowRight className={style.arrowIcon} aria-hidden="true" />
-      </button>
-      {
-        recaptchaNeeded && (
-          {/* {/* <div>[ReCAPTCHA Disabled for v3 Build]</div>
-        ) 
-      }
-    </form>
-  </section>;
-}
+export default Contact;

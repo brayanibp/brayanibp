@@ -1,0 +1,37 @@
+
+> brayanibp-v2@0.1.0 build
+> next build
+
+   ▲ Next.js 15.5.12
+
+   Creating an optimized production build ...
+
+
+Retrying 1/3...
+ ✓ Compiled successfully in 12.4s
+   Linting and checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/8) ...
+   Generating static pages (2/8) 
+   Generating static pages (4/8) 
+   Generating static pages (6/8) 
+ ✓ Generating static pages (8/8)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                                 Size  First Load JS
+┌ ○ /                                    1.98 kB         105 kB
+├ ○ /_not-found                            130 B         103 kB
+├ ƒ /api/jobs                              130 B         103 kB
+├ ○ /blog                                  294 B         112 kB
+├ ƒ /blog/[post]                          149 kB         261 kB
+└ ○ /privacy-policy                        205 B         104 kB
++ First Load JS shared by all             103 kB
+  ├ chunks/1255-ad409e5887c155b0.js      45.8 kB
+  ├ chunks/4bd1b696-100b9d70ed4e49c1.js  54.2 kB
+  └ other shared chunks (total)          3.34 kB
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+

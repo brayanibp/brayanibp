@@ -1,0 +1,49 @@
+
+> brayanibp-v2@0.1.0 build
+> next build
+
+   ▲ Next.js 15.5.12
+
+   Creating an optimized production build ...
+Failed to compile.
+
+./src/components/Contact/index.tsx
+Error:   [31mx[0m Expected a semicolon
+    ,-[[36;1;4m/home/moltbot/portfolio-v2/src/components/Contact/index.tsx[0m:14:1]
+ [2m11[0m |     message: ''
+ [2m12[0m |   });
+ [2m13[0m | 
+ [2m14[0m |   const recaptchaRef = createRef{/* {/* <div>[ReCAPTCHA Disabled for v3 Build]</div>
+    : [35;1m                                ^[0m
+ [2m15[0m |       <textarea 
+ [2m16[0m |         required 
+ [2m17[0m |         name="message" 
+    `----
+  [31mx[0m Unterminated block comment
+    ,-[[36;1;4m/home/moltbot/portfolio-v2/src/components/Contact/index.tsx[0m:32:1]
+ [2m29[0m |       }
+ [2m30[0m |     </form>
+ [2m31[0m |   </section>;
+ [2m32[0m | }
+    `----
+  [31mx[0m Expected '}', got '<eof>'
+    ,-[[36;1;4m/home/moltbot/portfolio-v2/src/components/Contact/index.tsx[0m:14:1]
+ [2m11[0m |     message: ''
+ [2m12[0m |   });
+ [2m13[0m | 
+ [2m14[0m |   const recaptchaRef = createRef{/* {/* <div>[ReCAPTCHA Disabled for v3 Build]</div>
+    : [35;1m                                 ^[0m
+ [2m15[0m |       <textarea 
+ [2m16[0m |         required 
+ [2m17[0m |         name="message" 
+    `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./src/components/Contact/index.tsx
+./src/app/page.tsx
+
+
+> Build failed because of webpack errors
