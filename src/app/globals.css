@@ -1,200 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
-  /* color schema */
-  --light-theme-font-color: #111111;
-  --light-theme-background: #ffffff;
-  --light-theme-transparent-background: #ffffff88;
-  --light-theme-dates-color: #585858; /* or 555 */
-  --light-theme-tags-background: #eeeeee;
-  --light-theme-tags-color: #222222;
-  --light-theme-fields-background: #ffffff;
-  --light-theme-fields-border: #55555588;
-  --light-theme-fields-color: #111111;
-  --light-theme-button-background: #6495ed;
-  --light-theme-button-color: #444444;
-  --light-theme-bullet-points-color: #222222;
-  --light-theme-icons-color: #000000;
-  --light-theme-icons-invert-filter: 0;
-  --light-theme-nav-options-color: #444444;
-  --light-theme-social-background: #eeeeee44;
-  --light-theme-social-boxshadow: #55555566;
-
-  --dark-theme-font-color: #dddddd;
-  --dark-theme-background: #101120;
-  --dark-theme-transparent-background: #10112088;
-  --dark-theme-dates-color: #cbcbcb;
-  --dark-theme-tags-background: #2d2f4888;
-  --dark-theme-tags-color: #8e98e2;
-  --dark-theme-fields-background: #2d2f48;
-  --dark-theme-fields-border: #55555588;
-  --dark-theme-fields-color: #dddddd;
-  --dark-theme-button-background: #486cae;
-  --dark-theme-button-color: #dddddd;
-  --dark-theme-bullet-points-color: #cdcdcd;
-  --dark-theme-icons-color: #ffffff;
-  --dark-theme-icons-invert-filter: 1;
-  --dark-theme-nav-options-color: #dddddd;
-  --dark-theme-social-background: #1b1d37be;
-  --dark-theme-social-boxshadow: #1b1d37be;
-  
-  --post-anchor-font-color: #1a73e8;
-  --post-anchor-font-color-hover: #0056b3;
-
-  /* global variables */
-  --opacity-background: var(--light-theme-transparent-background);
-  --background-color: var(--light-theme-background, #ffffff);
-  --text-color: var(--light-theme-font-color, #111111);
-  --dates-color: var(--light-theme-dates-color);
-  --tags-background: var(--light-theme-tags-background);
-  --tags-color: var(--light-theme-tags-color);
-  --fields-border: var(--light-theme-fields-border);
-  --fields-background: var(--light-theme-fields-background);
-  --fields-color: var(--light-theme-fields-color);
-  --button-background: var(--light-theme-button-background);
-  --button-color: var(--light-theme-button-color);
-  --bullet-points-color: var(--light-theme-bullet-points-color);
-  --icons-color: var(--light-theme-icons-color);
-  --icons-invert: var(--light-theme-icons-invert-filter);
-  --nav-options-color: var(--light-theme-nav-options-color);
-  --social-background: var(--light-theme-social-background);
-  --social-boxshadow: var(--light-theme-social-boxshadow);
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 0, 0, 0;
+  --background-end-rgb: 0, 0, 0;
 }
 
-@import url('https://fonts.googleapis.com/css?family=Ubuntu&display=swap');
-@import url('https://fonts.googleapis.com/css?family=Source Sans Pro&display=swap');
-
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-}
-
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
-  background: var(--background-color);
-}
-
-main {
-  padding: 5em;
-}
-
-footer, 
-section {
-  padding: 1em;
-  padding-top: 4em;
-  background: none;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 1em;
-  margin: 0 auto;
-  width: 50vw;
-}
-
-.table-of-contents {
-  padding: 20px 0;
-  border-radius: 8px;
-}
-
-.table-of-contents h2 {
-  font-size: 24px;
-  margin-bottom: 20px;
-  font-weight: bold;
-}
-
-.table-of-contents ol {
-  list-style-type: none; /* Eliminar los números predeterminados */
-  padding-left: 0;
-  margin-left: 0;
-}
-
-.table-of-contents li {
-  counter-increment: list; /* Usar contador personalizado */
-  margin-bottom: 10px;
-  font-size: 16px;
-}
-
-.table-of-contents li::before {
-  content: counter(list) ". "; /* Añadir los números personalizados */
-  font-weight: bold;
-  color: var(--post-anchor-font-color);
-}
-
-.table-of-contents a {
-  text-decoration: none;
-  color: var(--post-anchor-font-color);
-  transition: color 0.3s ease;
-}
-
-.table-of-contents a:hover {
-  color: var(--post-anchor-font-color-hover); /* Efecto hover */
-}
-
-body.dark, section.dark {
-  /* update styles variables */
-  --opacity-background: var(--dark-theme-transparent-background);
-  --background-color: var(--dark-theme-background);
-  --text-color: var(--dark-theme-font-color);
-  --dates-color: var(--dark-theme-dates-color);
-  --tags-background: var(--dark-theme-tags-background);
-  --tags-color: var(--dark-theme-tags-color);
-  --fields-border: var(--dark-theme-fields-border);
-  --fields-background: var(--dark-theme-fields-background);
-  --fields-color: var(--dark-theme-fields-color);
-  --button-background: var(--dark-theme-button-background);
-  --button-color: var(--dark-theme-button-color);
-  --bullet-points-color: var(--dark-theme-bullet-points-color);
-  --icons-color: var(--dark-theme-icons-color);
-  --icons-invert: var(--dark-theme-icons-invert-filter);
-  --nav-options-color: var(--dark-theme-nav-options-color);
-  --social-background: var(--dark-theme-social-background);
-  --social-boxshadow: var(--dark-theme-social-boxshadow);
-
-  /* assing values */
-  background-color: var(--background-color);
-  color: var(--text-color);
-}
-
-@media screen and (max-width: 425px) {
-  main {
-    padding: 1em;
-  }
-
-  section:first-child {
-    padding-top: 4.5em;
-  }
-
-  section {
-    padding-top: 1em;
-    width: 100%;
-  }
-}
-
-@media print {
+@layer base {
   body {
-    font-size: 12pt;
-    line-height: 1.6;
-  }
-
-  /* Hide non-printable elements */
-  .no-print, nav, footer {
-    display: none !important;
-  }
-
-  /* Adjust syntax highlighting */
-  pre {
-    border: none;
-    background-color: var(--background-color);
-    color: var(--text-color);
-  }
-
-  /* Ensure diagrams and other components fit */
-  .mermaid {
-    max-width: 100%;
+    @apply bg-black text-white;
+    font-feature-settings: "rlig" 1, "calt" 1;
   }
 }
 
-.social ul li img {
-  filter: invert(var(--icons-invert, 0));
+/* Utilería para la versión solo sólido */
+.bg-solid-black {
+  background-color: #000000;
 }
