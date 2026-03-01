@@ -1,19 +1,23 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Moon, Sun } from 'lucide-react';
 import styles from "./theme-switcher.module.css";
 
 export default function ThemeSwitcher() {
   const [theme, setTheme] = useState<'light' | 'dark'>('dark');
   const [mounted, setMounted] = useState(false);
+  const initialized = useRef(false);
 
   useEffect(() => {
+    if (initialized.current) return;
+    initialized.current = true;
+    
     setMounted(true);
     // Get initial theme from localStorage or system preference
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme) {
       setTheme(savedTheme as 'light' | 'dark');
-    } else if (window.matchMedia('(prefers-color-scheme: light)').matches) {
+    } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
       setTheme('light');
     }
   }, []);
@@ -21,6 +25,8 @@ export default function ThemeSwitcher() {
   useEffect(() => {
     if (!mounted) return;
     
+    // Apply theme to document
+    document.documentElement.setAttribute('data-theme', theme);
     document.body.classList.remove('light', 'dark');
     document.body.classList.add(theme);
     localStorage.setItem('theme', theme);
@@ -31,7 +37,10 @@ export default function ThemeSwitcher() {
   }
 
   if (!mounted) {
-    return null;
+    // Return a placeholder with same dimensions to avoid layout shift
+    return (
+      <div style={{ width: 52, height: 28 }} />
+    );
   }
 
   return (
@@ -45,9 +54,9 @@ export default function ThemeSwitcher() {
       <span className={styles.srOnly}>Toggle theme</span>
       <span className={`${styles.thumb} ${theme === 'dark' ? styles.thumbDark : styles.thumbLight}`}>
         {theme === 'dark' ? (
-          <Moon size={14} className={styles.icon} />
+          <Moon size={12} className={styles.icon} />
         ) : (
-          <Sun size={14} className={styles.icon} />
+          <Sun size={12} className={styles.icon} />
         )}
       </span>
     </button>

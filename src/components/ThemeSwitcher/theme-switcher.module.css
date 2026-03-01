@@ -2,24 +2,23 @@
   position: relative;
   display: inline-flex;
   align-items: center;
-  width: 44px;
-  height: 24px;
-  border-radius: 12px;
+  width: 52px;
+  height: 28px;
+  border-radius: 14px;
   transition: background-color 0.3s;
   cursor: pointer;
-  border: none;
+  border: 2px solid var(--border-color);
   padding: 0;
   margin: 0;
+  background: var(--bg-secondary);
 }
 
 .light {
-  background-color: rgba(128,128,128,0.2);
-  border: 1px solid rgba(128,128,128,0.3);
+  background: var(--bg-secondary);
 }
 
 .dark {
-  background-color: rgba(128,128,128,0.25);
-  border: 1px solid rgba(128,128,128,0.35);
+  background: var(--bg-tertiary);
 }
 
 .thumb {
@@ -27,11 +26,12 @@
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background-color: white;
+  background: linear-gradient(135deg, #fbbf24, #f59e0b);
   transition: transform 0.3s;
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
 .thumbLight {
@@ -39,13 +39,14 @@
 }
 
 .thumbDark {
-  transform: translateX(22px);
+  transform: translateX(26px);
+  background: linear-gradient(135deg, #6366f1, #4f46e5);
 }
 
 .icon {
-  width: 14px;
-  height: 14px;
-  color: #4a5568;
+  width: 12px;
+  height: 12px;
+  color: white;
 }
 
 .srOnly {
@@ -62,6 +63,20 @@
 
 @media screen and (max-width: 425px) {
   .switch {
-    margin: 0 0 0 40px;
+    width: 48px;
+    height: 26px;
+  }
+  
+  .thumb {
+    width: 18px;
+    height: 18px;
+  }
+  
+  .thumbLight {
+    transform: translateX(2px);
+  }
+  
+  .thumbDark {
+    transform: translateX(24px);
   }
 }
