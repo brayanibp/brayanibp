@@ -1,63 +1,72 @@
 "use client";
 
 import { Highlight, themes } from "prism-react-renderer";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useMDXContent } from "@/components/MDXContent/context";
 
-// SyntaxHighlighter for MDX - handles content from MDX children
-export default function SyntaxHighlighter({ children, language = "bash" }: { children?: React.ReactNode; language?: string }) {
+// SyntaxHighlighter for MDX - using MDX context to get content
+export default function SyntaxHighlighter({ 
+  children, 
+  language = "bash",
+  ...props 
+}: { 
+  children?: React.ReactNode; 
+  language?: string;
+  [key: string]: any;
+}) {
   const [copied, setCopied] = useState(false);
+  const [code, setCode] = useState("");
   
-  // Extract text from children - handle various MDX patterns
-  let code = "";
-  try {
+  useEffect(() => {
+    // Try multiple ways to extract code from children
+    let extractedCode = "";
+    
+    // Method 1: Direct string
     if (typeof children === 'string') {
-      code = children;
-    } else if (children && typeof children === 'object') {
-      // Handle template literal pattern: {`code`}
-      // This comes as an object with a "props" containing the string value
-      const childObj = children as any;
-      
-      // Check if it's a React element with $$typeof symbol
-      if (childObj.$$typeof) {
-        // It's a React element - extract from props
-        if (childObj.props && typeof childObj.props.children === 'string') {
-          code = childObj.props.children;
-        } else if (childObj.props && Array.isArray(childObj.props.children)) {
-          code = childObj.props.children.join('').replace(/[\n\r]/g, '');
+      extractedCode = children;
+    }
+    // Method 2: React element with props
+    else if (React.isValidElement(children)) {
+      const childEl = children as React.ReactElement<any>;
+      // Check for children prop
+      if (childEl.props?.children) {
+        if (typeof childEl.props.children === 'string') {
+          extractedCode = childEl.props.children;
+        } else if (Array.isArray(childEl.props.children)) {
+          extractedCode = childEl.props.children.join('');
         }
-      } else {
-        // Try direct props access
-        if (childObj.props?.children) {
-          if (typeof childObj.props.children === 'string') {
-            code = childObj.props.children;
-          }
-        }
-        
-        // Try to find any string property
-        if (!code) {
-          const values = Object.values(childObj).filter((v: unknown) => typeof v === 'string' && (v as string).length > 5) as string[];
-          if (values.length > 0) {
-            code = values[0];
-          }
+      }
+      // Check for any string prop (like in template literals)
+      if (!extractedCode) {
+        const strProps = Object.values(childEl.props || {}).filter(
+          (v): v is string => typeof v === 'string' && v.length > 0
+        );
+        if (strProps.length > 0) {
+          extractedCode = strProps[0];
         }
       }
     }
-    
-    // Clean up the code - remove template literal markers if present
-    code = code.replace(/^```[\s\S]*?```$/, '').trim();
-    
-    // If still empty, try to extract from the raw input
-    if (!code && children) {
-      const str = String(children);
-      // Check for template literal content
-      const match = str.match(/`([^`]*)`/);
-      if (match) {
-        code = match[1];
+    // Method 3: Try to get from props directly
+    else if (props && typeof props === 'object') {
+      const values = Object.values(props).filter(
+        (v): v is string => typeof v === 'string' && v.length > 0
+      );
+      if (values.length > 0) {
+        extractedCode = values[0];
       }
     }
-  } catch (e) {
-    console.error('Error extracting code:', e);
-  }
+    
+    // Clean up the code
+    if (extractedCode) {
+      extractedCode = extractedCode
+        .replace(/^```[\s\S]*?```$/, '') // Remove markdown code blocks
+        .replace(/^`/, '')              // Remove leading backtick
+        .replace(/`$/, '')              // Remove trailing backtick
+        .trim();
+    }
+    
+    setCode(extractedCode);
+  }, [children, props]);
 
   const lang = (language?.replace("language-", "") || "bash").trim() || "bash";
 
@@ -68,12 +77,19 @@ export default function SyntaxHighlighter({ children, language = "bash" }: { chi
     setTimeout(() => setCopied(false), 2000);
   };
 
-  if (!code || code.length < 2) {
+  if (!code) {
+    // Debug: show what we received
     return (
-      <pre className="bg-zinc-900 border border-zinc-800 rounded-lg p-4 text-zinc-400 my-4 overflow-x-auto">
-        {/* Debug: show what we got */}
-        {children ? JSON.stringify(children).slice(0, 200) : 'No children'}
-      </pre>
+      <div className="bg-zinc-900 border border-zinc-800 rounded-lg p-4 my-4">
+        <p className="text-zinc-500 text-sm mb-2">Debug: No code extracted</p>
+        <pre className="text-xs text-zinc-400 overflow-x-auto">
+          {JSON.stringify({ 
+            childrenType: typeof children,
+            hasChildren: !!children,
+            props: Object.keys(props || {})
+          }, null, 2)}
+        </pre>
+      </div>
     );
   }
 

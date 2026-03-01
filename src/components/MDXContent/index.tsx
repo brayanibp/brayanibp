@@ -6,6 +6,7 @@ import { serialize } from "next-mdx-remote/serialize";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
 import dynamic from "next/dynamic";
+import { MDXContentProvider } from "./context";
 
 // SyntaxHighlighter component
 const SyntaxHighlighter = dynamic(() => import("@/components/CodeBlock"), {
@@ -23,7 +24,7 @@ const InlineHighlighter = dynamic(() => import("@/components/InlineHighlighter")
 });
 
 // Custom Image component
-const Image = dynamic(() => import("@/components/Image"), {
+const CustomImage = dynamic(() => import("@/components/Image"), {
   loading: () => <div className="p-4 bg-zinc-900 rounded-lg">Loading image...</div>,
 });
 
@@ -31,7 +32,7 @@ const components = {
   SyntaxHighlighter,
   Diagram,
   InlineHighlighter,
-  Image,
+  Image: CustomImage,
   h1: (props: any) => <h1 className="text-3xl font-bold mt-8 mb-4 text-white" {...props} />,
   h2: (props: any) => <h2 className="text-2xl font-bold mt-8 mb-4 text-white border-b border-zinc-800 pb-2" {...props} />,
   h3: (props: any) => <h3 className="text-xl font-semibold mt-6 mb-3 text-white" {...props} />,
@@ -41,11 +42,11 @@ const components = {
   li: (props: any) => <li className="mb-2 text-zinc-300" {...props} />,
   a: (props: any) => <a className="text-blue-500 hover:text-blue-400 underline" {...props} />,
   blockquote: (props: any) => <blockquote className="border-l-4 border-blue-500 pl-4 my-4 italic text-zinc-400" {...props} />,
-  pre: (props: any) => <pre className="bg-zinc-900 border border-zinc-800 rounded-lg p-4 overflow-x-auto mb-4" {...props} />,
+  pre: (props: any) => <pre className="bg-zinc-900 border-zinc-800 rounded-lg p-4 overflow-x-auto mb-4" {...props} />,
   code: (props: any) => <code className="bg-zinc-800 text-zinc-200 px-1.5 py-0.5 rounded text-sm font-mono" {...props} />,
   table: (props: any) => <table className="w-full border-collapse mb-4" {...props} />,
-  th: (props: any) => <th className="bg-zinc-800 text-left px-4 py-2 font-semibold text-white border border-zinc-700" {...props} />,
-  td: (props: any) => <td className="px-4 py-2 border border-zinc-700 text-zinc-300" {...props} />,
+  th: (props: any) => <th className="bg-zinc-800 text-left px-4 py-2 font-semibold text-white border-zinc-700" {...props} />,
+  td: (props: any) => <td className="px-4 py-2 border-zinc-700 text-zinc-300" {...props} />,
   hr: (props: any) => <hr className="border-zinc-800 my-8" {...props} />,
   div: (props: any) => <div className="text-zinc-300" {...props} />,
   strong: (props: any) => <strong className="text-white font-semibold" {...props} />,
@@ -84,7 +85,7 @@ export default function MDXContent({ content }: MDXContentProps) {
 
   if (error) {
     return (
-      <div className="p-4 bg-red-900/20 border border-red-800 rounded-lg">
+      <div className="p-4 bg-red-900/20 border-red-800 rounded-lg">
         <p className="text-red-400">{error}</p>
         <pre className="mt-2 text-xs text-zinc-400 overflow-x-auto max-h-64">{content.slice(0, 500)}</pre>
       </div>
@@ -96,8 +97,10 @@ export default function MDXContent({ content }: MDXContentProps) {
   }
 
   return (
-    <div className="blog-content">
-      <MDXRemote {...mdxSource} components={components} />
-    </div>
+    <MDXContentProvider>
+      <div className="blog-content">
+        <MDXRemote {...mdxSource} components={components} />
+      </div>
+    </MDXContentProvider>
   );
 }
