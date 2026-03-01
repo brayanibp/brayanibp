@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
-import ThemeSwitcher from "@/components/ThemeSwitcher";
+
 import style from "./navbar.module.css";
 import { useEffect, useRef } from "react";
 
@@ -53,9 +53,6 @@ const Navbar = () => {
             </Link>
           </li>
         </ul>
-        <div className={style.actions}>
-          <ThemeSwitcher />
-        </div>
       </nav>
     </>
   );
