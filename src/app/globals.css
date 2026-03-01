@@ -3,15 +3,62 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 255, 255, 255;
-  --background-start-rgb: 0, 0, 0;
-  --background-end-rgb: 0, 0, 0;
+  --background: #000000;
+  --foreground: #ffffff;
+  --laravel-blue: #215be1;
+  
+  /* Color scheme - dark mode */
+  --background-color: #000000;
+  --surface: #0a0a0a;
+  --text-color: #e4e4e7;
+  --text-muted: #a1a1aa;
+  --dates-color: #3b82f6;
+  --accent-fg: #3b82f6;
+  --bullet-points-color: #3b82f6;
+  --tags-color: #e4e4e7;
+  --tags-background: #18181b;
+  --nav-options-color: #a1a1aa;
+  
+  /* Effects */
+  --radius: 0.5rem;
+  --shadow-soft: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --transition: 200ms ease;
+  --opacity-background: rgba(0, 0, 0, 0.8);
+  --icons-color: #a1a1aa;
+  --icons-invert: 0;
 }
 
 @layer base {
   body {
-    @apply bg-black text-white;
-    font-feature-settings: "rlig" 1, "calt" 1;
+    background-color: var(--background);
+    color: var(--foreground);
+    @apply antialiased selection:bg-blue-500/30;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold tracking-tight text-white;
+  }
+
+  a {
+    @apply transition-colors duration-200;
+  }
+}
+
+@layer components {
+  .about_me {
+    @apply text-zinc-400 leading-relaxed text-lg;
+  }
+
+  .about_me b {
+    @apply text-white font-semibold;
+  }
+
+  .laravel-link {
+    @apply text-blue-500 hover:text-blue-400 font-medium;
+  }
+
+  .section-container {
+    @apply max-w-4xl mx-auto p-6 md:p-12 lg:p-24;
   }
 }
 

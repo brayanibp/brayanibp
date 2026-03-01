@@ -49,8 +49,7 @@ export const MainLayout = ({ children }: { children: React.ReactNode }) => {
               </div>
               {/* Reutilizamos la lógica de items aquí para el móvil */}
               <div onClick={() => setIsMobileMenuOpen(false)}>
-                 <Sidebar />
-      <BackgroundDots />
+                 <Sidebar isMobile={true} />
               </div>
             </motion.div>
           </>
