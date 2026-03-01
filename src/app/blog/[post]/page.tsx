@@ -13,8 +13,8 @@ type Props = {
   }
 }
 
-export async function generateMetadata({ params }: Props, parent: ResolvingMetadata): Promise<Metadata> {
-  const { post } = params;
+export async function generateMetadata({ params }: { params: Promise<{ post: string }> }, parent: ResolvingMetadata): Promise<Metadata> {
+  const { post } = await params;
   const { frontmatter } = await fetchPost(post);
   
   if (!frontmatter) {
@@ -93,7 +93,6 @@ const components = {
 
 const Posts = async ({ params }: { params: Promise<{ post: string }> }) => {
   const { post } = await params;
-  const { post } = params;
 
   const { frontmatter, content } = await fetchPost(post);
 
@@ -118,5 +117,4 @@ const Posts = async ({ params }: { params: Promise<{ post: string }> }) => {
     </section>
   );
 }
-
 export default Posts;
