@@ -12,7 +12,6 @@ const SyntaxHighlighter = ({ children, className, ...props }: {
   const [copied, setCopied] = useState(false);
   
   // Extraer código y lenguaje según el artículo
-  // MDX pasa el código como children.props.children
   const code = children?.props?.children || children || "";
   const language = className?.replace("language-", "").trim() || "bash";
 
@@ -25,36 +24,30 @@ const SyntaxHighlighter = ({ children, className, ...props }: {
   };
 
   return (
-    <div style={{ position: 'relative', marginBottom: '1.5rem' }}>
-      <button
-        onClick={handleCopy}
-        style={{
-          position: 'absolute',
-          right: '10px',
-          top: '10px',
-          background: '#4A5568',
-          color: 'white',
-          border: 'none',
-          padding: '5px 10px',
-          borderRadius: '5px',
-          cursor: 'pointer',
-          fontSize: '12px',
-          zIndex: 10
-        }}
-      >
-        {copied ? 'Copied!' : 'Copy'}
-      </button>
+    <div className="relative my-4 overflow-x-auto rounded-lg border border-zinc-800 bg-[#1a1a1a]">
+      {/* Language label + Copy button */}
+      <div className="flex items-center justify-between px-4 py-2 border-b border-zinc-700 bg-zinc-800/50">
+        <span className="text-xs text-zinc-400 uppercase">{language}</span>
+        <button
+          onClick={handleCopy}
+          className="text-xs bg-zinc-700 hover:bg-zinc-600 text-zinc-300 px-2 py-1 rounded transition-colors"
+        >
+          {copied ? 'Copied!' : 'Copy'}
+        </button>
+      </div>
+      
+      {/* Code with line numbers */}
       <Highlight theme={themes.dracula} code={String(code)} language={language}>
         {({ className, style, tokens, getLineProps, getTokenProps }) => (
-          <pre className={className} style={{ ...style, padding: '1rem', borderRadius: '0.5rem', margin: '1rem 0' }}>
+          <pre className={`${className} p-4 overflow-x-auto text-sm`} style={{ ...style, margin: 0 }}>
             {tokens.map((line, i) => (
-              <div key={i} {...getLineProps({ line })}>
-                <span style={{ display: 'inline-block', width: '2em', textAlign: 'right', marginRight: '1em', color: '#666', userSelect: 'none' }}>
-                  {i + 1}
+              <div key={i} {...getLineProps({ line })} className="table-row">
+                <span className="table-cell pr-4 text-zinc-600 text-right select-none w-8">{i + 1}</span>
+                <span className="table-cell">
+                  {line.map((token, key) => (
+                    <span key={key} {...getTokenProps({ token })} />
+                  ))}
                 </span>
-                {line.map((token, key) => (
-                  <span key={key} {...getTokenProps({ token })} />
-                ))}
               </div>
             ))}
           </pre>
