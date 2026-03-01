@@ -6,16 +6,16 @@ import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 
 const navItems = [
-  { name: 'Home', href: '/', id: 'home', isSection: true },
-  { name: 'About', href: '/#about', id: 'about', isSection: true },
-  { name: 'Experience', href: '/#experience', id: 'experience', isSection: true },
-  { name: 'Projects', href: '/#projects', id: 'projects', isSection: true },
-  { name: 'Blog', href: '/blog', id: 'blog', isSection: false },
+  { name: 'Home', href: '/', id: 'home', isParent: true, subSections: ['home', 'about', 'experience', 'projects'] },
+  { name: 'About', href: '/#about', id: 'about' },
+  { name: 'Experience', href: '/#experience', id: 'experience' },
+  { name: 'Projects', href: '/#projects', id: 'projects' },
+  { name: 'Blog', href: '/blog', id: 'blog' },
 ];
 
 export const Sidebar = ({ isMobile = false }: { isMobile?: boolean }) => {
   const pathname = usePathname();
-  const [activeSection, setActiveSection] = useState('home'); // Default to 'home'
+  const [activeSection, setActiveSection] = useState('home');
   const isHome = pathname === '/';
 
   useEffect(() => {
@@ -76,19 +76,22 @@ export const Sidebar = ({ isMobile = false }: { isMobile?: boolean }) => {
 
       <ul className="space-y-4">
         {navItems.map((item) => {
-          const isActive = !item.isSection 
-            ? pathname === '/blog' 
-            : isHome && activeSection === item.id;
+          // Home is active when any of its subsections is active
+          const isActive = item.isParent 
+            ? isHome && item.subSections.includes(activeSection)
+            : item.id === 'blog' 
+              ? pathname === '/blog'
+              : isHome && activeSection === item.id;
           
           return (
             <li key={item.name}>
               <Link 
                 href={item.href} 
-                onClick={(e) => handleClick(e, item.href, item.isSection)}
+                onClick={(e) => handleClick(e, item.href, !item.isParent && item.id !== 'blog')}
                 className="relative group flex items-center"
               >
                 <span 
-                  className={`${item.isSection ? 'text-sm' : 'text-base'} transition-colors duration-200 ${
+                  className={`${item.isParent || item.id === 'blog' ? 'text-base' : 'text-sm'} transition-colors duration-200 ${
                     isActive ? 'text-blue-500 font-semibold' : 'text-zinc-400 group-hover:text-white'
                   }`}
                 >
