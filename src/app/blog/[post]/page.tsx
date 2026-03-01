@@ -6,6 +6,7 @@ import PrintButton from "@/components/PrintButton";
 import NotFound from "@/components/NotFound";
 import remarkGfm from "remark-gfm";
 import { compileMDX } from "next-mdx-remote/rsc";
+import { getPostBySlug } from "@/lib/blog-firestore";
 
 type Props = {
   params: {
@@ -15,66 +16,28 @@ type Props = {
 
 export async function generateMetadata({ params }: { params: Promise<{ post: string }> }, parent: ResolvingMetadata): Promise<Metadata> {
   const { post } = await params;
-  const { frontmatter } = await fetchPost(post);
+  const postData = await getPostBySlug(post);
   
-  if (!frontmatter) {
+  if (!postData) {
     return {
       title: "Post not found",
       description: "Not found",
-      openGraph: {
-        title: "Not found",
-        description: "Not found",
-        images: [frontmatter?.thumbnailUrl],
-      },
-      keywords: []
     };
   }
   
   const previousData = await parent;
-  // const previousImages = previousData?.openGraph?.images || [];
   const previousKeywords = previousData?.keywords || [];
   return {
-    title: frontmatter.title,
-    description: frontmatter.description,
+    title: postData.title,
+    description: postData.description,
     openGraph: {
-      title: frontmatter.title,
-      description: frontmatter.description,
-      images: [frontmatter.thumbnailUrl],
+      title: postData.title,
+      description: postData.description,
+      images: [postData.thumbnailUrl],
     },
-    keywords: [...(frontmatter.tags || []), ...previousKeywords]
+    keywords: [...(postData.tags || []), ...previousKeywords]
   };
 }
-
-const fetchPost = async (post: string) => {
-  const fs = require("fs");
-  const path = require("path");
-  const matter = require("gray-matter");
-  // check if file exists
-  if (!fs.existsSync(path.join(process.cwd(), "src/posts", post + ".mdx"))) {
-    return {
-      content: null,
-      frontmatter: null
-    };
-  }
-  const file = fs.readFileSync(path.join(process.cwd(), "src/posts", post + ".mdx"), "utf8");
-  const { content, data } = matter(file);
-  
-  const { content: mdxContent } = await compileMDX({
-    source: content,
-    components,
-    options: {
-      parseFrontmatter: true,
-      mdxOptions: { 
-        remarkPlugins: [remarkGfm],
-        format: "mdx",
-      },
-    },
-  });
-  return {
-    content: mdxContent,
-    frontmatter: data
-  };
-};
 
 const components = { 
   SyntaxHighlighter: dynamic(() => import("@/components/CodeBlock"), { 
@@ -93,28 +56,41 @@ const components = {
 
 const Posts = async ({ params }: { params: Promise<{ post: string }> }) => {
   const { post } = await params;
+  const postData = await getPostBySlug(post);
 
-  const { frontmatter, content } = await fetchPost(post);
-
-  if (!frontmatter || !content) {
+  if (!postData || !postData.content) {
     return <NotFound />;
   }
+
+  // Compile MDX content
+  const { content: mdxContent } = await compileMDX({
+    source: postData.content,
+    components,
+    options: {
+      parseFrontmatter: true,
+      mdxOptions: { 
+        remarkPlugins: [remarkGfm],
+        format: "mdx",
+      },
+    },
+  });
 
   return (
     <section className={styles.post}>
       <PrintButton />
-      <h1 className="no-print">{frontmatter.title}</h1>
-      <Image className="no-print" src={frontmatter.thumbnailUrl} alt={frontmatter.thumbnailUrl} width={0} height={0} sizes="100%" style={{ width: '100%', height: 'auto' }} />
-      <p className="no-print">{frontmatter.description}</p>
+      <h1 className="no-print">{postData.title}</h1>
+      <Image className="no-print" src={postData.thumbnailUrl} alt={postData.thumbnailUrl} width={0} height={0} sizes="100%" style={{ width: '100%', height: 'auto' }} />
+      <p className="no-print">{postData.description}</p>
       <ul className={`${styles.tags} no-print`}>
-        {frontmatter.tags.map((tag: string) => (
+        {postData.tags.map((tag: string) => (
           <li key={tag}>{tag}</li>
         ))}
       </ul>
       <br />
-      {content}
+      {mdxContent}
       <br />
     </section>
   );
 }
+
 export default Posts;
