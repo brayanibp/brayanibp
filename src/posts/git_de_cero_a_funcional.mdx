@@ -79,46 +79,36 @@ GitHub es una plataforma basada en la web que aloja repositorios Git y proporcio
 ### Configuración de Git
 Después de instalar Git, configura tu información de usuario:
 
-<SyntaxHighlighter language="bash" style="dracula">
-{`
+```bash
 git config --global user.name "Tu Nombre"
 git config --global user.email "tu.correo@ejemplo.com"
-`}
-</SyntaxHighlighter>
+```
 
 Puedes verificar tu configuración con:
-<SyntaxHighlighter language="bash" style="dracula">
-{`
+```bash
 git config --list
-`}
-</SyntaxHighlighter>
+```
 
 ---
 
 ## 3. Comandos Básicos de Git
 ### Inicializar un Repositorio
 Crea un nuevo repositorio Git en tu carpeta de proyecto:
-<SyntaxHighlighter language="bash" style="dracula">
-{`
+```bash
 git init
-`}
-</SyntaxHighlighter>
+```
 
 ### Clonar un Repositorio
 Para clonar un repositorio existente de GitHub:
-<SyntaxHighlighter language="bash" style="dracula">
-{`
+```bash
 git clone https://github.com/usuario/nombre-repositorio.git
-`}
-</SyntaxHighlighter>
+```
 
 ### Verificar el Estado del Repositorio
 Ver qué archivos han cambiado:
-<SyntaxHighlighter language="bash" style="dracula">
-{`
+```bash
 git status
-`}
-</SyntaxHighlighter>
+```
 
 ### Etapa y Confirmación de Cambios
 1. **Añadir archivos a la etapa** (prepararlos para confirmación):
@@ -138,57 +128,45 @@ git status
 
 ### Ver el Historial de Confirmaciones
 Ver una lista de confirmaciones:
-<SyntaxHighlighter language="bash" style="dracula">
-{`
+```bash
 git log
-`}
-</SyntaxHighlighter>
+```
 
 ---
 
 ## 4. Colaboración en GitHub
 ### Subir Cambios a GitHub
 Después de confirmar, sube los cambios a tu repositorio de GitHub:
-<SyntaxHighlighter language="bash" style="dracula">
-{`
+```bash
 git push origin main  # o master, dependiendo de la rama
-`}
-</SyntaxHighlighter>
+```
 
 ### Obtener Cambios desde GitHub
 Obtener los últimos cambios del repositorio remoto:
-<SyntaxHighlighter language="bash" style="dracula">
-{`
+```bash
 git pull origin main
-`}
-</SyntaxHighlighter>
+```
 
 ---
 
 ## 5. Branching y Merging
 ### Crear y Cambiar de Rama
 Las ramas te permiten trabajar en diferentes características o correcciones sin afectar el proyecto principal. Para crear una nueva rama:
-<SyntaxHighlighter language="bash" style="dracula">
-{`
+```bash
 git checkout -b nombre-rama-caracteristica
-`}
-</SyntaxHighlighter>
+```
 
 Cambiar entre ramas:
-<SyntaxHighlighter language="bash" style="dracula">
-{`
+```bash
 git checkout main
-`}
-</SyntaxHighlighter>
+```
 
 ### Fusionar Ramas
 Para fusionar tu rama en `main`, primero cambia a `main`:
-<SyntaxHighlighter language="bash" style="dracula">
-{`
+```bash
 git checkout main
 git merge nombre-rama-caracteristica
-`}
-</SyntaxHighlighter>
+```
 
 ---
 

@@ -20,10 +20,10 @@ Next.js is a powerful React framework that enables you to build fast, SEO-friend
 
 Let's start by creating a new Next.js project. Open your terminal and run:
 
-<SyntaxHighlighter language="bash" style="dracula">
-{`npx create-next-app@latest blog
-cd blog`}
-</SyntaxHighlighter>
+```bash
+npx create-next-app@latest blog
+cd blog
+```
 
 You'll be prompted with several configuration options. Here are our recommended choices:
 - ✅ Would you like to use TypeScript? Yes
@@ -37,20 +37,20 @@ You'll be prompted with several configuration options. Here are our recommended 
 
 Let's clean up our project by removing files we won't need:
 
-<SyntaxHighlighter language="bash" style="dracula">
-{`# Remove these files
+```bash
+# Remove these files
 rm src/app/page.tsx
 rm src/app/globals.css
 rm -rf src/app/api
-rm -rf public/*`}
-</SyntaxHighlighter>
+rm -rf public/*
+```
 
 ## Step 3: Create Main Page to List Articles
 
 First, create a new file for our blog listing page:
 
-<SyntaxHighlighter language="typescript" style="dracula">
-{`// src/app/blog/page.tsx
+```typescript
+// src/app/blog/page.tsx
 import Link from 'next/link';
 
 export default function BlogPage() {
@@ -62,13 +62,13 @@ export default function BlogPage() {
       </div>
     </div>
   );
-}`}
-</SyntaxHighlighter>
+}
+```
 
 Create a basic layout file:
 
-<SyntaxHighlighter language="typescript" style="dracula">
-{`// src/app/layout.tsx
+```typescript
+// src/app/layout.tsx
 import './globals.css'
 
 export default function RootLayout({
@@ -83,23 +83,23 @@ export default function RootLayout({
       </body>
     </html>
   )
-}`}
-</SyntaxHighlighter>
+}
+```
 
 And create a minimal globals.css:
 
-<SyntaxHighlighter language="css" style="dracula">
-{`@tailwind base;
+```css
+@tailwind base;
 @tailwind components;
-@tailwind utilities;`}
-</SyntaxHighlighter>
+@tailwind utilities;
+```
 
 ## Step 4: Create Dynamic Route
 
 Create a dynamic route for individual blog posts. This will handle URLs like `/blog/[slug]`:
 
-<SyntaxHighlighter language="typescript" style="dracula">
-{`// src/app/blog/[slug]/page.tsx
+```typescript
+// src/app/blog/[slug]/page.tsx
 import { notFound } from 'next/navigation';
 import { getPostBySlug } from '@/lib/mdx';
 import { MDXRemote } from 'next-mdx-remote/rsc';
@@ -131,8 +131,8 @@ export default async function BlogPost({ params }: BlogPostProps) {
     console.error('Error loading blog post:', error);
     notFound();
   }
-}`}
-</SyntaxHighlighter>
+}
+```
 
 ## Step 5: Install MDX Libraries
 
@@ -151,16 +151,16 @@ We'll need several libraries to handle MDX files properly. Here's what we're ins
 
 Install these dependencies:
 
-<SyntaxHighlighter language="bash" style="dracula">
-{`npm install @next/mdx @mdx-js/loader @mdx-js/react gray-matter rehype-highlight remark-gfm next-mdx-remote @tailwindcss/typography react-google-recaptcha @aws-sdk/client-s3`}
-</SyntaxHighlighter>
+```bash
+npm install @next/mdx @mdx-js/loader @mdx-js/react gray-matter rehype-highlight remark-gfm next-mdx-remote @tailwindcss/typography react-google-recaptcha @aws-sdk/client-s3
+```
 
 ## Step 6: Configure Tailwind and MDX
 
 First, update your `tailwind.config.js`:
 
-<SyntaxHighlighter language="javascript" style="dracula">
-{`/** @type {import('tailwindcss').Config} */
+```javascript
+/** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
     './src/**/*.{js,ts,jsx,tsx,mdx}',
@@ -171,13 +171,13 @@ module.exports = {
   plugins: [
     require('@tailwindcss/typography'),
   ],
-}`}
-</SyntaxHighlighter>
+}
+```
 
 Create the MDX configuration file:
 
-<SyntaxHighlighter language="typescript" style="dracula">
-{`// next.config.mjs
+```typescript
+// next.config.mjs
 import createMDX from '@next/mdx';
 import remarkGfm from 'remark-gfm';
 import rehypeHighlight from 'rehype-highlight';
@@ -200,15 +200,15 @@ const nextConfig = {
   },
 };
 
-export default withMDX(nextConfig);`}
-</SyntaxHighlighter>
+export default withMDX(nextConfig);
+```
 
 ## Step 7: Set Up Environment Variables
 
 Create a `.env.local` file in your project root:
 
-<SyntaxHighlighter language="bash" style="dracula">
-{`# AWS Configuration
+```bash
+# AWS Configuration
 AWS_REGION=your-region
 AWS_ACCESS_KEY_ID=your-access-key
 AWS_SECRET_ACCESS_KEY=your-secret-key
@@ -222,8 +222,8 @@ NEXT_PUBLIC_RECAPTCHA_SITE_KEY=your-recaptcha-site-key
 RECAPTCHA_SECRET_KEY=your-recaptcha-secret-key
 
 # Blog Configuration
-NEXT_PUBLIC_SITE_URL=http://localhost:3000`}
-</SyntaxHighlighter>
+NEXT_PUBLIC_SITE_URL=http://localhost:3000
+```
 
 Make sure to add `.env.local` to your `.gitignore` file.
 
@@ -231,16 +231,16 @@ Make sure to add `.env.local` to your `.gitignore` file.
 
 Set up the posts directory and create a test post:
 
-<SyntaxHighlighter language="bash" style="dracula">
-{`mkdir -p src/posts`}
-</SyntaxHighlighter>
+```bash
+mkdir -p src/posts
+```
 
 ## Step 9: Create Test MDX File
 
 Let's create a test blog post to verify our setup. Create a new file at `src/posts/hello-world.mdx`:
 
-<SyntaxHighlighter language="mdx" style="dracula">
-{`---
+```mdx
+---
 title: "Hello, World!"
 date: "2024-05-26"
 description: "This is my first blog post using Next.js and MDX"
@@ -264,15 +264,15 @@ function greeting(name: string): string {
 - ✅ MDX Support
 - ✅ Syntax Highlighting
 - ✅ Front Matter
-- ✅ Dynamic Routing`}
-</SyntaxHighlighter>
+- ✅ Dynamic Routing
+```
 
 ## Step 10: Add Styles
 
 Let's enhance our blog with some custom Tailwind styles. Update your `src/app/globals.css`:
 
-<SyntaxHighlighter language="css" style="dracula">
-{`@tailwind base;
+```css
+@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
@@ -288,15 +288,15 @@ Let's enhance our blog with some custom Tailwind styles. Update your `src/app/gl
   .tag {
     @apply inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2;
   }
-}`}
-</SyntaxHighlighter>
+}
+```
 
 ## Step 11: Add Meta Tags
 
 Create a metadata utility to improve SEO. Create `src/lib/metadata.ts`:
 
-<SyntaxHighlighter language="typescript" style="dracula">
-{`// src/lib/metadata.ts
+```typescript
+// src/lib/metadata.ts
 import type { Metadata } from 'next';
 
 export function generateMetadata({ 
@@ -324,15 +324,15 @@ export function generateMetadata({
       description,
     },
   };
-}`}
-</SyntaxHighlighter>
+}
+```
 
 ## Step 12: Generate Dynamic Sitemap
 
 Create `src/app/sitemap.ts` to generate a dynamic sitemap:
 
-<SyntaxHighlighter language="typescript" style="dracula">
-{`import { getAllPosts } from '@/lib/mdx';
+```typescript
+import { getAllPosts } from '@/lib/mdx';
 import { MetadataRoute } from 'next';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -355,15 +355,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
     ...postsUrls,
   ];
-}`}
-</SyntaxHighlighter>
+}
+```
 
 ## Step 13: Export Files to CDN
 
 Create a utility for handling file uploads to a CDN (using AWS S3 as an example):
 
-<SyntaxHighlighter language="typescript" style="dracula">
-{`// src/lib/cdn.ts
+```typescript
+// src/lib/cdn.ts
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 
 const s3Client = new S3Client({
@@ -385,15 +385,15 @@ export async function uploadToCDN(file: File) {
   }));
 
   return \`https://\${process.env.AWS_BUCKET_NAME}.s3.amazonaws.com/\${fileName}\`;
-}`}
-</SyntaxHighlighter>
+}
+```
 
 ## Step 14: Add Comments Section
 
 Implement a comments section using Giscus (GitHub Discussions):
 
-<SyntaxHighlighter language="typescript" style="dracula">
-{`// src/components/Comments.tsx
+```typescript
+// src/components/Comments.tsx
 "use client";
 import { useEffect, useRef } from 'react';
 
@@ -419,15 +419,15 @@ export default function Comments() {
   }, []);
 
   return <div ref={commentsRef} />;
-}`}
-</SyntaxHighlighter>
+}
+```
 
 ## Step 15: Add Email Sending
 
 Set up email functionality using Resend:
 
-<SyntaxHighlighter language="typescript" style="dracula">
-{`// src/lib/email.ts
+```typescript
+// src/lib/email.ts
 import { Resend } from 'resend';
 import { validateConfig } from './error';
 
@@ -454,15 +454,15 @@ export async function sendNotification(post: {
     console.error('Failed to send email:', error);
     throw error;
   }
-}`}
-</SyntaxHighlighter>
+}
+```
 
 ## Step 16: Add Security Middlewares
 
 Create `src/middleware.ts` to add security headers:
 
-<SyntaxHighlighter language="typescript" style="dracula">
-{`import { NextResponse } from 'next/server';
+```typescript
+import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 export function middleware(request: NextRequest) {
@@ -488,15 +488,15 @@ export function middleware(request: NextRequest) {
   response.headers.set('Content-Security-Policy', csp);
 
   return response;
-}`}
-</SyntaxHighlighter>
+}
+```
 
 ## Step 17: Optimize Page Loading
 
 Implement loading states and React Suspense:
 
-<SyntaxHighlighter language="typescript" style="dracula">
-{`// src/app/blog/loading.tsx
+```typescript
+// src/app/blog/loading.tsx
 export default function Loading() {
   return (
     <div className="max-w-4xl mx-auto py-8">
@@ -513,15 +513,15 @@ export default function Loading() {
       </div>
     </div>
   );
-}`}
-</SyntaxHighlighter>
+}
+```
 
 ## Step 18: Add reCAPTCHA
 
 Implement reCAPTCHA for forms:
 
-<SyntaxHighlighter language="typescript" style="dracula">
-{`// src/components/ContactForm.tsx
+```typescript
+// src/components/ContactForm.tsx
 "use client";
 import { useRef } from 'react';
 import ReCAPTCHA from "react-google-recaptcha";
@@ -554,15 +554,15 @@ export default function ContactForm() {
       {/* Form fields */}
     </form>
   );
-}`}
-</SyntaxHighlighter>
+}
+```
 
 ## Step 19: Add Error Handling
 
 Create utility functions for error handling:
 
-<SyntaxHighlighter language="typescript" style="dracula">
-{`// src/lib/error.ts
+```typescript
+// src/lib/error.ts
 export class ConfigError extends Error {
   constructor(message: string) {
     super(message);
@@ -600,8 +600,8 @@ export function handleApiError(error: unknown) {
   
   console.error('Unknown Error:', error);
   return { status: 500, message: 'Unknown error occurred' };
-}`}
-</SyntaxHighlighter>
+}
+```
 
 ## Conclusion
 
