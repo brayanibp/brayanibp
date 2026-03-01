@@ -1,3 +1,4 @@
+import { BackgroundDots } from "../UI/BackgroundDots";
 'use client';
 
 import { useState } from 'react';
@@ -9,9 +10,10 @@ export const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <div className="flex min-h-screen bg-black text-white selection:bg-blue-500/30">
+    <div className="relative flex min-h-screen bg-black text-white selection:bg-blue-500/30">
       {/* Desktop Sidebar */}
       <Sidebar />
+      <BackgroundDots />
 
       {/* Mobile Header */}
       <div className="md:hidden fixed top-0 w-full h-16 bg-black/80 backdrop-blur-md border-b border-zinc-800 z-40 flex items-center justify-between px-6">
@@ -48,6 +50,7 @@ export const MainLayout = ({ children }: { children: React.ReactNode }) => {
               {/* Reutilizamos la lógica de items aquí para el móvil */}
               <div onClick={() => setIsMobileMenuOpen(false)}>
                  <Sidebar />
+      <BackgroundDots />
               </div>
             </motion.div>
           </>
