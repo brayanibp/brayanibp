@@ -37,7 +37,7 @@ const SyntaxHighlighter = ({ children, className, ...props }: {
       </div>
       
       {/* Code with line numbers */}
-      <Highlight theme={themes.nightOwl} code={String(code)} language={language}>
+      <Highlight theme={themes.vsDark} code={String(code)} language={language}>
         {({ className, style, tokens, getLineProps, getTokenProps }) => (
           <pre className={`${className} p-4 overflow-x-auto text-sm`} style={{ ...style, margin: 0 }}>
             {tokens.map((line, i) => (
