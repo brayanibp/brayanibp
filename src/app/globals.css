@@ -73,30 +73,38 @@ html {
 @layer base {
   body {
     background-color: var(--background);
-    color: var(--foreground);
+    color: var(--text-color);
     @apply antialiased selection:bg-blue-500/30;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-bold tracking-tight text-white;
+    @apply font-bold tracking-tight;
+    color: var(--text-color);
   }
 
   a {
     @apply transition-colors duration-200;
+    color: var(--accent-fg);
   }
 }
 
 @layer components {
   .about_me {
-    @apply text-zinc-400 leading-relaxed text-lg;
+    @apply leading-relaxed text-lg;
+    color: var(--text-muted);
   }
 
   .about_me b {
-    @apply text-white font-semibold;
+    @apply font-semibold;
+    color: var(--text-color);
   }
 
   .laravel-link {
-    @apply text-blue-500 hover:text-blue-400 font-medium;
+    color: var(--accent-fg);
+  }
+
+  .laravel-link:hover {
+    color: var(--accent-blue);
   }
 
   .section-container {
@@ -105,32 +113,42 @@ html {
 
   /* Laravel-like card styles */
   .card {
-    @apply bg-zinc-900 border border-zinc-800 rounded-lg p-6 transition-all duration-200;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    @apply rounded-lg p-6 transition-all duration-200;
   }
 
   .card:hover {
-    @apply border-zinc-700 shadow-lg;
+    border-color: var(--border-light);
+    box-shadow: var(--shadow-soft);
   }
 
   /* Blog content styles */
   .blog-content h1 {
-    @apply text-3xl font-bold mt-8 mb-4 text-white;
+    @apply text-3xl font-bold mt-8 mb-4;
+    color: var(--text-color);
   }
 
   .blog-content h2 {
-    @apply text-2xl font-bold mt-8 mb-4 text-white border-b border-zinc-800 pb-2;
+    @apply text-2xl font-bold mt-8 mb-4;
+    color: var(--text-color);
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.5rem;
   }
 
   .blog-content h3 {
-    @apply text-xl font-semibold mt-6 mb-3 text-white;
+    @apply text-xl font-semibold mt-6 mb-3;
+    color: var(--text-color);
   }
 
   .blog-content p {
-    @apply text-zinc-300 leading-relaxed mb-4;
+    @apply leading-relaxed mb-4;
+    color: var(--text-muted);
   }
 
   .blog-content ul, .blog-content ol {
-    @apply mb-4 pl-6 text-zinc-300;
+    @apply mb-4 pl-6;
+    color: var(--text-muted);
   }
 
   .blog-content ul {

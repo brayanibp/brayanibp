@@ -61,15 +61,15 @@ export const Sidebar = ({ isMobile = false }: { isMobile?: boolean }) => {
   };
 
   return (
-    <nav className={`${isMobile ? 'flex flex-col' : 'w-64 border-r border-zinc-800 h-screen sticky top-0 p-8 hidden md:block'} bg-black`}>
+    <nav className={`${isMobile ? 'flex flex-col' : 'w-64 border-r h-screen sticky top-0 p-8 hidden md:block'}`} style={{ backgroundColor: 'var(--background)', borderColor: 'var(--border-color)' }}>
       <div className="mb-12">
         <Link href="/">
-          <h1 className="text-xl font-bold text-white tracking-tight hover:text-blue-500 transition-colors">
-            brayanibp<span className="text-blue-600">.dev</span>
+          <h1 className="text-xl font-bold tracking-tight hover:text-blue-500 transition-colors" style={{ color: 'var(--text-color)' }}>
+            brayanibp<span style={{ color: 'var(--accent-fg)' }}>.dev</span>
           </h1>
         </Link>
         {!isMobile && (
-          <p className="text-xs text-zinc-500 mt-1 uppercase tracking-widest font-medium">
+          <p className="text-xs mt-1 uppercase tracking-widest font-medium" style={{ color: 'var(--text-muted)' }}>
             Software Engineer
           </p>
         )}
@@ -93,8 +93,11 @@ export const Sidebar = ({ isMobile = false }: { isMobile?: boolean }) => {
               >
                 <span 
                   className={`${item.isParent || item.id === 'blog' ? 'text-base' : 'text-sm'} transition-colors duration-200 ${
-                    isActive ? 'text-blue-500 font-semibold' : 'text-zinc-400 group-hover:text-white'
+                    isActive ? 'font-semibold' : ''
                   }`}
+                  style={{ 
+                    color: isActive ? 'var(--accent-fg)' : 'var(--text-muted)'
+                  }}
                 >
                   {item.name}
                 </span>
@@ -111,7 +114,7 @@ export const Sidebar = ({ isMobile = false }: { isMobile?: boolean }) => {
         })}
       </ul>
 
-      <div className="mt-8 pt-4 border-t border-zinc-800">
+      <div className="mt-8 pt-4" style={{ borderTop: '1px solid var(--border-color)' }}>
         <ThemeSwitcher />
       </div>
     </nav>
