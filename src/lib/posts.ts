@@ -11,7 +11,11 @@ const frontmatterSchema = z.object({
   title: z.string().min(1).max(200),
   date: z.union([z.string().max(100), z.date()]),
   description: z.string().min(1).max(1000),
-  thumbnailUrl: z.string().url().max(2048),
+  thumbnailUrl: z
+    .string()
+    .url()
+    .max(2048)
+    .refine((value) => value.startsWith('https://'), 'thumbnailUrl must use HTTPS'),
   tags: z.array(z.string().min(1).max(64)).max(30),
 });
 
