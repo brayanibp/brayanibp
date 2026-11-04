@@ -1,108 +1,161 @@
 "use client";
-import { ChangeEvent, FormEvent, createRef, useState } from "react";
+import { createRef, useState, type FormEvent } from "react";
 import { ArrowRight } from "lucide-react";
 import ReCAPTCHA from "react-google-recaptcha";
 import style from "./contact.module.css";
 
+type Status = "idle" | "sending" | "success" | "error";
+
 export default function Contact() {
-  const [recaptchaNeeded, setRecaptchaNeeded] = useState(false);
-  const [email, setEmail] = useState({
-    email: '',
-    message: ''
-  });
-
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+  const [website, setWebsite] = useState("");
+  const [status, setStatus] = useState<Status>("idle");
+  const [statusMessage, setStatusMessage] = useState("");
   const recaptchaRef = createRef<ReCAPTCHA>();
+  const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
 
-  const handleSubmit = (ev: FormEvent) => {
-    ev.preventDefault();
-    const email = (document.querySelector('#Contact input[name=email]') as HTMLInputElement).value;
-    const message = (document.querySelector('#Contact textarea[name=message]') as HTMLTextAreaElement).value;
-    setEmail({
-      email: email,
-      message: message
-    });
-    recaptchaRef.current?.execute();
-  };
-  const handleChange = (ev: ChangeEvent<Element>) => {
-    const element = (ev.currentTarget as Element);
-    const key = element.attributes.getNamedItem('name')?.value || '';
-    const value = (element as HTMLInputElement).value;
-    setEmail((prev)=>{
-      return {
-        ...prev,
-        [key]: value
-      }
-    });
-    setRecaptchaNeeded(true);
-  };
-  const onReCAPTCHAChange = async (captchaCode: string | null) => {
-    if (!captchaCode) {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    if (status === "sending") {
       return;
     }
-    const submitButton = document.querySelector('#Contact form button');
+
+    if (!siteKey) {
+      setStatus("error");
+      setStatusMessage("The contact form is temporarily unavailable.");
+      return;
+    }
+
+    setStatus("sending");
+    setStatusMessage("");
+    recaptchaRef.current?.execute();
+  };
+
+  const onReCAPTCHAChange = async (captchaCode: string | null) => {
+    if (!captchaCode) {
+      setStatus("error");
+      setStatusMessage("Captcha verification failed. Please try again.");
+      recaptchaRef.current?.reset();
+      return;
+    }
+
     try {
-      submitButton?.classList.toggle('sending');
       const response = await fetch("/api/send_email", {
         method: "POST",
-        body: JSON.stringify({ email, captcha: captchaCode }),
         headers: {
           "Content-Type": "application/json",
         },
+        body: JSON.stringify({ email, message, captcha: captchaCode, website }),
       });
-      if (response.ok) {
-        submitButton?.classList.toggle('sending');
-        submitButton?.classList.toggle('success');
-      } else {
-        const error = await response.json();
-        throw new Error(error.message)
+
+      if (!response.ok) {
+        if (response.status === 429) {
+          throw new Error("Too many requests. Please try again later.");
+        }
+
+        if (response.status === 422) {
+          throw new Error("Captcha verification failed. Please try again.");
+        }
+
+        throw new Error("Unable to send your message. Please try again later.");
       }
-    } catch (error: any) {
-      submitButton?.classList.toggle('error');
+
+      setStatus("success");
+      setStatusMessage("Thanks! Your message was sent.");
+      setEmail("");
+      setMessage("");
+    } catch (error) {
+      setStatus("error");
+      setStatusMessage(
+        error instanceof Error ? error.message : "Unable to send your message.",
+      );
     } finally {
-      setTimeout(
-        ()=>
-          submitButton?.classList.contains('success') 
-            ? submitButton?.classList.toggle('success') 
-            : submitButton?.classList.toggle('error')
-      ,700);
-      if (recaptchaRef.current?.state) recaptchaRef.current?.reset();
-      setEmail({
-        email: '',
-        message: ''
-      });
+      recaptchaRef.current?.reset();
     }
   };
-  return <section id="contact">
-    <h2>Contact Me</h2>
-    <form className={style["contact-form"]} onSubmit={(event: FormEvent)=>handleSubmit(event)}>
-      <p>Send me an E-mail!</p>
-      <input 
-        required 
-        name="email" 
-        type="email" 
-        placeholder="your_email@example.com" 
-        onChange={(ev)=>handleChange(ev)}
-      />
-      <textarea 
-        required 
-        name="message" 
-        placeholder="Hi, I wanted to contact you..."
-        onChange={(ev)=>handleChange(ev)}
-      />
-      <button type="submit">
-        Submit
-        <ArrowRight className={style.arrowIcon} aria-hidden="true" />
-      </button>
-      {
-        recaptchaNeeded && (
-          <ReCAPTCHA 
+
+  const buttonClassName =
+    status === "sending"
+      ? style.sending
+      : status === "success"
+        ? style.success
+        : status === "error"
+          ? style.error
+          : undefined;
+
+  return (
+    <section id="contact">
+      <h2>Contact Me</h2>
+      <form className={style["contact-form"]} onSubmit={handleSubmit}>
+        <p>Send me an E-mail!</p>
+
+        <label htmlFor="contact-email">Your email</label>
+        <input
+          id="contact-email"
+          required
+          name="email"
+          type="email"
+          autoComplete="email"
+          placeholder="your_email@example.com"
+          value={email}
+          onChange={(event) => setEmail(event.target.value)}
+          disabled={status === "sending"}
+        />
+
+        <label htmlFor="contact-message">Message</label>
+        <textarea
+          id="contact-message"
+          required
+          name="message"
+          placeholder="Hi, I wanted to contact you..."
+          value={message}
+          onChange={(event) => setMessage(event.target.value)}
+          disabled={status === "sending"}
+        />
+
+        <div className={style.honeypot} aria-hidden="true">
+          <label htmlFor="contact-website">Website</label>
+          <input
+            id="contact-website"
+            name="website"
+            type="text"
+            tabIndex={-1}
+            autoComplete="off"
+            value={website}
+            onChange={(event) => setWebsite(event.target.value)}
+          />
+        </div>
+
+        <button
+          type="submit"
+          disabled={status === "sending" || !siteKey}
+          className={buttonClassName}
+        >
+          {status === "sending" ? "Sending..." : "Submit"}
+          <ArrowRight className={style.arrowIcon} aria-hidden="true" />
+        </button>
+
+        {!siteKey ? (
+          <p className={style.status} role="alert">
+            The contact form is temporarily unavailable.
+          </p>
+        ) : null}
+
+        <p className={style.status} role="status" aria-live="polite">
+          {statusMessage}
+        </p>
+
+        {siteKey ? (
+          <ReCAPTCHA
             ref={recaptchaRef}
             size="invisible"
-            sitekey={process?.env?.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || '6LdNEYkoAAAAADFBld6gZ6X1A93XRKJ_Vm8XsxoV'}
+            sitekey={siteKey}
             onChange={onReCAPTCHAChange}
           />
-        ) 
-      }
-    </form>
-  </section>;
+        ) : null}
+      </form>
+    </section>
+  );
 }

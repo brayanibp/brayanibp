@@ -1,65 +1,58 @@
 import Link from "next/link";
 import styles from "./page.module.css";
 import Image from "next/image";
+import { getPost, getPostSlugs, type Post } from "@/lib/posts";
 
-const fetchPostsPreviews = () => {
-  const fs = require("fs");
-  const path = require("path");
-  const matter = require("gray-matter");
-  const postsDirectory = path.join(process.cwd(), "src/posts");
-  const filenames = fs.readdirSync(postsDirectory);
+const fetchPostsPreviews = async (): Promise<Post[]> => {
+  const slugs = await getPostSlugs();
+  const posts = await Promise.all(slugs.map((slug) => getPost(slug)));
 
-  const posts = filenames.map((filename: string) => {
-    const markdownFile = fs.readFileSync(path.join(postsDirectory, filename), "utf8");
-    const { data } = matter(markdownFile);
-    
-    return {
-      slug: filename.split(".")[0],
-      previewData: data,
-    };
-  });
-
-  return posts;
+  return posts.filter((post): post is Post => post !== null);
 };
 
-const Blog = () => {
-  const posts = fetchPostsPreviews();
+const Blog = async () => {
+  const posts = await fetchPostsPreviews();
+
   return (
     <>
       <section className={styles.blog}>
         <h2>Recent Posts</h2>
         <ul>
-          {posts.map((post: any) => (
-            <li key={post.slug}>
-              <Link className={styles.preview} href={`/blog/${post.slug}`}>
-                <div className={styles["img-container"]}>
-                  <Image 
-                    src={post.previewData.thumbnailUrl} 
-                    alt="Next js Image"
-                    fill
-                    style={{ objectFit: "cover" }} 
-                    sizes="100%"
-                  />
-                </div>
-                <div className={styles.content}>
-                  <h3>{post.previewData.title}</h3>
-                  <br />
-                  <p>{post.previewData.description}</p>
-                  <p className={styles.date}>{post.previewData.date}</p>
-                  <ul>
-                    {post.previewData.tags.map((tag: string) => (
-                      <li key={tag}>{tag}</li>
-                    ))}
-                  </ul>
-                  <span>Read More...</span>
-                </div>
-              </Link>
-            </li>
-          ))}
+          {posts.map((post) => {
+            const { frontmatter, slug } = post;
+
+            return (
+              <li key={slug}>
+                <Link className={styles.preview} href={`/blog/${slug}`}>
+                  <div className={styles["img-container"]}>
+                    <Image
+                      src={frontmatter.thumbnailUrl}
+                      alt={frontmatter.title}
+                      fill
+                      style={{ objectFit: "cover" }}
+                      sizes="100%"
+                    />
+                  </div>
+                  <div className={styles.content}>
+                    <h3>{frontmatter.title}</h3>
+                    <br />
+                    <p>{frontmatter.description}</p>
+                    <p className={styles.date}>{frontmatter.date.toString()}</p>
+                    <ul>
+                      {frontmatter.tags.map((tag) => (
+                        <li key={tag}>{tag}</li>
+                      ))}
+                    </ul>
+                    <span>Read More...</span>
+                  </div>
+                </Link>
+              </li>
+            );
+          })}
         </ul>
       </section>
     </>
   );
-}
+};
 
 export default Blog;

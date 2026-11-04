@@ -1,117 +1,99 @@
-import dynamic from "next/dynamic";
 import styles from "./page.module.css";
 import Image from "next/image";
-import { Metadata, ResolvingMetadata } from "next";
+import { notFound } from "next/navigation";
+import type { Metadata, ResolvingMetadata } from "next";
 import PrintButton from "@/components/PrintButton";
-import NotFound from "@/components/NotFound";
+import CodeBlock from "@/components/CodeBlock";
+import Diagram from "@/components/Diagram";
+import InlineHighlighter from "@/components/InlineHighlighter";
+import ImageComponent from "@/components/Image";
 import remarkGfm from "remark-gfm";
 import { compileMDX } from "next-mdx-remote/rsc";
+import { getPost, getPostSlugs } from "@/lib/posts";
 
 type Props = {
-  params: {
-    post: string,
-  }
+  params: Promise<{
+    post: string;
+  }>;
+};
+
+export const dynamicParams = false;
+
+export async function generateStaticParams() {
+  const slugs = await getPostSlugs();
+
+  return slugs.map((post) => ({ post }));
 }
 
-export async function generateMetadata({ params }: Props, parent: ResolvingMetadata): Promise<Metadata> {
-  const { post } = params;
-  const { frontmatter } = await fetchPost(post);
-  
-  if (!frontmatter) {
-    return {
-      title: "Post not found",
-      description: "Not found",
-      openGraph: {
-        title: "Not found",
-        description: "Not found",
-        images: [frontmatter?.thumbnailUrl],
-      },
-      keywords: []
-    };
+export async function generateMetadata(
+  { params }: Props,
+  parent: ResolvingMetadata,
+): Promise<Metadata> {
+  const { post: slug } = await params;
+  const post = await getPost(slug);
+
+  if (!post) {
+    notFound();
   }
-  
+
   const previousData = await parent;
-  // const previousImages = previousData?.openGraph?.images || [];
   const previousKeywords = previousData?.keywords || [];
+
   return {
-    title: frontmatter.title,
-    description: frontmatter.description,
+    title: post.frontmatter.title,
+    description: post.frontmatter.description,
     openGraph: {
-      title: frontmatter.title,
-      description: frontmatter.description,
-      images: [frontmatter.thumbnailUrl],
+      title: post.frontmatter.title,
+      description: post.frontmatter.description,
+      images: [post.frontmatter.thumbnailUrl],
     },
-    keywords: [...(frontmatter.tags || []), ...previousKeywords]
+    keywords: [...post.frontmatter.tags, ...previousKeywords],
   };
 }
 
-const fetchPost = async (post: string) => {
-  const fs = require("fs");
-  const path = require("path");
-  const matter = require("gray-matter");
-  // check if file exists
-  if (!fs.existsSync(path.join(process.cwd(), "src/posts", post + ".mdx"))) {
-    return {
-      content: null,
-      frontmatter: null
-    };
+const components = {
+  pre: CodeBlock,
+  Diagram: Diagram,
+  InlineHighlighter: InlineHighlighter,
+  Image: ImageComponent,
+};
+
+const Posts = async ({ params }: Props) => {
+  const { post: slug } = await params;
+  const post = await getPost(slug);
+
+  if (!post) {
+    notFound();
   }
-  const file = fs.readFileSync(path.join(process.cwd(), "src/posts", post + ".mdx"), "utf8");
-  const { content, data } = matter(file);
-  
-  const { content: mdxContent } = await compileMDX({
-    source: content,
+
+  const { content } = await compileMDX({
+    source: post.content,
     components,
     options: {
-      parseFrontmatter: true,
-      mdxOptions: { 
+      parseFrontmatter: false,
+      mdxOptions: {
         remarkPlugins: [remarkGfm],
         format: "mdx",
       },
     },
   });
-  return {
-    content: mdxContent,
-    frontmatter: data
-  };
-};
-
-const components = { 
-  SyntaxHighlighter: dynamic(() => import("@/components/CodeBlock"), { 
-    ssr: false,
-    loading: () => <i>Loading...</i>
-  }),
-  Diagram: dynamic(() => import("@/components/Diagram"), {
-    ssr: false,
-    loading: () => <i>Loading...</i>
-  }),
-  InlineHighlighter: dynamic(() => import("@/components/InlineHighlighter"), {
-    ssr: false,
-    loading: () => <i>Loading...</i>
-  }),
-  Image: dynamic(() => import("@/components/Image"), {
-    ssr: false,
-    loading: () => <i>Loading...</i>
-  }),
-};
-
-const Posts = async ({ params }: { params: { post: string } }) => {
-  const { post } = params;
-
-  const { frontmatter, content } = await fetchPost(post);
-
-  if (!frontmatter || !content) {
-    return <NotFound />;
-  }
 
   return (
     <section className={styles.post}>
       <PrintButton />
-      <h1 className="no-print">{frontmatter.title}</h1>
-      <Image className="no-print" src={frontmatter.thumbnailUrl} alt={frontmatter.thumbnailUrl} width={0} height={0} sizes="100%" style={{ width: '100%', height: 'auto' }} />
-      <p className="no-print">{frontmatter.description}</p>
+      <h1 className="no-print">{post.frontmatter.title}</h1>
+      <Image
+        className="no-print"
+        src={post.frontmatter.thumbnailUrl}
+        alt={post.frontmatter.title}
+        width={0}
+        height={0}
+        sizes="100%"
+        style={{ width: "100%", height: "auto" }}
+      />
+      <p className="no-print">{post.frontmatter.description}</p>
       <ul className={`${styles.tags} no-print`}>
-        {frontmatter.tags.map((tag: string) => (
+        {post.frontmatter.tags.map((tag) => (
           <li key={tag}>{tag}</li>
         ))}
       </ul>
@@ -120,6 +102,6 @@ const Posts = async ({ params }: { params: { post: string } }) => {
       <br />
     </section>
   );
-}
+};
 
 export default Posts;

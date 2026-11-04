@@ -16,6 +16,29 @@
   font-weight: 600;
 }
 
+.contact-form label {
+  font-weight: 600;
+}
+
+.contact-form .status {
+  min-height: 1.25rem;
+  margin: 0;
+  font-weight: 500;
+}
+
+.contact-form .honeypot {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.contact-form button:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
 .contact-form input, .contact-form textarea {
   height: 3em;
   padding: 10px 14px;

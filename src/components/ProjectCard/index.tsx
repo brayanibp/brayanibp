@@ -8,7 +8,7 @@ export default function ProjectCard(project: Project) {
   }) || [];
   return <>
     <li key={project.name} className={style["project-card"]}>
-      <a target="_blank" href={project.link_url} className={style["project-link"]}>
+      <a target="_blank" rel="noopener noreferrer" href={project.link_url} className={style["project-link"]}>
         <h3 className={style["project-name"]}>{project.name}</h3>
         <div className={style["project-image"]}>
           <Image 
