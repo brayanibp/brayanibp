@@ -7,7 +7,7 @@ import { z } from 'zod';
 const postsDirectory = path.join(process.cwd(), 'src', 'posts');
 const postSlugPattern = /^[a-z0-9][a-z0-9-_]*$/i;
 
-const frontmatterSchema = z.object({
+export const postFrontmatterSchema = z.object({
   title: z.string().min(1).max(200),
   date: z.union([z.string().max(100), z.date()]),
   description: z.string().min(1).max(1000),
@@ -19,7 +19,7 @@ const frontmatterSchema = z.object({
   tags: z.array(z.string().min(1).max(64)).max(30),
 });
 
-export type PostFrontmatter = z.infer<typeof frontmatterSchema>;
+export type PostFrontmatter = z.infer<typeof postFrontmatterSchema>;
 
 export type Post = {
   slug: string;
@@ -63,7 +63,7 @@ export const getPost = cache(async (slug: string): Promise<Post | null> => {
   try {
     const file = await readFile(filePath, 'utf8');
     const { content, data } = matter(file);
-    const parsed = frontmatterSchema.safeParse(data);
+    const parsed = postFrontmatterSchema.safeParse(data);
 
     if (!parsed.success) {
       console.error(`Invalid frontmatter in ${slug}.mdx`, parsed.error.flatten());

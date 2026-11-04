@@ -12,10 +12,7 @@ export default function useTheme(): [string|null, Dispatch<SetStateAction<string
     }
 
     const userPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    if (userPrefersDark) {
-      setTheme('dark');
-      return;
-    }
+    setTheme(userPrefersDark ? 'dark' : 'light');
   }, []);
 
   useEffect(() => {

@@ -8,11 +8,11 @@ export default function Component() {
   const [theme, setTheme] = useTheme();
 
   useEffect(() => {
-    document.body.dataset.theme = theme ?? "dark";
+    document.body.dataset.theme = theme ?? "light";
   }, [theme]);
 
   const toggleTheme = () => {
-    setTheme(prevTheme => prevTheme === "light" ? "dark" : "light");
+    setTheme(prevTheme => prevTheme === "dark" ? "light" : "dark");
   }
 
   return (
