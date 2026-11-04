@@ -38,8 +38,18 @@
 - `mermaid` — diagrams in blog posts (via `Diagram` component)
 - `lucide-react` — icons
 
+## TypeScript
+- TypeScript `6.0.3` is intentional. TypeScript 7 is blocked by `typescript-eslint` until TS 7.1 API support lands. Do not bump the `typescript` package until `pnpm typecheck`, `pnpm lint`, and `pnpm build` all pass with it.
+- `pnpm typecheck` runs `next typegen` before `tsc --noEmit` because `next-env.d.ts` imports generated route types.
+
 ## Verification
-There is no test runner configured. Use `pnpm build`, `pnpm lint`, and `pnpm security:audit` (`pnpm audit --prod --audit-level=high`).
+- `pnpm lint`
+- `pnpm typecheck`
+- `pnpm test` — Vitest unit tests
+- `pnpm build`
+- `pnpm test:e2e` — Playwright against a local production build
+- `BASE_URL=... pnpm test:deploy` — preview/production smoke tests
+- `pnpm security:audit` (`pnpm audit --prod --audit-level=high`)
 
 ## Available skills
 OpenCode skills are bundled in `.agents/skills/`. Load them when the task matches their triggers:

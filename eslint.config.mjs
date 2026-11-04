@@ -9,6 +9,12 @@ const config = [
       "build/**",
       "node_modules/**",
       "next-env.d.ts",
+      "scripts/**",
+      "coverage/**",
+      "playwright-report/**",
+      "playwright-report-deploy/**",
+      "test-results/**",
+      "test-results-deploy/**",
     ],
   },
   {
