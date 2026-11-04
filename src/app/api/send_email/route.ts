@@ -171,21 +171,26 @@ async function sendContactEmail(email: string, message: string): Promise<boolean
     return false;
   }
 
-  const resend = new Resend(apiKey);
-  const { error } = await resend.emails.send({
-    from: 'BrayanIBP <hello@brayanibp.dev>',
-    to: [process.env.CONTACT_TO_EMAIL || 'brayanbernal0710@gmail.com'],
-    replyTo: email,
-    subject: 'Portfolio contact',
-    text: `From: ${email}\n\n${message}`,
-  });
+  try {
+    const resend = new Resend(apiKey);
+    const { error } = await resend.emails.send({
+      from: 'BrayanIBP <hello@brayanibp.dev>',
+      to: [process.env.CONTACT_TO_EMAIL || 'brayanbernal0710@gmail.com'],
+      replyTo: email,
+      subject: 'Portfolio contact',
+      text: `From: ${email}\n\n${message}`,
+    });
 
-  if (error) {
-    console.error('Resend send failed', error.name);
+    if (error) {
+      console.error('Resend send failed', error.name);
+      return false;
+    }
+
+    return true;
+  } catch (error) {
+    console.error('Resend send failed', error instanceof Error ? error.name : 'unknown');
     return false;
   }
-
-  return true;
 }
 
 export async function POST(request: NextRequest) {
